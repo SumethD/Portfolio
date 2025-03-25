@@ -299,12 +299,15 @@ const App = () => {
       <nav className="hidden 2xl:block fixed top-0 left-0 p-8 z-50 w-[400px]">
         <div className="border border-gray-800 bg-black bg-opacity-50 backdrop-blur-sm p-4">
           <div className="flex items-center justify-between mb-6">
-            <span
+            <button
               className="text-xs tracking-wider cursor-pointer hover:text-white transition-colors"
               onClick={() => handleSectionChange('welcome')}
+              onKeyDown={(e) => e.key === 'Enter' && handleSectionChange('welcome')}
+              role="button"
+              tabIndex={0}
             >
               WELCOME
-            </span>
+            </button>
             <div className="flex items-center">
               <span className="text-orange-500 text-xs mr-2">
                 CONNECTED {activeSection.toUpperCase()}
@@ -322,6 +325,9 @@ const App = () => {
                     isTransitioning ? 'pointer-events-none' : ''
                   }`}
                   onClick={() => handleSectionChange(itemKey)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSectionChange(itemKey)}
+                  role="button"
+                  tabIndex={0}
                 >
                   <div className="flex items-center justify-between">
                     <span

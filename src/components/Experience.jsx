@@ -327,11 +327,13 @@ const Experience = () => {
       </div>
       
       {/* Subtle glow effect on hover */}
-      <style jsx>{`
-        .shadow-glow {
-          box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-      `}</style>
+      <style>
+        {`
+          .shadow-glow {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+          }
+        `}
+      </style>
     </motion.section>
   );
 };

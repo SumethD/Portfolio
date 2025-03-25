@@ -158,10 +158,10 @@ const Contact = () => {
           >
             <h3 className="text-xl sm:text-2xl md:text-3xl text-white mb-6 flex items-center">
               <span className="inline-block w-6 h-[1px] bg-orange-500 mr-3"></span>
-              Let's Connect
+              Let&apos;s Connect
             </h3>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+              I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
             
             <div className="space-y-6">
