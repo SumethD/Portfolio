@@ -34,7 +34,7 @@ const App = () => {
       scrollToTop();
       setTimeout(() => setIsTransitioning(false), 600);
     },
-    [isTransitioning, scrollToTop]
+    [isTransitioning]
   );
 
   useEffect(() => {
