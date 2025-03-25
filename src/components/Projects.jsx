@@ -48,7 +48,7 @@ const Projects = () => {
         "Performance Dashboards"
       ],
       image: "https://via.placeholder.com/1200x800/1a1a1a/ff5000",
-      link: "#"
+      link: "https://github.com/SumethD/FullStack-WebApp"
     },
     {
       id: 2,
@@ -64,7 +64,7 @@ const Projects = () => {
         "JSON Handling"
       ],
       image: "https://via.placeholder.com/1200x800/1a1a1a/00a8ff",
-      link: "#"
+      link: "https://github.com/SumethD/halbot"
     },
     {
       id: 3,
@@ -82,7 +82,7 @@ const Projects = () => {
         "Supabase Database"
       ],
       image: "https://via.placeholder.com/1200x800/1a1a1a/ff00f7",
-      link: "#"
+      link: "https://github.com/SumethD/AI-Powered-Recipe-Recommender"
     }
   ];
 
