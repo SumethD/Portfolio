@@ -255,7 +255,10 @@ const App = () => {
                           activeSection === itemKey ? 'text-white' : 'text-gray-500'
                         }`}
                         onClick={() => {
-                          handleSectionChange(itemKey);
+                          setMenuOpen(false);
+                          setTimeout(() => {
+                            handleSectionChange(itemKey);
+                          }, 100);
                         }}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
@@ -303,7 +306,10 @@ const App = () => {
           <div className="flex items-center justify-between mb-6">
             <button
               className="text-xs tracking-wider cursor-pointer hover:text-white transition-colors"
-              onClick={() => handleSectionChange('welcome')}
+              onClick={() => {
+                setMenuOpen(false);
+                handleSectionChange('welcome');
+              }}
               onKeyDown={(e) => e.key === 'Enter' && handleSectionChange('welcome')}
               tabIndex={0}
             >
@@ -325,8 +331,16 @@ const App = () => {
                   className={`cursor-pointer group w-full text-left ${
                     isTransitioning ? 'pointer-events-none' : ''
                   }`}
-                  onClick={() => handleSectionChange(itemKey)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSectionChange(itemKey)}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    handleSectionChange(itemKey);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setMenuOpen(false);
+                      handleSectionChange(itemKey);
+                    }
+                  }}
                   tabIndex={0}
                 >
                   <div className="flex items-center justify-between">
