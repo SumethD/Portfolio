@@ -105,7 +105,7 @@ const App = () => {
                   <div className="w-[80vw] h-[100vw] sm:w-[40vw] sm:h-[40vw] max-w-[500px] sm:max-w-[600px] max-h-[500px] sm:max-h-[600px] rounded-full border border-gray-800 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_100px_rgba(255,255,255,0.1)] animate-pulse z-[2]" />
                   <div className="space-y-6 sm:space-y-8 relative z-[3]">
                     <p className="text-xl sm:text-2xl tracking-[0.2em] opacity-60">
-                      IF YOU'LL INDULGE ME
+                      IF YOU&apos;LL INDULGE ME
                     </p>
                     <p className="text-2xl sm:text-5xl tracking-[0.1em] font-light flex items-center justify-center flex-wrap gap-2 sm:gap-4">
                       <span>I</span>
@@ -303,7 +303,6 @@ const App = () => {
               className="text-xs tracking-wider cursor-pointer hover:text-white transition-colors"
               onClick={() => handleSectionChange('welcome')}
               onKeyDown={(e) => e.key === 'Enter' && handleSectionChange('welcome')}
-              role="button"
               tabIndex={0}
             >
               WELCOME
@@ -319,14 +318,13 @@ const App = () => {
             {['ABOUT', 'PROJECTS', 'EXPERIENCE', 'CONTACT'].map((item) => {
               const itemKey = item.toLowerCase();
               return (
-                <li
+                <button
                   key={item}
-                  className={`cursor-pointer group ${
+                  className={`cursor-pointer group w-full text-left ${
                     isTransitioning ? 'pointer-events-none' : ''
                   }`}
                   onClick={() => handleSectionChange(itemKey)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSectionChange(itemKey)}
-                  role="button"
                   tabIndex={0}
                 >
                   <div className="flex items-center justify-between">
@@ -345,7 +343,7 @@ const App = () => {
                       <div className="w-1 h-3 bg-gray-800"></div>
                     </div>
                   </div>
-                </li>
+                </button>
               );
             })}
           </ul>
