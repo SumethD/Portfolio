@@ -28,12 +28,15 @@ const App = () => {
 
     setIsTransitioning(true);
     setMenuOpen(false); // Close the menu when changing sections
+    
+    // Delay the section change to allow menu closing animation to complete
     setTimeout(() => {
       setActiveSection(section);
       scrollToTop();
+      // Delay the transition completion to match the page transition
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 100);
+      }, 400);
     }, 300);
   }, []);
 
@@ -191,11 +194,11 @@ const App = () => {
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: 1,
-              transition: { duration: 0.3 }
+              transition: { duration: 0.4, ease: "easeInOut" }
             }}
             exit={{ 
               opacity: 0,
-              transition: { duration: 0.3, delay: 0.1 }
+              transition: { duration: 0.3, ease: "easeInOut" }
             }}
           >
             {/* Backdrop blur effect */}
@@ -203,17 +206,19 @@ const App = () => {
               className="absolute inset-0 backdrop-blur-md bg-opacity-80 bg-black"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.5 }}
             />
             
             <div className="relative z-10 flex flex-col h-full">
               <motion.button
                 className="self-end text-gray-400 hover:text-white transition-colors mb-8 border border-gray-700 bg-black bg-opacity-50 p-2 hover:border-gray-500"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  setMenuOpen(false);
+                }}
                 aria-label="Close mobile menu"
                 whileHover={{ scale: 1.05, rotate: 90 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.3 }}
               >
                 {/* Close Icon */}
                 <svg
@@ -255,13 +260,15 @@ const App = () => {
                           activeSection === itemKey ? 'text-white' : 'text-gray-500'
                         }`}
                         onClick={() => {
+                          // First animate the menu closing
                           setMenuOpen(false);
+                          // Then handle the section change after a delay
                           setTimeout(() => {
                             handleSectionChange(itemKey);
-                          }, 100);
+                          }, 300); // Increased delay to match menu closing animation
                         }}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+                        whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
                       >
                         <span className="relative group">
                           {item}
@@ -269,14 +276,14 @@ const App = () => {
                             className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-white group-hover:w-full ${
                               activeSection === itemKey ? 'w-full' : 'w-0'
                             }`}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: 0.4, ease: "easeInOut" }}
                           />
                         </span>
                         {activeSection === itemKey && (
                           <motion.div 
                             className="absolute -left-6 top-1/2 w-2 h-2 bg-orange-500 rounded-full -translate-y-1/2"
                             layoutId="navIndicator"
-                            transition={{ type: "spring", stiffness: 600, damping: 30 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
                           />
                         )}
                       </motion.li>

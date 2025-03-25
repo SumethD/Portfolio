@@ -257,7 +257,7 @@ const Contact = () => {
                 </h4>
                 <div className="flex space-x-6">
                   <motion.a
-                    href="https://github.com/sumethjain"
+                    href="https://github.com/SumethD"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xl sm:text-2xl text-gray-400 hover:text-white transition-colors"
@@ -267,7 +267,7 @@ const Contact = () => {
                     <i className="fab fa-github"></i>
                   </motion.a>
                   <motion.a
-                    href="https://linkedin.com/in/sumethjain"
+                    href="https://www.linkedin.com/in/sumeth-lokuliyana/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xl sm:text-2xl text-gray-400 hover:text-white transition-colors"
@@ -275,16 +275,6 @@ const Contact = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <i className="fab fa-linkedin"></i>
-                  </motion.a>
-                  <motion.a
-                    href="https://twitter.com/sumethjain"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xl sm:text-2xl text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ scale: 1.1, color: "#1da1f2" }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <i className="fab fa-twitter"></i>
                   </motion.a>
                 </div>
               </motion.div>
