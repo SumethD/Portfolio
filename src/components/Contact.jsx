@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import FuzzyText from '../formats/FuzzyText';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,12 @@ const Contact = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Initialize EmailJS with your public key
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,21 +28,38 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      }
+    } catch (error) {
+      setError('Failed to send message. Please try again later.');
+      console.error('EmailJS Error:', error);
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-    }, 1500);
+    }
   };
 
   // Animation variants
@@ -292,6 +316,23 @@ const Contact = () => {
                 className="relative"
                 custom={2}
               >
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-black bg-opacity-50 border border-gray-800 focus:border-orange-500 rounded-none px-4 py-3 text-gray-300 text-base sm:text-lg focus:outline-none transition-all"
+                  placeholder="Subject"
+                />
+              </motion.div>
+              
+              <motion.div
+                variants={containerVariants}
+                className="relative"
+                custom={3}
+              >
                 <textarea
                   id="message"
                   name="message"
@@ -306,7 +347,7 @@ const Contact = () => {
               
               <motion.div
                 variants={containerVariants}
-                custom={3}
+                custom={4}
                 className="text-right"
               >
                 <motion.button
@@ -331,6 +372,16 @@ const Contact = () => {
                   className="text-center p-3 text-green-500"
                 >
                   <p className="text-base sm:text-lg">Your message has been sent successfully. I&apos;ll get back to you as soon as possible.</p>
+                </motion.div>
+              )}
+
+              {error && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center p-3 text-red-500"
+                >
+                  <p className="text-base sm:text-lg">{error}</p>
                 </motion.div>
               )}
             </form>
