@@ -27,6 +27,7 @@ const App = () => {
     };
 
     setIsTransitioning(true);
+    setMenuOpen(false); // Close the menu when changing sections
     setTimeout(() => {
       setActiveSection(section);
       scrollToTop();
@@ -253,7 +254,9 @@ const App = () => {
                         className={`cursor-pointer relative text-xl tracking-widest ${
                           activeSection === itemKey ? 'text-white' : 'text-gray-500'
                         }`}
-                        onClick={() => handleSectionChange(itemKey)}
+                        onClick={() => {
+                          handleSectionChange(itemKey);
+                        }}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
