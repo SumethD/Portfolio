@@ -16,8 +16,12 @@ const Contact = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Initialize EmailJS with your public key
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+    if (!publicKey) {
+      console.error('EmailJS public key is not defined');
+      return;
+    }
+    emailjs.init(publicKey);
   }, []);
 
   const handleChange = (e) => {
@@ -33,15 +37,37 @@ const Contact = () => {
     setIsSubmitting(true);
     setError(null);
     
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+
+    // Validate environment variables
+    if (!serviceId || !templateId) {
+      setError('Email service configuration is missing. Please check your environment variables.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
+      console.log('Sending email with:', {
+        serviceId,
+        templateId,
+        data: {
+          title: formData.subject,
+          name: formData.name,
+          email: formData.email,
           message: formData.message,
+        }
+      });
+
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          title: formData.subject,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          to_email: 'sumethlokuliyana76@gmail.com'
         }
       );
 
@@ -55,8 +81,8 @@ const Contact = () => {
         });
       }
     } catch (error) {
+      console.error('EmailJS Error Details:', error);
       setError('Failed to send message. Please try again later.');
-      console.error('EmailJS Error:', error);
     } finally {
       setIsSubmitting(false);
     }
