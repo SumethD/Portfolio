@@ -91,13 +91,13 @@ const About = () => {
               PROFILE
             </h3>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
-              I'm Sumeth Lokuliyana – a versatile software engineer with a passion for building high-performance, scalable systems. Whether modernizing legacy infrastructures or architecting innovative applications, I blend technical prowess with creative problem-solving to deliver tangible value.
+              I&apos;m Sumeth Lokuliyana – a versatile software engineer with a passion for building high-performance, scalable systems. Whether modernizing legacy infrastructures or architecting innovative applications, I blend technical prowess with creative problem-solving to deliver tangible value.
             </p>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
               At IFFA Windsor and Leica Biosystems, I led critical migrations and developed interactive, user-centric solutions that boosted performance by over 60% and significantly enhanced engagement—transforming mission-critical apps and fast-paced trading systems alike.
             </p>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
-              I've also navigated the volatile world of crypto trading, gaining hands-on experience in perpetual trading and developing a keen interest in quant strategies. Even after the ups and downs, I bring a unique perspective that fuses engineering excellence with market savvy.
+              I&apos;ve also navigated the volatile world of crypto trading, gaining hands-on experience in perpetual trading and developing a keen interest in quant strategies. Even after the ups and downs, I bring a unique perspective that fuses engineering excellence with market savvy.
             </p>
           </div>
         </FadeInSection>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import FuzzyText from '../formats/FuzzyText';
 
@@ -22,9 +22,9 @@ function useIsSmallScreen() {
 }
 
 const Projects = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [direction, setDirection] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   // Detect if screen is small
@@ -86,34 +86,37 @@ const Projects = () => {
     }
   ];
 
-  const handleNext = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setDirection('right');
-    setActiveIndex((prevIndex) => (prevIndex + 1) % projects.length);
-  };
+  const handleNext = useCallback(() => {
+    if (!isAnimating) {
+      setDirection(1);
+      setIsAnimating(true);
+      setCurrentIndex((prevIndex) =>
+        prevIndex === projects.length - 1 ? 0 : prevIndex + 1
+      );
+    }
+  }, [isAnimating, projects.length]);
 
   const handlePrev = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
+    if (isAnimating) return;
+    setIsAnimating(true);
     setDirection('left');
-    setActiveIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
   };
 
   const goToSlide = (index) => {
-    if (isTransitioning || index === activeIndex) return;
-    setIsTransitioning(true);
-    setDirection(index > activeIndex ? 'right' : 'left');
-    setActiveIndex(index);
+    if (isAnimating || index === currentIndex) return;
+    setIsAnimating(true);
+    setDirection(index > currentIndex ? 'right' : 'left');
+    setCurrentIndex(index);
   };
 
-  // Reset transition after half a second
+  // Reset animation after half a second
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsTransitioning(false);
+      setIsAnimating(false);
     }, 500);
     return () => clearTimeout(timer);
-  }, [activeIndex]);
+  }, [currentIndex]);
 
   // Auto-rotate slides unless hovered
   useEffect(() => {
@@ -122,7 +125,7 @@ const Projects = () => {
       handleNext();
     }, 8000);
     return () => clearInterval(interval);
-  }, [isHovered, activeIndex, isTransitioning, handleNext]);
+  }, [isHovered, currentIndex, isAnimating, handleNext]);
 
   // Custom scrollbar for descriptions
   useEffect(() => {
@@ -190,11 +193,7 @@ const Projects = () => {
   };
 
   // Title Section
-  const titleVariants = {
-    initial: { width: 0 },
-    animate: { width: "3rem" },
-    transition: { duration: 0.8, delay: 0.3 }
-  };
+
 
   const FadeInSection = ({ children, delay = 0 }) => {
     const [isVisible, setVisible] = useState(false);
@@ -258,7 +257,7 @@ const Projects = () => {
         <div className="flex justify-between items-center">
           <div className="text-xs text-gray-500 tracking-widest flex items-center">
             <span className="mr-1 sm:mr-2">
-              {String(activeIndex + 1).padStart(2, '0')}
+              {String(currentIndex + 1).padStart(2, '0')}
             </span>
             <span className="mx-1 sm:mx-2">/</span>
             <span className="ml-1 sm:ml-2">
@@ -266,7 +265,7 @@ const Projects = () => {
             </span>
           </div>
           <div className="text-xs tracking-widest uppercase text-gray-400">
-            {projects[activeIndex].category}
+            {projects[currentIndex].category}
           </div>
         </div>
       </motion.div>
@@ -275,7 +274,7 @@ const Projects = () => {
       <div className="absolute left-1/2 -translate-x-1/2 bottom-[-14px] sm:bottom-[-20px] w-[150px] sm:w-[200px] h-[3px] bg-gray-800 mx-auto">
         <div
           className="absolute top-0 left-0 h-full bg-white transition-all duration-700 ease-out"
-          style={{ width: `${((activeIndex + 1) / projects.length) * 100}%` }}
+          style={{ width: `${((currentIndex + 1) / projects.length) * 100}%` }}
         ></div>
       </div>
 
@@ -293,7 +292,7 @@ const Projects = () => {
         >
           {projects.map(
             (project, index) =>
-              index === activeIndex && (
+              index === currentIndex && (
                 <motion.div
                   key={project.id}
                   custom={direction}
@@ -378,13 +377,13 @@ const Projects = () => {
               key={index}
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 sm:w-4 sm:h-4 border border-gray-700 flex items-center justify-center transition-all duration-300 ${
-                index === activeIndex ? 'border-white' : 'opacity-60 hover:opacity-100'
+                index === currentIndex ? 'border-white' : 'opacity-60 hover:opacity-100'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             >
               <span
                 className={`w-1.5 h-1.5 sm:w-2 sm:h-2 transition-all duration-300 ${
-                  index === activeIndex ? 'bg-white' : 'bg-transparent'
+                  index === currentIndex ? 'bg-white' : 'bg-transparent'
                 }`}
               ></span>
             </button>

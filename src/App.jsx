@@ -18,24 +18,23 @@ const App = () => {
   // For the mobile hamburger menu
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+  const handleSectionChange = useCallback((section) => {
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
 
-  const handleSectionChange = useCallback(
-    (section) => {
-      if (isTransitioning) return;
-      setIsTransitioning(true);
+    setIsTransitioning(true);
+    setTimeout(() => {
       setActiveSection(section);
-      setMenuOpen(false); // Close mobile menu on navigation
       scrollToTop();
-      setTimeout(() => setIsTransitioning(false), 600);
-    },
-    [isTransitioning]
-  );
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+    }, 300);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {

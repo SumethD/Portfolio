@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import FuzzyText from '../formats/FuzzyText';
 import emailjs from '@emailjs/browser';
 
 const Contact = () => {
@@ -113,25 +114,21 @@ const Contact = () => {
   };
 
   const containerVariants = {
-    initial: { opacity: 0 },
-    animate: {
+    hidden: { opacity: 0 },
+    visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.1
       }
     }
   };
 
-  const itemVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: {
+  const childVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1]
-      }
+      transition: { duration: 0.6 }
     }
   };
 
@@ -189,18 +186,22 @@ const Contact = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            CONTACT
+            <FuzzyText fontSize="clamp(1.875rem, 5vw, 4rem)" baseIntensity={0.2} hoverIntensity={0.5}>
+              CONTACT
+            </FuzzyText>
             <span className="ml-2 sm:ml-3 text-gray-500 text-xs sm:text-sm md:text-base tracking-wider">04</span>
           </motion.h2>
         </motion.div>
 
         <motion.div
           variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-20"
         >
           {/* Connect With Me - Enhanced design */}
           <motion.div 
-            variants={containerVariants}
+            variants={childVariants}
             className="border border-gray-800 hover:border-gray-700 bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 transition-all duration-300"
           >
             <h3 className="text-xl sm:text-2xl md:text-3xl text-white mb-6 flex items-center">
@@ -292,7 +293,7 @@ const Contact = () => {
           
           {/* Contact Form - Enhanced design */}
           <motion.div 
-            variants={containerVariants}
+            variants={childVariants}
             className="border border-gray-800 hover:border-gray-700 bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 transition-all duration-300"
           >
             <h3 className="text-xl sm:text-2xl md:text-3xl text-white mb-6 flex items-center">
@@ -301,9 +302,8 @@ const Contact = () => {
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <motion.div
-                variants={containerVariants}
+                variants={formItemVariants}
                 className="relative"
-                custom={0}
               >
                 <input
                   type="text"
@@ -318,9 +318,8 @@ const Contact = () => {
               </motion.div>
               
               <motion.div
-                variants={containerVariants}
+                variants={formItemVariants}
                 className="relative"
-                custom={1}
               >
                 <input
                   type="email"
@@ -335,9 +334,8 @@ const Contact = () => {
               </motion.div>
               
               <motion.div
-                variants={containerVariants}
+                variants={formItemVariants}
                 className="relative"
-                custom={2}
               >
                 <input
                   type="text"
@@ -352,9 +350,8 @@ const Contact = () => {
               </motion.div>
               
               <motion.div
-                variants={containerVariants}
+                variants={formItemVariants}
                 className="relative"
-                custom={3}
               >
                 <textarea
                   id="message"
@@ -369,8 +366,7 @@ const Contact = () => {
               </motion.div>
               
               <motion.div
-                variants={containerVariants}
-                custom={4}
+                variants={formItemVariants}
                 className="text-right"
               >
                 <motion.button

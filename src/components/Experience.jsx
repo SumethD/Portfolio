@@ -104,21 +104,23 @@ const Experience = () => {
     })
   };
 
-  const skillsVariants = {
-    hidden: { opacity: 0, x: 50 },
+  const containerVariants = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.1 }
+      transition: {
+        staggerChildren: 0.1
+      }
     }
   };
 
-  const skillBarVariants = {
-    hidden: { width: 0 },
-    visible: (level) => ({
-      width: `${level}%`,
-      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
-    })
+  const childVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 }
+    }
   };
 
   return (
@@ -257,16 +259,16 @@ const Experience = () => {
           
           {/* Right side - Skills & Expertise */}
           <motion.div
-            variants={skillsVariants}
+            variants={containerVariants}
             initial="hidden"
             animate="visible"
             className="lg:col-span-5"
           >
             {/* Skills section */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              variants={childVariants}
+              initial="hidden"
+              animate="visible"
               className="mb-12 border border-gray-800 hover:border-gray-700 bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 transition-all duration-300"
             >
               <h3 className="text-xl sm:text-2xl tracking-wider text-white mb-8 flex items-center">
