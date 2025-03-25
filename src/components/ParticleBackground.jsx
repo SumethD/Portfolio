@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import Particles from './Particles';
 
 const ParticleBackground = memo(() => {
@@ -22,11 +22,11 @@ const ParticleBackground = memo(() => {
   }, []);
 
   // Adjust particle count based on screen size for performance
-  const getParticleCount = () => {
+  const getParticleCount = useCallback(() => {
     if (dimensions.width <= 768) return 100; // Mobile
     if (dimensions.width <= 1200) return 150; // Tablet
     return 200; // Desktop
-  };
+  }, [dimensions.width]);
 
   // Memoize particle settings to prevent recreating on each render
   const particleSettings = {

@@ -34,7 +34,7 @@ const App = () => {
       scrollToTop();
       setTimeout(() => setIsTransitioning(false), 600);
     },
-    [isTransitioning]
+    [isTransitioning, scrollToTop]
   );
 
   useEffect(() => {
@@ -126,7 +126,7 @@ const App = () => {
               {/* Portfolio Access */}
               <div className="absolute bottom-16 sm:bottom-24 text-center space-y-4 sm:space-y-6 z-[4]">
                 <a
-                  href="#"
+                  href="/about"
                   onClick={(e) => {
                     e.preventDefault();
                     handleSectionChange('about');

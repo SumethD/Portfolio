@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import FuzzyText from '../formats/FuzzyText';
 
 
@@ -122,7 +122,7 @@ const Projects = () => {
       handleNext();
     }, 8000);
     return () => clearInterval(interval);
-  }, [isHovered, activeIndex, isTransitioning]);
+  }, [isHovered, activeIndex, isTransitioning, handleNext]);
 
   // Custom scrollbar for descriptions
   useEffect(() => {
@@ -198,38 +198,16 @@ const Projects = () => {
 
   const FadeInSection = ({ children, delay = 0 }) => {
     const [isVisible, setVisible] = useState(false);
-    const domRef = useRef();
   
     useEffect(() => {
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              setVisible(true);
-              observer.unobserve(domRef.current);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-      
-      if (domRef.current) {
-        observer.observe(domRef.current);
-      }
-      
-      return () => observer.disconnect();
+      setVisible(true);
     }, []);
-  
+
     return (
       <motion.div
-        ref={domRef}
         initial={{ opacity: 0, y: 20 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{
-          duration: 0.7,
-          delay: delay,
-          ease: [0.22, 1, 0.36, 1]
-        }}
+        animate={isVisible ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay }}
       >
         {children}
       </motion.div>
@@ -313,86 +291,84 @@ const Projects = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="relative h-[50vh] sm:h-[70vh] min-h-[350px] sm:min-h-[550px] overflow-hidden border border-gray-800"
         >
-          <AnimatePresence mode="wait" custom={direction}>
-            {projects.map(
-              (project, index) =>
-                index === activeIndex && (
-                  <motion.div
-                    key={project.id}
-                    custom={direction}
-                    variants={projectVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="absolute inset-0"
-                  >
-                    {/* Dark overlay */}
-                    <div className="absolute inset-0 bg-black bg-opacity-60 z-20"></div>
-                    {/* Background image */}
-                    <div
-                      className="absolute inset-0 bg-cover bg-center z-10 transition-all duration-700"
-                      style={{
-                        backgroundImage: `url(${project.image})`,
-                        backgroundSize: isHovered ? '105%' : '100%'
-                      }}
-                    ></div>
+          {projects.map(
+            (project, index) =>
+              index === activeIndex && (
+                <motion.div
+                  key={project.id}
+                  custom={direction}
+                  variants={projectVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="absolute inset-0"
+                >
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-black bg-opacity-60 z-20"></div>
+                  {/* Background image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center z-10 transition-all duration-700"
+                    style={{
+                      backgroundImage: `url(${project.image})`,
+                      backgroundSize: isHovered ? '105%' : '100%'
+                    }}
+                  ></div>
 
-                    {/* Title overlay container (centered, with margin) */}
-                    <div className="absolute inset-x-0 top-[10%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
-                      <div className="text-center transition-all duration-700 hover:scale-105 px-4">
-                        <FuzzyText
-                          fontSize={isSmallScreen ? "2.5rem" : "5rem"}
-                          baseIntensity={0.3}
-                          hoverIntensity={0.6}
-                          enableHover={!isSmallScreen}
-                        >
-                          {project.title}
-                        </FuzzyText>
-                        <div className="h-[2px] w-[80px] sm:w-[100px] bg-white mx-auto mt-4 relative overflow-hidden">
-                          <div className="absolute top-0 left-0 w-full h-full bg-white animate-pulse"></div>
-                        </div>
+                  {/* Title overlay container (centered, with margin) */}
+                  <div className="absolute inset-x-0 top-[10%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
+                    <div className="text-center transition-all duration-700 hover:scale-105 px-4">
+                      <FuzzyText
+                        fontSize={isSmallScreen ? "2.5rem" : "5rem"}
+                        baseIntensity={0.3}
+                        hoverIntensity={0.6}
+                        enableHover={!isSmallScreen}
+                      >
+                        {project.title}
+                      </FuzzyText>
+                      <div className="h-[2px] w-[80px] sm:w-[100px] bg-white mx-auto mt-4 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-full bg-white animate-pulse"></div>
                       </div>
                     </div>
+                  </div>
 
-                    {/* Project details container */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 z-30">
-                      <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                          <div className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-400 mb-2 sm:mb-0">
-                            <span className="border-b border-gray-700 pb-1">
-                              {project.id.toString().padStart(2, '0')} CONCEPT · {project.category}
-                            </span>
-                          </div>
-                          <div className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em]">
-                            <a
-                              href={project.link}
-                              className="group relative inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 overflow-hidden border border-gray-700 hover:border-gray-500 transition-all duration-300"
-                            >
-                              <span className="relative z-10">VIEW PROJECT</span>
-                              <div className="absolute inset-0 bg-black bg-opacity-50 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                            </a>
-                          </div>
+                  {/* Project details container */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 z-30">
+                    <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <div className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-400 mb-2 sm:mb-0">
+                          <span className="border-b border-gray-700 pb-1">
+                            {project.id.toString().padStart(2, '0')} CONCEPT · {project.category}
+                          </span>
                         </div>
-                        <div className="h-[1px] w-full bg-gray-700 opacity-50 mb-4"></div>
-                        <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-300 mb-4 max-h-[15vh] sm:max-h-[20vh] overflow-y-auto pr-1 custom-scrollbar">
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 md:gap-3">
-                          {project.technologies.map((tech, i) => (
-                            <span
-                              key={i}
-                              className="text-[10px] sm:text-xs md:text-sm px-2 py-1 sm:px-3 sm:py-1.5 bg-black bg-opacity-70 border border-gray-700 text-gray-300 transition-all duration-300 hover:border-gray-500 hover:bg-opacity-90"
-                            >
-                              {tech}
-                            </span>
-                          ))}
+                        <div className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em]">
+                          <a
+                            href={project.link}
+                            className="group relative inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 overflow-hidden border border-gray-700 hover:border-gray-500 transition-all duration-300"
+                          >
+                            <span className="relative z-10">VIEW PROJECT</span>
+                            <div className="absolute inset-0 bg-black bg-opacity-50 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                          </a>
                         </div>
                       </div>
+                      <div className="h-[1px] w-full bg-gray-700 opacity-50 mb-4"></div>
+                      <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-300 mb-4 max-h-[15vh] sm:max-h-[20vh] overflow-y-auto pr-1 custom-scrollbar">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 md:gap-3">
+                        {project.technologies.map((tech, i) => (
+                          <span
+                            key={i}
+                            className="text-[10px] sm:text-xs md:text-sm px-2 py-1 sm:px-3 sm:py-1.5 bg-black bg-opacity-70 border border-gray-700 text-gray-300 transition-all duration-300 hover:border-gray-500 hover:bg-opacity-90"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </motion.div>
-                )
-            )}
-          </AnimatePresence>
+                  </div>
+                </motion.div>
+              )
+          )}
         </motion.div>
 
         {/* Navigation controls (dots) */}
