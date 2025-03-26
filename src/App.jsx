@@ -104,8 +104,18 @@ const App = () => {
                   </FuzzyText>
                 </h1>
                 <div className="relative">
-                  {/* Pulsing Circle - Positioned behind all text with lower z-index */}
-                  <div className="w-[80vw] h-[100vw] sm:w-[40vw] sm:h-[40vw] max-w-[500px] sm:max-w-[600px] max-h-[500px] sm:max-h-[600px] rounded-full border border-gray-800 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_100px_rgba(255,255,255,0.1)] animate-pulse z-[1]" />
+                  {/* Solar Eclipse Circle Effect */}
+                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]">
+                    {/* Dark filled circle */}
+                    <div className="w-[80vw] h-[80vw] sm:w-[40vw] sm:h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-black opacity-90"></div>
+                    
+                    {/* Outer glow ring */}
+                    <div className="w-[85vw] h-[85vw] sm:w-[43vw] sm:h-[43vw] max-w-[530px] max-h-[530px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border border-orange-500/20 shadow-[0_0_30px_rgba(249,115,22,0.15)] animate-pulse -z-10"></div>
+                    
+                    {/* Inner highlight ring */}
+                    <div className="w-[78vw] h-[78vw] sm:w-[39vw] sm:h-[39vw] max-w-[490px] max-h-[490px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-orange-400/10"></div>
+                  </div>
+                  
                   <div className="space-y-6 sm:space-y-8 relative z-[3]">
                     <p className="text-xl sm:text-2xl tracking-[0.2em] opacity-60">
                       IF YOU&apos;LL INDULGE ME
