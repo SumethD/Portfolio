@@ -336,7 +336,13 @@ const Projects = () => {
                     <div className={`text-center ${!isSmallScreen ? "transition-all duration-700 hover:scale-105" : ""} px-4`}>
                       {isSmallScreen ? (
                         <h1 className={`${isIPhoneSE ? 'text-xl' : 'text-2xl xs:text-3xl'} sm:text-4xl font-light tracking-wider`}>
-                          {project.title}
+                          <FuzzyText
+                            fontSize={isIPhoneSE ? "1.5rem" : "2rem"}
+                            baseIntensity={0.2}
+                            hoverIntensity={0.5}
+                          >
+                            {project.title}
+                          </FuzzyText>
                         </h1>
                       ) : (
                         <FuzzyText
@@ -647,6 +653,13 @@ const Projects = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
+      </div>
+
+      {/* Footer with trademark */}
+      <div className="absolute bottom-2 left-0 right-0 text-center">
+        <p className={`text-[10px] ${isIPhoneSE ? 'text-[8px]' : 'text-[10px]'} text-gray-500 tracking-wider`}>
+          &copy; {new Date().getFullYear()} Portfolio. All rights reserved.
+        </p>
       </div>
     </motion.section>
   );
