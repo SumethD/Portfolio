@@ -321,8 +321,8 @@ const Projects = () => {
                     }}
                   ></div>
 
-                  {/* Title overlay container - Adjusted for iPhone SE */}
-                  <div className={`absolute inset-x-0 ${isIPhoneSE ? 'top-[4%]' : 'top-[6%]'} sm:top-[15%] flex justify-center z-30 px-2 sm:px-4`}>
+                  {/* Title overlay container - Adjusted for iPhone SE with consistent spacing */}
+                  <div className={`absolute inset-x-0 ${isIPhoneSE ? 'top-[5%]' : 'top-[6%]'} sm:top-[15%] flex justify-center z-30 px-2 sm:px-4`}>
                     <div className={`text-center ${!isSmallScreen ? "transition-all duration-700 hover:scale-105" : ""} px-4`}>
                       {isSmallScreen ? (
                         <h1 className={`${isIPhoneSE ? 'text-xl' : 'text-2xl xs:text-3xl'} sm:text-4xl font-light tracking-wider`}>
@@ -346,15 +346,15 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Project details container - iPhone SE specific adjustments */}
+                  {/* Project details container - Standardized spacing for small screens */}
                   <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 md:p-8 z-30">
                     <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
-                      {/* Mobile header layout - iPhone SE specific spacing */}
-                      <div className={`flex flex-col ${isIPhoneSE ? 'space-y-0.5 mb-1' : 'space-y-1 mb-2'} sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0`}>
-                        {/* Project type and concept - simplified further for iPhone SE */}
+                      {/* Mobile header layout - Standardized for all small screens */}
+                      <div className={`flex flex-col ${isSmallScreen ? 'space-y-2 mb-3' : 'space-y-0 mb-4'} sm:flex-row sm:justify-between sm:items-center sm:space-y-0`}>
+                        {/* Project type and concept - uniform styling for small screens */}
                         <div className="text-center sm:text-left">
                           {isSmallScreen ? (
-                            <div className={`${isIPhoneSE ? 'text-xs' : 'text-sm'} tracking-wider text-orange-500/70 font-light`}>
+                            <div className={`${isSmallScreen ? 'text-xs' : 'text-sm'} tracking-wider text-orange-500/70 font-light`}>
                               {project.category}
                             </div>
                           ) : (
@@ -371,16 +371,14 @@ const Projects = () => {
                           )}
                         </div>
 
-                        {/* View project button - iPhone SE specific adjustments */}
-                        <div className="flex justify-center sm:justify-end">
+                        {/* View project button - Standardized sizing across all small screens */}
+                        <div className="flex justify-center sm:justify-end mt-1 sm:mt-0">
                           <a
                             href={project.link}
                             className={`group relative inline-flex items-center ${
-                              isIPhoneSE
-                                ? "px-3 py-0.5 text-xs tracking-wider bg-black/50"
-                                : isSmallScreen 
-                                  ? "px-4 py-1 text-sm tracking-wider bg-black/50" 
-                                  : "px-6 py-2 text-sm tracking-[0.2em] bg-black/30 backdrop-blur-sm"
+                              isSmallScreen
+                                ? "px-4 py-1 text-xs tracking-wider bg-black/50" 
+                                : "px-6 py-2 text-sm tracking-[0.2em] bg-black/30 backdrop-blur-sm"
                             } overflow-hidden border border-gray-700 hover:border-gray-500 transition-all duration-300`}
                           >
                             <span className="relative z-10">VIEW PROJECT</span>
@@ -397,13 +395,14 @@ const Projects = () => {
                         <div className="h-[1px] w-full bg-gradient-to-r from-gray-700 via-gray-700/50 to-transparent mb-4"></div>
                       )}
 
-                      {/* Description - Updated to show full text on small screens */}
-                      <div className={`${isIPhoneSE ? 'mb-3' : 'mb-4'} sm:mb-6 relative`}>
+                      {/* Description - Consistent spacing and height */}
+                      <div className="mb-4 sm:mb-6 relative">
                         {isSmallScreen ? (
                           <div 
-                            className={`text-gray-300 pr-1 text-center sm:text-left p-1 ${
-                              isIPhoneSE ? "text-xs" : "text-sm"
-                            } leading-relaxed bg-black/40 rounded overflow-y-auto max-h-[25vh]`}
+                            className={`text-gray-300 pr-1 text-center sm:text-left p-2 
+                              ${isSmallScreen ? "text-xs" : "text-sm"}
+                              leading-relaxed bg-black/60 rounded overflow-y-auto 
+                              ${isIPhoneSE ? "max-h-[22vh]" : "max-h-[25vh]"}`}
                           >
                             {project.description}
                           </div>
@@ -414,10 +413,8 @@ const Projects = () => {
                         )}
                       </div>
 
-                      {/* Technologies list - Show all technologies on all screen sizes */}
-                      <div className={`flex flex-wrap justify-center sm:justify-start ${isIPhoneSE ? 'gap-1' : 'gap-2'} sm:gap-2 
-                        ${isIPhoneSE ? "mb-2" : "mb-4"} sm:mb-0 mt-2`}
-                      >
+                      {/* Technologies list - Consistent styling and spacing */}
+                      <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-2 mb-4 sm:mb-0 mt-2">
                         {project.technologies.map((tech, i) => (
                           <motion.span
                             key={i}
@@ -425,11 +422,9 @@ const Projects = () => {
                             animate={isSmallScreen ? { opacity: 1 } : { opacity: 1, y: 0 }}
                             transition={isSmallScreen ? {} : { delay: i * 0.1 }}
                             className={`${
-                              isIPhoneSE
-                                ? "text-[9px] px-1.5 py-0.5 bg-black/70"
-                                : isSmallScreen 
-                                  ? "text-xs px-2 py-1 bg-black/70" 
-                                  : "text-xs px-3 py-1.5 bg-black/50 backdrop-blur-sm"
+                              isSmallScreen
+                                ? "text-xs px-2 py-0.5 bg-black/70" 
+                                : "text-xs px-3 py-1.5 bg-black/50 backdrop-blur-sm"
                             } border border-gray-700 text-gray-300 
                               transition-all duration-300 hover:border-orange-500/30
                               hover:bg-black/70 sm:text-sm`}
@@ -441,20 +436,16 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Mobile navigation - Adjusted for iPhone SE */}
-                  <div className={`sm:hidden absolute ${
-                    isIPhoneSE ? "bottom-[-32px]" : "bottom-[-48px]"
-                  } left-0 right-0 flex justify-center space-x-6 z-40`}>
+                  {/* Mobile navigation - Standardized bottom positioning */}
+                  <div className="sm:hidden absolute bottom-[-40px] left-0 right-0 flex justify-center space-x-6 z-40">
                     <button
-                      className={`${isIPhoneSE ? 'w-7 h-7' : 'w-9 h-9'} flex items-center justify-center 
-                      border border-gray-700 bg-black/70
-                      transition-all duration-300`}
+                      className="w-8 h-8 flex items-center justify-center border border-gray-700 bg-black/70 transition-all duration-300"
                       onClick={handlePrev}
                       aria-label="Previous project"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={isIPhoneSE ? "h-3 w-3" : "h-4 w-4"}
+                        className="h-4 w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -469,7 +460,7 @@ const Projects = () => {
                         <button
                           key={index}
                           onClick={() => goToSlide(index)}
-                          className={`${isIPhoneSE ? 'w-2 h-2' : 'w-2.5 h-2.5'} rounded-full transition-all duration-300 ${
+                          className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                             index === currentIndex ? 'bg-orange-500' : 'bg-gray-700'
                           }`}
                           aria-label={`Go to slide ${index + 1}`}
@@ -478,15 +469,13 @@ const Projects = () => {
                     </div>
                     
                     <button
-                      className={`${isIPhoneSE ? 'w-7 h-7' : 'w-9 h-9'} flex items-center justify-center 
-                      border border-gray-700 bg-black/70
-                      transition-all duration-300`}
+                      className="w-8 h-8 flex items-center justify-center border border-gray-700 bg-black/70 transition-all duration-300"
                       onClick={handleNext}
                       aria-label="Next project"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={isIPhoneSE ? "h-3 w-3" : "h-4 w-4"}
+                        className="h-4 w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
