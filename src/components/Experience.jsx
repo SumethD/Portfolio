@@ -1,9 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import FuzzyText from '../formats/FuzzyText';
 
 const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+  const experienceRefs = useRef([]);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '-20% 0px -20% 0px',
+      threshold: [0.3, 0.5, 0.7] // Multiple thresholds for smoother transitions
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = experienceRefs.current.findIndex(
+            (ref) => ref === entry.target
+          );
+          setActiveIndex(index);
+        }
+      });
+    }, options);
+
+    experienceRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const experiences = [
     {
@@ -77,21 +104,22 @@ const Experience = () => {
     }
   ];
 
-  // Animation variants
+  // Enhanced animation variants
   const pageVariants = {
-    initial: {
-      opacity: 0,
-      y: 20,
-    },
+    initial: { opacity: 0, y: 20 },
     animate: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+      transition: { 
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.1
+      }
     },
     exit: {
       opacity: 0,
       y: -20,
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
@@ -100,7 +128,11 @@ const Experience = () => {
     visible: (i) => ({
       opacity: 1,
       x: 0,
-      transition: { delay: i * 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+      transition: { 
+        delay: i * 0.2,
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1]
+      }
     })
   };
 
@@ -123,6 +155,17 @@ const Experience = () => {
     }
   };
 
+  const skillBarVariants = {
+    initial: { width: 0 },
+    animate: (level) => ({
+      width: `${level}%`,
+      transition: {
+        duration: 1.5,
+        ease: "easeOut"
+      }
+    })
+  };
+
   return (
     <motion.section
       initial="initial"
@@ -131,67 +174,101 @@ const Experience = () => {
       variants={pageVariants}
       className="min-h-screen pt-32 pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden z-[3] text-white"
     >
+      {/* Background decorative elements */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 0.05, scale: 1 }}
+        transition={{ duration: 1 }}
+        className="absolute top-40 right-20 w-96 h-96 rounded-full border border-orange-500/20 hidden lg:block"
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 0.05, scale: 1 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="absolute bottom-40 left-20 w-64 h-64 rounded-full border border-orange-500/20 hidden lg:block"
+      />
+
       <div className="max-w-6xl mx-auto relative">
-        {/* Title Section */}
+        {/* Enhanced Title Section */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center text-center sm:text-left mb-12 sm:mb-16"
+          className="flex flex-col sm:flex-row items-center text-center sm:text-left mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "3rem" }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="h-[1px] bg-gray-700 mr-0 sm:mr-8 mb-4 sm:mb-0"
-          ></motion.div>
+            transition={{ duration: 1, delay: 0.5 }}
+            className="h-[1px] bg-gradient-to-r from-orange-500/50 to-transparent mr-0 sm:mr-8 mb-4 sm:mb-0"
+          />
           <motion.h1 
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-[0.2em] sm:tracking-[0.3em] font-light flex items-center"
+            className="text-4xl sm:text-5xl md:text-6xl tracking-[0.2em] sm:tracking-[0.3em] font-light flex items-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             <FuzzyText fontSize="3rem" baseIntensity={0.2} hoverIntensity={0.5}>
               EXPERIENCE
             </FuzzyText>
-            <span className="ml-2 sm:ml-3 text-gray-500 text-xs sm:text-sm md:text-base tracking-wider">03</span>
+            <span className="ml-3 text-orange-500/70 text-base tracking-wider">03</span>
           </motion.h1>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left side - Timeline */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Enhanced Timeline */}
           <motion.div
             variants={timelineVariants}
             initial="hidden"
             animate="visible"
             className="lg:col-span-7"
           >
-            {/* Removed outer left border and decorative absolute line */}
             <div className="relative pl-8 md:pl-12">
               {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.id}
                   custom={index}
                   variants={timelineVariants}
-                  className="mb-16 relative"
+                  className="mb-16 relative group"
+                  ref={el => experienceRefs.current[index] = el}
                   onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(null)}
+                  onMouseLeave={() => {
+                    const element = experienceRefs.current[index];
+                    if (element) {
+                      const rect = element.getBoundingClientRect();
+                      const isVisible = rect.top >= window.innerHeight * 0.2 &&
+                                      rect.bottom <= window.innerHeight * 0.8;
+                      if (!isVisible) setActiveIndex(null);
+                    }
+                  }}
                 >
-                  {/* Replacing dots with a more elegant timeline indicator */}
+                  {/* Enhanced Timeline indicator */}
                   <motion.div 
                     className="absolute left-[-26px] top-0 h-full"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
                   >
-                    <div className={`w-[3px] h-full ${activeIndex === index ? 'bg-orange-500' : 'bg-gray-700'} transition-colors duration-300`}></div>
-                    <div className={`absolute top-0 left-[-3px] w-[9px] h-[9px] ${activeIndex === index ? 'bg-orange-500' : 'bg-gray-600'} transition-colors duration-300 transform rotate-45`}></div>
+                    <div className={`w-[3px] h-full ${
+                      activeIndex === index 
+                        ? 'bg-gradient-to-b from-orange-500 via-orange-400 to-orange-500'
+                        : 'bg-gray-700'
+                    } transition-all duration-700 ease-in-out`} />
+                    <div className={`absolute top-0 left-[-4px] w-[11px] h-[11px] ${
+                      activeIndex === index 
+                        ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]'
+                        : 'bg-gray-600'
+                    } transition-all duration-700 ease-in-out transform rotate-45`} />
                   </motion.div>
                   
-                  {/* Experience card - enhanced design */}
+                  {/* Enhanced Experience card */}
                   <div 
-                    className={`border border-gray-800 hover:border-gray-600 bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 transition-all duration-300 ${
-                      activeIndex === index ? 'border-gray-500 shadow-lg transform translate-y-[-5px]' : ''
+                    className={`border border-gray-800 group-hover:border-gray-600 
+                    bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 
+                    transition-all duration-500 relative
+                    ${activeIndex === index 
+                      ? 'border-orange-500/30 shadow-[0_0_30px_rgba(0,0,0,0.2)] translate-y-[-5px]' 
+                      : ''
                     }`}
                   >
                     <div className="flex flex-col md:flex-row justify-between items-start mb-6">
@@ -257,44 +334,50 @@ const Experience = () => {
             </div>
           </motion.div>
           
-          {/* Right side - Skills & Expertise */}
+          {/* Enhanced Skills & Expertise Section */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-5"
+            className="lg:col-span-5 space-y-8"
           >
-            {/* Skills section */}
+            {/* Enhanced Skills section */}
             <motion.div
               variants={childVariants}
-              initial="hidden"
-              animate="visible"
-              className="mb-12 border border-gray-800 hover:border-gray-700 bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 transition-all duration-300"
+              className="border border-gray-800 hover:border-gray-700 
+              bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 
+              transition-all duration-300 relative overflow-hidden"
             >
               <h3 className="text-xl sm:text-2xl tracking-wider text-white mb-8 flex items-center">
-                <span className="inline-block w-8 h-[1px] bg-orange-500 mr-4"></span>
+                <span className="inline-block w-8 h-[1px] bg-gradient-to-r from-orange-500 to-transparent mr-4" />
                 TECHNICAL PROFICIENCY
               </h3>
+              
               <div className="space-y-6">
                 {skills.map((skill, i) => (
                   <motion.div 
-                    key={i} 
+                    key={i}
                     className="relative"
-                    custom={i}
+                    onMouseEnter={() => setHoveredSkill(i)}
+                    onMouseLeave={() => setHoveredSkill(null)}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 + 0.3 }}
+                    transition={{ delay: i * 0.1 }}
                   >
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-base sm:text-lg text-white">{skill.name}</span>
-                      <span className="text-xs sm:text-sm text-gray-400">{skill.level}%</span>
+                      <span className={`text-base sm:text-lg transition-colors duration-300
+                        ${hoveredSkill === i ? 'text-orange-500' : 'text-white'}`}>
+                        {skill.name}
+                      </span>
+                      <span className="text-sm text-gray-400">{skill.level}%</span>
                     </div>
-                    <div className="h-[3px] bg-gray-800 overflow-hidden">
+                    <div className="h-[3px] bg-gray-800/50 overflow-hidden rounded-full">
                       <motion.div
-                        className="h-full bg-orange-500"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.1 + 0.5 }}
+                        className="h-full bg-gradient-to-r from-orange-600 to-orange-400"
+                        variants={skillBarVariants}
+                        custom={skill.level}
+                        initial="initial"
+                        animate="animate"
                       />
                     </div>
                   </motion.div>
@@ -302,7 +385,7 @@ const Experience = () => {
               </div>
             </motion.div>
 
-            {/* Additional expertise cards */}
+            {/* Enhanced expertise cards */}
             <div className="space-y-6">
               {additionalExpertise.map((item, i) => (
                 <motion.div
@@ -310,13 +393,18 @@ const Experience = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.2 + 0.8 }}
-                  className="border border-gray-800 hover:border-gray-700 bg-black bg-opacity-30 backdrop-blur-sm p-6 transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]"
+                  className="border border-gray-800 hover:border-orange-500/30
+                  bg-black bg-opacity-30 backdrop-blur-sm p-6
+                  transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,0,0.2)]
+                  hover:translate-y-[-5px] relative overflow-hidden group"
                 >
                   <div className="flex items-start mb-4">
-                    <div className="text-orange-500 mr-4">
+                    <div className="text-orange-500/70 mr-4 group-hover:scale-110 transition-transform duration-300">
                       {item.icon}
                     </div>
-                    <h4 className="text-lg sm:text-xl text-white">{item.title}</h4>
+                    <h4 className="text-lg sm:text-xl text-white group-hover:text-orange-500/70 transition-colors duration-300">
+                      {item.title}
+                    </h4>
                   </div>
                   <p className="text-gray-300 text-sm sm:text-base pl-12">
                     {item.content}

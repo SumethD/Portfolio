@@ -8,6 +8,7 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import ParticleBackground from './components/ParticleBackground';
 import PageTransition from './components/PageTransition';
+import DecryptedText from './formats/decrypted';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('welcome');
@@ -100,58 +101,30 @@ const App = () => {
                     hoverIntensity={0.5}
                     enableHover={true}
                   >
+                    
                     SUMETH
                   </FuzzyText>
                 </h1>
                 <div className="relative">
                   {/* Solar Eclipse Circle Effect */}
                   <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]">
-                    {/* Dark filled circle */}
-                    <div className="w-[80vw] h-[80vw] sm:w-[40vw] sm:h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-black opacity-90"></div>
+                    {/* Dark eclipse center */}
+                    <div className="w-[80vw] h-[80vw] sm:w-[42vw] sm:h-[42vw] max-w-[520px] max-h-[520px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/90 -z-10"></div>
                     
-                    {/* Outer glow ring with enhanced pulse */}
-                    <motion.div 
-                      className="w-[90vw] h-[90vw] sm:w-[46vw] sm:h-[46vw] max-w-[580px] max-h-[580px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border-2 border-orange-500/25 shadow-[0_0_60px_rgba(249,115,22,0.2)] -z-10"
-                      animate={{
-                        scale: [1, 1.05, 1],
-                        opacity: [0.5, 0.8, 0.5],
-                        boxShadow: [
-                          '0 0 60px rgba(249,115,22,0.2)',
-                          '0 0 80px rgba(249,115,22,0.4)',
-                          '0 0 60px rgba(249,115,22,0.2)'
-                        ]
-                      }}
-                      transition={{
-                        duration: 4,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                        repeatType: "loop"
-                      }}
-                    />
-                    
-                    {/* Middle glow ring */}
-                    <motion.div 
-                      className="w-[85vw] h-[85vw] sm:w-[43vw] sm:h-[43vw] max-w-[540px] max-h-[540px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border border-orange-500/15 shadow-[0_0_40px_rgba(249,115,22,0.15)] -z-10"
-                      animate={{
-                        scale: [1, 1.03, 1],
-                        opacity: [0.3, 0.6, 0.3]
-                      }}
-                      transition={{
-                        duration: 3,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                        repeatType: "loop",
-                        delay: 1
-                      }}
-                    />
-                    
-                    {/* Inner highlight ring */}
-                    <div className="w-[78vw] h-[78vw] sm:w-[39vw] sm:h-[39vw] max-w-[490px] max-h-[490px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-orange-400/10 shadow-[0_0_20px_rgba(249,115,22,0.05)]"></div>
+                    {/* Enhanced pulsing glow ring */}
+                    <div className="w-[85vw] h-[85vw] sm:w-[45vw] sm:h-[45vw] max-w-[550px] max-h-[550px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border-2 border-orange-500/60 shadow-[0_0_60px_rgba(249,115,22,0.3)] animate-[pulse_3s_infinite] -z-10"></div>
                   </div>
                   
                   <div className="space-y-6 sm:space-y-8 relative z-[3]">
                     <p className="text-xl sm:text-2xl tracking-[0.2em] opacity-60">
-                      IF YOU&apos;LL INDULGE ME
+                    <DecryptedText
+                          text="IF YOU&apos;LL INDULGE ME"
+                          speed={40}
+                          maxIterations={10}
+                          sequential={true}
+                          revealDirection="start"
+                          animateOn="view"  
+                        />
                     </p>
                     <p className="text-2xl sm:text-5xl tracking-[0.1em] font-light flex items-center justify-center flex-wrap gap-2 sm:gap-4">
                       <span>I</span>
@@ -165,25 +138,31 @@ const App = () => {
                       </FuzzyText>
                       <span>THE FUTURE INTO REALITY</span>
                     </p>
+                    
+                    {/* Portfolio Access - Moved inside the content div */}
+                    <div className="mt-12 sm:mt-16 flex flex-col items-center space-y-4">
+                      <a
+                        href="/about"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSectionChange('about');
+                        }}
+                        className="tracking-[0.4em] text-base sm:text-lg opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer group relative"
+                      >
+                        <DecryptedText
+                          text="ACCESS PORTFOLIO"
+                          speed={70}
+                          maxIterations={10}
+                          sequential={true}
+                          revealDirection="center"  
+                        />
+                        <div className="h-[1px] w-0 bg-white mx-auto transition-all duration-300 group-hover:w-full"></div>
+                      </a>
+                      <div className="flex justify-center">
+                        <i className="fas fa-chevron-down animate-bounce opacity-50 text-lg sm:text-xl"></i>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Portfolio Access */}
-              <div className="absolute bottom-16 sm:bottom-24 text-center space-y-4 sm:space-y-6 z-[4]">
-                <a
-                  href="/about"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleSectionChange('about');
-                  }}
-                  className="tracking-[0.4em] text-base sm:text-lg opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer group relative"
-                >
-                  ACCESS PORTFOLIO
-                  <div className="h-[1px] w-0 bg-white mx-auto transition-all duration-300 group-hover:w-full"></div>
-                </a>
-                <div className="flex justify-center">
-                  <i className="fas fa-chevron-down animate-bounce opacity-50 text-lg sm:text-xl"></i>
                 </div>
               </div>
             </main>
