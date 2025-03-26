@@ -72,7 +72,8 @@ const About = () => {
             ></motion.div>
             <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-[0.2em] sm:tracking-[0.3em] font-light flex items-center">
               <FuzzyText 
-                fontSize="clamp(2.5rem, 8vw, 4rem)" 
+                /* Increased minimum and maximum sizes for smaller screens */
+                fontSize="clamp(3rem, 8vw, 5rem)" 
                 baseIntensity={0.2} 
                 hoverIntensity={0.5}
               >
