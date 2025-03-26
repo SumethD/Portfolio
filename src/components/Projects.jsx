@@ -58,7 +58,7 @@ const Projects = () => {
       title: "Super-Price",
       category: "Full Stack Application",
       description:
-        "Designed a full-stack price-matching app that cut comparison time by 50%. Developed web scrapers and migrated store data to an SQLite database on AWS, enabling 10k real-time comparisons daily. Integrated performance dashboards to boost data accuracy by 25% for 50 users.",
+        "Did a group project at RMIT where we built a price-matching app that made comparing stuff way quicker—cut the time by half. We used Java with Spring Boot for the backend, and built some web scrapers in Java to pull in store data, which we dumped into an SQLite database on AWS. Front end was React, and we threw in some dashboards to make the data more accurate—ended up improving it by around 25% for 10 to 100 users. It could do about 1000 real-time comparisons a day, which was pretty sick. Can’t run it now 'cause of AWS limits, but it was a fun build and a good team vibe all around.",
       technologies: [
         "React",
         "TypeScript",
@@ -77,7 +77,7 @@ const Projects = () => {
       title: "Hal-Bot",
       category: "AI Chatbot",
       description:
-        "Built an AI chatbot that cut response times by 40% for CS student queries using AWS Lambda and AWS Lex. Integrated a React/TypeScript front-end and utilized RMIT JSON data to enhance search efficiency.",
+        "Worked on a group project at RMIT where we built an AI chatbot that cut down student query response times by 40%. We used AWS Lex to handle the convo side of things, Lambda for the backend logic, DynamoDB for storing stuff, and S3 for all our data. CloudWatch helped us keep everything running smooth. The front end was built with React and TypeScript (TSX), and we used RMIT's JSON data to make searching super fast. It was all supervised by one of our profs, and honestly, it was a fun project—learned a ton and had a good time building it with the team.",
       technologies: [
         "AWS Lambda",
         "AWS Lex",
@@ -97,7 +97,7 @@ const Projects = () => {
       title: "Savorly-AI",
       category: "Full Stack Application",
       description:
-        "Developed a dynamic recipe search engine using the Edamam API, serving 10+ users monthly. Designed an AI chat assistant with OpenAI GPT-4 to handle cooking queries, built a Video-to-Recipe tool that transcribed 50 YouTube links daily, and created a shopping list generator to merge ingredients and serve over 50 recipes.",
+        "Built a recipe search engine over a weekend just for fun—honestly got the idea while sitting on the toilet. Used the Edamam API to let people search for recipes (about 10+ users a month), and added a GPT-4-powered AI assistant to help answer random cooking questions. Also made a Video-to-Recipe tool that takes YouTube links and turns them into recipes—around 50 a day—and a shopping list generator that merges ingredients from 50+ recipes. Just messing around, learning new stuff like API integrations and playing with Cursor AI. Haven’t deployed it yet, but planning to soon. Super fun little side project I really enjoyed building.",
       technologies: [
         "React",
         "Edamam API",

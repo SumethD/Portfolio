@@ -91,13 +91,13 @@ const About = () => {
               PROFILE
             </h3>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
-              I&apos;m Sumeth Lokuliyana – a versatile software engineer with a passion for building high-performance, scalable systems. Whether modernizing legacy infrastructures or architecting innovative applications, I blend technical prowess with creative problem-solving to deliver tangible value.
+              Hey, I’m Sumeth Lokuliyana — a software engineer who loves building cool, scalable stuff that actually works. Whether it’s modernizing old-school systems or coming up with fresh new apps, I like mixing solid tech skills with creative problem-solving to get real results.
             </p>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
-              At IFFA Windsor and Leica Biosystems, I led critical migrations and developed interactive, user-centric solutions that boosted performance by over 60% and significantly enhanced engagement—transforming mission-critical apps and fast-paced trading systems alike.
+              At IFFA Windsor and Leica Biosystems, I worked on some pretty key projects—led migrations, built user-friendly tools, and helped boost performance by over 60%. It was all about making things faster, smoother, and just better for the people using them.
             </p>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
-              I&apos;ve also navigated the volatile world of crypto trading, gaining hands-on experience in perpetual trading and developing a keen interest in quant strategies. Even after the ups and downs, I bring a unique perspective that fuses engineering excellence with market savvy.
+              On the side, I’ve also dived deep into the wild world of crypto trading. Got my hands dirty with perpetuals, took a few hits (classic), but came out with a sharp interest in quant strategies and how markets tick. It’s been a ride, but one that taught me a lot and keeps me curious.
             </p>
           </div>
         </FadeInSection>

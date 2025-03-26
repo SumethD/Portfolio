@@ -39,7 +39,7 @@ const Experience = () => {
       company: "IFFA Windsor",
       period: "Mar 2024 - Sep 2024",
       description:
-        "Led a PHP-to-React migration using Tailwind/TypeScript, boosting performance by 60% and increasing user engagement by 35%. Developed an interactive form for 1,500+ users that drove a 25% spike in event attendance for November 2024, and enhanced real-time film/talent updates to boost page views by 40% in the arts sector.",
+        "Led the charge on a PHP-to-React migration using Tailwind and TypeScript—performance shot up by 60%, and users actually stuck around (35% boost in engagement!). Built a slick, interactive form that over 1,500 people used, which ended up bumping event attendance by 25% in November 2024. Also tweaked real-time film and talent updates in the arts space, which gave us a nice 40% jump in page views. Honestly, it was one of those projects where everything just clicked—clean code, good vibes, and real impact.",
       responsibilities: [
         "Migrated legacy PHP code to React with Tailwind/TypeScript.",
         "Developed an interactive form for 1,500+ users.",
@@ -53,14 +53,18 @@ const Experience = () => {
       company: "Leica Biosystems",
       period: "Nov 2022 - Present",
       description:
-        "Pitched and implemented a Python-based Kanban webapp that digitized 100% of inventory tracking, and briefed the VP. Tested new staining methods in R&D sprints that contributed to 3 market-ready tech innovations and built sub-components for cancer-staining instruments valued between $100K-$200K, achieving 98.3% accuracy.",
+        "Pitched and built a Python-based Kanban web app that digitized 100% of the inventory tracking—we're talking sticky notes to screens level-up. Got to brief the VP too, and while the full demo and rollout plan are good to go, I haven’t officially presented it yet (still chilling in my back pocket). Most of my time was spent in the Peloris cell (huge shoutout to the crew there) working on fun R&D projects—tested new staining methods for slide labeling and helped build sub-components for cancer-staining instruments worth $100K–$200K. Hit 98.3% accuracy on some builds, which was a win. Not exactly SWE or trading, but the team vibe was unreal—super supportive leader, great teammates, and an awesome environment to grow and contribute.",
       responsibilities: [
-        "Pitched and implemented a Python Kanban webapp for inventory tracking.",
-        "Tested new staining methods during R&D sprints, contributing to tech innovations.",
-        "Built sub-components for high-value cancer-staining instruments with 98.3% accuracy."
+        "Built a Python Kanban web app that fully digitized inventory tracking.",
+        "Briefed the VP and prepared a demo and rollout plan (yet to be officially presented).",
+        "Tested new staining methods in R&D sprints for slide labeling innovations.",
+        "Worked in the Peloris cell building sub-components for $100K–$200K cancer-staining instruments.",
+        "Achieved 98.3% accuracy on component builds and quality control tasks."
       ],
       techStack: ["Python", "R&D", "Kanban", "Process Optimization", "Quality Control"]
     }
+    
+    
   ];
 
   const skills = [
