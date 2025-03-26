@@ -92,7 +92,7 @@ const App = () => {
             >
               {/* Central Content */}
               <div className="text-center space-y-16 sm:space-y-24 max-w-6xl mx-auto px-4 sm:px-8 relative z-[3]">
-                <h1 className="text-3xl sm:text-5xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2">
+                <h1 className="text-3xl sm:text-5xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2 relative z-[3]">
                   <span>MY NAME IS</span>
                   <FuzzyText
                     fontSize="3rem"
@@ -104,8 +104,8 @@ const App = () => {
                   </FuzzyText>
                 </h1>
                 <div className="relative">
-                  {/* Pulsing Circle - Increased size for small screens */}
-                  <div className="w-[80vw] h-[100vw] sm:w-[40vw] sm:h-[40vw] max-w-[500px] sm:max-w-[600px] max-h-[500px] sm:max-h-[600px] rounded-full border border-gray-800 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_100px_rgba(255,255,255,0.1)] animate-pulse z-[2]" />
+                  {/* Pulsing Circle - Positioned behind all text with lower z-index */}
+                  <div className="w-[80vw] h-[100vw] sm:w-[40vw] sm:h-[40vw] max-w-[500px] sm:max-w-[600px] max-h-[500px] sm:max-h-[600px] rounded-full border border-gray-800 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_100px_rgba(255,255,255,0.1)] animate-pulse z-[1]" />
                   <div className="space-y-6 sm:space-y-8 relative z-[3]">
                     <p className="text-xl sm:text-2xl tracking-[0.2em] opacity-60">
                       IF YOU&apos;LL INDULGE ME
