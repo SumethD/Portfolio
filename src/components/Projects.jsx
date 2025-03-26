@@ -414,14 +414,11 @@ const Projects = () => {
                         )}
                       </div>
 
-                      {/* Technologies list - Optimized for iPhone SE - Always visible and static positioned */}
+                      {/* Technologies list - Show all technologies on all screen sizes */}
                       <div className={`flex flex-wrap justify-center sm:justify-start ${isIPhoneSE ? 'gap-1' : 'gap-2'} sm:gap-2 
                         ${isIPhoneSE ? "mb-2" : "mb-4"} sm:mb-0 mt-2`}
                       >
-                        {project.technologies.slice(
-                          0, 
-                          isIPhoneSE ? 4 : isSmallScreen ? 5 : project.technologies.length
-                        ).map((tech, i) => (
+                        {project.technologies.map((tech, i) => (
                           <motion.span
                             key={i}
                             initial={isSmallScreen ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -440,17 +437,6 @@ const Projects = () => {
                             {tech}
                           </motion.span>
                         ))}
-                        {isSmallScreen && (
-                          (isIPhoneSE && project.technologies.length > 4) ? (
-                            <span className="text-[9px] px-1.5 py-0.5 bg-black/70 border border-gray-700 text-gray-300">
-                              +{project.technologies.length - 4} more
-                            </span>
-                          ) : (!isIPhoneSE && project.technologies.length > 5) && (
-                            <span className="text-xs px-2 py-1 bg-black/70 border border-gray-700 text-gray-300">
-                              +{project.technologies.length - 5} more
-                            </span>
-                          )
-                        )}
                       </div>
                     </div>
                   </div>
