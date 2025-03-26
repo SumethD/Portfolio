@@ -46,7 +46,6 @@ const Projects = () => {
   const [direction, setDirection] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [expandedDescription, setExpandedDescription] = useState(false);
 
   // Detect if screen is small or specifically iPhone SE
   const isSmallScreen = useIsSmallScreen();
@@ -87,7 +86,6 @@ const Projects = () => {
         "AWS DynamoDB",
         "AWS S3",
         "AWS CloudWatch"
-        
       ],
       image: "https://via.placeholder.com/1200x800/1a1a1a/00a8ff",
       link: "https://github.com/SumethD/halbot"
@@ -223,14 +221,6 @@ const Projects = () => {
     })
   };
 
-  // Toggle description expansion for mobile
-  const toggleDescription = (e) => {
-    if (isSmallScreen) {
-      e.stopPropagation();
-      setExpandedDescription(!expandedDescription);
-    }
-  };
-
   return (
     <motion.section
       initial="initial"
@@ -306,7 +296,7 @@ const Projects = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className={`relative ${isIPhoneSE ? 'h-[45vh]' : 'h-[50vh]'} sm:h-[70vh] min-h-[350px] sm:min-h-[550px] overflow-hidden border border-gray-800`}
+          className={`relative ${isIPhoneSE ? 'h-[60vh]' : 'h-[65vh]'} sm:h-[70vh] min-h-[450px] sm:min-h-[550px] overflow-hidden border border-gray-800`}
         >
           {projects.map(
             (project, index) =>
@@ -358,11 +348,7 @@ const Projects = () => {
 
                   {/* Project details container - iPhone SE specific adjustments */}
                   <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 md:p-8 z-30">
-                    <div className={`mx-auto max-w-md sm:max-w-2xl md:max-w-3xl ${
-                      isSmallScreen && expandedDescription 
-                        ? 'pb-16' 
-                        : ''
-                    }`}>
+                    <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
                       {/* Mobile header layout - iPhone SE specific spacing */}
                       <div className={`flex flex-col ${isIPhoneSE ? 'space-y-0.5 mb-1' : 'space-y-1 mb-2'} sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0`}>
                         {/* Project type and concept - simplified further for iPhone SE */}
@@ -411,53 +397,18 @@ const Projects = () => {
                         <div className="h-[1px] w-full bg-gradient-to-r from-gray-700 via-gray-700/50 to-transparent mb-4"></div>
                       )}
 
-                      {/* Description - Enhanced for iPhone SE readability and fixed to expand downwards */}
-                      <div className={`${isIPhoneSE ? 'mb-1' : 'mb-3'} sm:mb-6 relative`}>
+                      {/* Description - Updated to show full text on small screens */}
+                      <div className={`${isIPhoneSE ? 'mb-3' : 'mb-4'} sm:mb-6 relative`}>
                         {isSmallScreen ? (
-                          <>
-                            {/* Preview text that's always visible */}
-                            <div 
-                              className={`text-gray-300 pr-1 text-center sm:text-left p-1 ${
-                                isIPhoneSE ? "text-xs" : "text-sm"
-                              } leading-relaxed`}
-                            >
-                              {isIPhoneSE
-                                ? project.description.substring(0, 120)
-                                : project.description.substring(0, 150)}
-                              {((isIPhoneSE && project.description.length > 120) || 
-                                (!isIPhoneSE && project.description.length > 150)) && "..."}
-                            </div>
-                            
-                            {/* Expandable content below */}
-                            {expandedDescription && (
-                              <div 
-                                className={`${
-                                  isIPhoneSE ? "text-xs" : "text-sm"
-                                } leading-relaxed text-gray-300 p-2 bg-black/80 border border-gray-800 
-                                mt-1 text-center sm:text-left custom-scrollbar max-h-[50vh] overflow-y-auto`}
-                              >
-                                {project.description}
-                              </div>
-                            )}
-                            
-                            {/* Expand/Collapse button for mobile */}
-                            {((isIPhoneSE && project.description.length > 120) || 
-                              (!isIPhoneSE && project.description.length > 150)) && (
-                              <motion.button
-                                initial={{ opacity: 0.7 }}
-                                animate={{ opacity: 1 }}
-                                className={`${isIPhoneSE ? 'text-[8px]' : 'text-[10px]'} uppercase tracking-wider 
-                                  text-orange-500/80 hover:text-orange-500 
-                                  transition-colors mt-1 mb-2 mx-auto block px-2 py-0.5
-                                  border border-transparent hover:border-orange-500/30 bg-black/30`}
-                                onClick={toggleDescription}
-                              >
-                                {expandedDescription ? "Show Less" : "Read More"}
-                              </motion.button>
-                            )}
-                          </>
+                          <div 
+                            className={`text-gray-300 pr-1 text-center sm:text-left p-1 ${
+                              isIPhoneSE ? "text-xs" : "text-sm"
+                            } leading-relaxed bg-black/40 rounded overflow-y-auto max-h-[25vh]`}
+                          >
+                            {project.description}
+                          </div>
                         ) : (
-                          <p className="text-sm sm:text-base sm:leading-relaxed max-h-[25vh] text-gray-300 pr-1 custom-scrollbar text-center sm:text-left">
+                          <p className="text-sm sm:text-base sm:leading-relaxed text-gray-300 pr-1 custom-scrollbar text-center sm:text-left max-h-[25vh] overflow-y-auto">
                             {project.description}
                           </p>
                         )}
@@ -465,9 +416,12 @@ const Projects = () => {
 
                       {/* Technologies list - Optimized for iPhone SE - Always visible and static positioned */}
                       <div className={`flex flex-wrap justify-center sm:justify-start ${isIPhoneSE ? 'gap-1' : 'gap-2'} sm:gap-2 
-                        ${isIPhoneSE ? "mb-2" : "mb-4"} sm:mb-0`}
+                        ${isIPhoneSE ? "mb-2" : "mb-4"} sm:mb-0 mt-2`}
                       >
-                        {project.technologies.slice(0, isIPhoneSE ? 4 : isSmallScreen ? 5 : project.technologies.length).map((tech, i) => (
+                        {project.technologies.slice(
+                          0, 
+                          isIPhoneSE ? 4 : isSmallScreen ? 5 : project.technologies.length
+                        ).map((tech, i) => (
                           <motion.span
                             key={i}
                             initial={isSmallScreen ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -501,11 +455,9 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Mobile navigation - Adjusted for iPhone SE and expanded state */}
+                  {/* Mobile navigation - Adjusted for iPhone SE */}
                   <div className={`sm:hidden absolute ${
-                    isIPhoneSE
-                      ? expandedDescription ? "bottom-[-45px]" : "bottom-[-32px]"
-                      : expandedDescription ? "bottom-[-55px]" : "bottom-[-48px]"
+                    isIPhoneSE ? "bottom-[-32px]" : "bottom-[-48px]"
                   } left-0 right-0 flex justify-center space-x-6 z-40`}>
                     <button
                       className={`${isIPhoneSE ? 'w-7 h-7' : 'w-9 h-9'} flex items-center justify-center 
