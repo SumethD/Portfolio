@@ -174,7 +174,7 @@ const Experience = () => {
       variants={pageVariants}
       className="min-h-screen pt-32 pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden z-[3] text-white"
     >
-      {/* Background decorative elements */}
+      {/* Background decorative elements - Hide on small screens */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 0.05, scale: 1 }}
@@ -189,9 +189,9 @@ const Experience = () => {
       />
 
       <div className="max-w-6xl mx-auto relative">
-        {/* Enhanced Title Section */}
+        {/* Enhanced Title Section - Preserved */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center text-center sm:text-left mb-16"
+          className="flex flex-col sm:flex-row items-center text-center sm:text-left mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -215,21 +215,22 @@ const Experience = () => {
           </motion.h1>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Enhanced Timeline */}
+        {/* Responsive grid with improved spacing for mobile */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12">
+          {/* Enhanced Timeline - Improved for mobile */}
           <motion.div
             variants={timelineVariants}
             initial="hidden"
             animate="visible"
             className="lg:col-span-7"
           >
-            <div className="relative pl-8 md:pl-12">
+            <div className="relative pl-6 sm:pl-8 md:pl-12">
               {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.id}
                   custom={index}
                   variants={timelineVariants}
-                  className="mb-16 relative group"
+                  className="mb-12 sm:mb-16 relative group"
                   ref={el => experienceRefs.current[index] = el}
                   onMouseEnter={() => setActiveIndex(index)}
                   onMouseLeave={() => {
@@ -242,66 +243,66 @@ const Experience = () => {
                     }
                   }}
                 >
-                  {/* Enhanced Timeline indicator */}
+                  {/* Enhanced Timeline indicator - Adjusted for mobile */}
                   <motion.div 
-                    className="absolute left-[-26px] top-0 h-full"
+                    className="absolute left-[-16px] sm:left-[-26px] top-0 h-full"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
                   >
-                    <div className={`w-[3px] h-full ${
+                    <div className={`w-[2px] sm:w-[3px] h-full ${
                       activeIndex === index 
                         ? 'bg-gradient-to-b from-orange-500 via-orange-400 to-orange-500'
                         : 'bg-gray-700'
                     } transition-all duration-700 ease-in-out`} />
-                    <div className={`absolute top-0 left-[-4px] w-[11px] h-[11px] ${
+                    <div className={`absolute top-0 left-[-4px] w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] ${
                       activeIndex === index 
                         ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]'
                         : 'bg-gray-600'
                     } transition-all duration-700 ease-in-out transform rotate-45`} />
                   </motion.div>
                   
-                  {/* Enhanced Experience card */}
+                  {/* Enhanced Experience card - Optimized for mobile */}
                   <div 
                     className={`border border-gray-800 group-hover:border-gray-600 
-                    bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 
+                    bg-black bg-opacity-30 backdrop-blur-sm p-4 sm:p-6 md:p-8 
                     transition-all duration-500 relative
                     ${activeIndex === index 
                       ? 'border-orange-500/30 shadow-[0_0_30px_rgba(0,0,0,0.2)] translate-y-[-5px]' 
                       : ''
                     }`}
                   >
-                    <div className="flex flex-col md:flex-row justify-between items-start mb-6">
+                    <div className="flex flex-col md:flex-row justify-between items-start mb-4 sm:mb-6">
                       <div>
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-light mb-2">{exp.role}</h3>
-                        <p className="text-gray-400 flex items-center text-base sm:text-lg">
+                        <h3 className="text-lg sm:text-xl md:text-3xl font-light mb-2">{exp.role}</h3>
+                        <p className="text-gray-400 flex items-center text-sm sm:text-base sm:text-lg">
                           {exp.company}
                         </p>
                       </div>
-                      <div className="text-gray-400 mt-2 md:mt-0 tracking-wider px-4 py-2 border-l border-gray-800 text-sm sm:text-base">
+                      <div className="text-gray-400 mt-2 md:mt-0 tracking-wider px-3 sm:px-4 py-1 sm:py-2 border-l border-gray-800 text-xs sm:text-sm">
                         {exp.period}
                       </div>
                     </div>
                     
-                    <p className="text-gray-300 mb-8 text-base sm:text-lg leading-relaxed">
+                    <p className="text-gray-300 mb-4 sm:mb-8 text-sm sm:text-base sm:text-lg leading-relaxed line-clamp-3 sm:line-clamp-none">
                       {exp.description}
                     </p>
                     
-                    <div className="mb-8">
-                      <h4 className="text-sm sm:text-base text-white uppercase tracking-wider mb-4 flex items-center">
-                        <span className="inline-block w-6 h-[1px] bg-orange-500 mr-3"></span>
+                    <div className="mb-4 sm:mb-8">
+                      <h4 className="text-xs sm:text-sm sm:text-base text-white uppercase tracking-wider mb-2 sm:mb-4 flex items-center">
+                        <span className="inline-block w-4 sm:w-6 h-[1px] bg-orange-500 mr-2 sm:mr-3"></span>
                         Key Responsibilities
                       </h4>
-                      <ul className="space-y-3 pl-3">
+                      <ul className="space-y-2 sm:space-y-3 pl-2 sm:pl-3">
                         {exp.responsibilities.map((resp, i) => (
                           <motion.li 
                             key={i} 
-                            className="relative pl-5 text-gray-300 text-sm sm:text-base"
+                            className="relative pl-4 sm:pl-5 text-gray-300 text-xs sm:text-sm sm:text-base"
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.1 }}
                           >
-                            <span className="absolute left-0 top-[10px] w-3 h-[1px] bg-gray-500"></span>
+                            <span className="absolute left-0 top-[8px] w-2 sm:w-3 h-[1px] bg-gray-500"></span>
                             {resp}
                           </motion.li>
                         ))}
@@ -309,15 +310,15 @@ const Experience = () => {
                     </div>
                     
                     <div>
-                      <h4 className="text-sm sm:text-base text-white uppercase tracking-wider mb-4 flex items-center">
-                        <span className="inline-block w-6 h-[1px] bg-orange-500 mr-3"></span>
+                      <h4 className="text-xs sm:text-sm sm:text-base text-white uppercase tracking-wider mb-2 sm:mb-4 flex items-center">
+                        <span className="inline-block w-4 sm:w-6 h-[1px] bg-orange-500 mr-2 sm:mr-3"></span>
                         Tech Stack
                       </h4>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1 sm:gap-2">
                         {exp.techStack.map((tech, i) => (
                           <motion.span 
                             key={i} 
-                            className="text-xs sm:text-sm px-3 py-1 bg-black bg-opacity-50 border border-gray-700 text-gray-300 hover:border-gray-500 transition-all duration-300"
+                            className="text-[10px] sm:text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1 bg-black bg-opacity-50 border border-gray-700 text-gray-300 hover:border-gray-500 transition-all duration-300"
                             whileHover={{ y: -2 }}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -334,26 +335,26 @@ const Experience = () => {
             </div>
           </motion.div>
           
-          {/* Enhanced Skills & Expertise Section */}
+          {/* Enhanced Skills & Expertise Section - Optimized for mobile */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-5 space-y-8"
+            className="lg:col-span-5 space-y-6 sm:space-y-8"
           >
-            {/* Enhanced Skills section */}
+            {/* Enhanced Skills section - More compact on mobile */}
             <motion.div
               variants={childVariants}
               className="border border-gray-800 hover:border-gray-700 
-              bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 
+              bg-black bg-opacity-30 backdrop-blur-sm p-4 sm:p-6 md:p-8 
               transition-all duration-300 relative overflow-hidden"
             >
-              <h3 className="text-xl sm:text-2xl tracking-wider text-white mb-8 flex items-center">
-                <span className="inline-block w-8 h-[1px] bg-gradient-to-r from-orange-500 to-transparent mr-4" />
+              <h3 className="text-lg sm:text-xl sm:text-2xl tracking-wider text-white mb-4 sm:mb-8 flex items-center">
+                <span className="inline-block w-6 sm:w-8 h-[1px] bg-gradient-to-r from-orange-500 to-transparent mr-3 sm:mr-4" />
                 TECHNICAL PROFICIENCY
               </h3>
               
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {skills.map((skill, i) => (
                   <motion.div 
                     key={i}
@@ -364,14 +365,14 @@ const Experience = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <div className="flex justify-between items-center mb-2">
-                      <span className={`text-base sm:text-lg transition-colors duration-300
+                    <div className="flex justify-between items-center mb-1 sm:mb-2">
+                      <span className={`text-sm sm:text-base sm:text-lg transition-colors duration-300
                         ${hoveredSkill === i ? 'text-orange-500' : 'text-white'}`}>
                         {skill.name}
                       </span>
-                      <span className="text-sm text-gray-400">{skill.level}%</span>
+                      <span className="text-xs sm:text-sm text-gray-400">{skill.level}%</span>
                     </div>
-                    <div className="h-[3px] bg-gray-800/50 overflow-hidden rounded-full">
+                    <div className="h-[2px] sm:h-[3px] bg-gray-800/50 overflow-hidden rounded-full">
                       <motion.div
                         className="h-full bg-gradient-to-r from-orange-600 to-orange-400"
                         variants={skillBarVariants}
@@ -385,8 +386,8 @@ const Experience = () => {
               </div>
             </motion.div>
 
-            {/* Enhanced expertise cards */}
-            <div className="space-y-6">
+            {/* Enhanced expertise cards - More compact on mobile */}
+            <div className="space-y-4 sm:space-y-6">
               {additionalExpertise.map((item, i) => (
                 <motion.div
                   key={i}
@@ -394,19 +395,19 @@ const Experience = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.2 + 0.8 }}
                   className="border border-gray-800 hover:border-orange-500/30
-                  bg-black bg-opacity-30 backdrop-blur-sm p-6
+                  bg-black bg-opacity-30 backdrop-blur-sm p-4 sm:p-6
                   transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,0,0.2)]
                   hover:translate-y-[-5px] relative overflow-hidden group"
                 >
-                  <div className="flex items-start mb-4">
-                    <div className="text-orange-500/70 mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex items-start mb-3 sm:mb-4">
+                    <div className="text-orange-500/70 mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300">
                       {item.icon}
                     </div>
-                    <h4 className="text-lg sm:text-xl text-white group-hover:text-orange-500/70 transition-colors duration-300">
+                    <h4 className="text-base sm:text-lg sm:text-xl text-white group-hover:text-orange-500/70 transition-colors duration-300">
                       {item.title}
                     </h4>
                   </div>
-                  <p className="text-gray-300 text-sm sm:text-base pl-12">
+                  <p className="text-gray-300 text-xs sm:text-sm sm:text-base pl-10 sm:pl-12">
                     {item.content}
                   </p>
                 </motion.div>

@@ -234,12 +234,12 @@ const Projects = () => {
         </motion.h1>
       </motion.div>
 
-      {/* Project counter row with conditional layout */}
+      {/* Project counter row with conditional layout - improved spacing for mobile */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="w-full max-w-6xl mx-auto px-2 sm:px-8 mb-8 sm:mb-10"
+        className="w-full max-w-6xl mx-auto px-2 sm:px-8 mb-6 sm:mb-10"
       >
         <div className={isSmallScreen ? "flex flex-col items-center gap-2" : "flex justify-between items-center"}>
           <div className="text-xs text-gray-500 tracking-widest flex items-center">
@@ -257,8 +257,8 @@ const Projects = () => {
         </div>
       </motion.div>
 
-      {/* Progress bar */}
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-[-14px] sm:bottom-[-20px] w-[150px] sm:w-[200px] h-[3px] bg-gray-800 mx-auto">
+      {/* Progress bar - adjusted positioning for mobile */}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-8 sm:bottom-[-20px] w-[120px] sm:w-[200px] h-[3px] bg-gray-800 mx-auto">
         <div
           className="absolute top-0 left-0 h-full bg-white transition-all duration-700 ease-out"
           style={{ width: `${((currentIndex + 1) / projects.length) * 100}%` }}
@@ -301,10 +301,10 @@ const Projects = () => {
                   ></div>
 
                   {/* Title overlay container - Simplified on mobile */}
-                  <div className="absolute inset-x-0 top-[10%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
+                  <div className="absolute inset-x-0 top-[8%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
                     <div className={`text-center ${!isSmallScreen ? "transition-all duration-700 hover:scale-105" : ""} px-4`}>
                       {isSmallScreen ? (
-                        <h1 className="text-3xl sm:text-4xl font-light tracking-wider">
+                        <h1 className="text-2xl xs:text-3xl sm:text-4xl font-light tracking-wider">
                           {project.title}
                         </h1>
                       ) : (
@@ -325,11 +325,11 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Project details container - Simplified for mobile */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 z-30">
+                  {/* Project details container - Improved spacing for mobile */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 md:p-8 z-30">
                     <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
-                      {/* Mobile-optimized header layout */}
-                      <div className="flex flex-col space-y-3 mb-4 sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
+                      {/* Mobile-optimized header layout with better spacing */}
+                      <div className="flex flex-col space-y-2 mb-3 sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
                         {/* Project type and concept - Simplified on mobile */}
                         <div className="text-center sm:text-left">
                           {isSmallScreen ? (
@@ -356,7 +356,7 @@ const Projects = () => {
                             href={project.link}
                             className={`group relative inline-flex items-center ${
                               isSmallScreen 
-                                ? "px-5 py-1.5 text-xs tracking-wider bg-black/50" 
+                                ? "px-4 py-1 text-xs tracking-wider bg-black/50" 
                                 : "px-6 py-2 text-sm tracking-[0.2em] bg-black/30 backdrop-blur-sm"
                             } overflow-hidden border border-gray-700 hover:border-gray-500 transition-all duration-300`}
                           >
@@ -369,27 +369,32 @@ const Projects = () => {
                         </div>
                       </div>
 
-                      {/* Separator line - Simplified on mobile */}
+                      {/* Separator line - Only on larger screens */}
                       {!isSmallScreen && (
                         <div className="h-[1px] w-full bg-gradient-to-r from-gray-700 via-gray-700/50 to-transparent mb-4"></div>
                       )}
 
-                      {/* Description - Optimized for mobile */}
-                      <div className="mb-3 sm:mb-6">
+                      {/* Description - Optimized further for mobile */}
+                      <div className="mb-2 sm:mb-6">
                         <p className={`${
                           isSmallScreen 
-                            ? "text-xs leading-relaxed max-h-[20vh]" 
+                            ? "text-xs leading-relaxed max-h-[18vh] overflow-y-auto" 
                             : "text-sm sm:text-base sm:leading-relaxed max-h-[25vh]"
-                          } text-gray-300 overflow-y-auto pr-1 custom-scrollbar
+                          } text-gray-300 pr-1 custom-scrollbar
                           text-center sm:text-left`}
                         >
-                          {project.description}
+                          {isSmallScreen 
+                            ? project.description.length > 180 
+                              ? project.description.substring(0, 180) + "..." 
+                              : project.description
+                            : project.description
+                          }
                         </p>
                       </div>
 
-                      {/* Technologies list - Simplified for mobile */}
-                      <div className="flex flex-wrap justify-center sm:justify-start gap-1.5 sm:gap-2">
-                        {project.technologies.slice(0, isSmallScreen ? 5 : project.technologies.length).map((tech, i) => (
+                      {/* Technologies list - Further optimized for mobile */}
+                      <div className="flex flex-wrap justify-center sm:justify-start gap-1 sm:gap-2">
+                        {project.technologies.slice(0, isSmallScreen ? 4 : project.technologies.length).map((tech, i) => (
                           <motion.span
                             key={i}
                             initial={isSmallScreen ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -397,28 +402,28 @@ const Projects = () => {
                             transition={isSmallScreen ? {} : { delay: i * 0.1 }}
                             className={`${
                               isSmallScreen 
-                                ? "text-[10px] px-2 py-1 bg-black/70" 
+                                ? "text-[9px] px-1.5 py-0.5 bg-black/70" 
                                 : "text-xs px-3 py-1.5 bg-black/50 backdrop-blur-sm"
-                              } border border-gray-700 text-gray-300 
-                              transition-all duration-300 hover:border-orange-500/30
-                              hover:bg-black/70 sm:text-sm`}
+                            } border border-gray-700 text-gray-300 
+                            transition-all duration-300 hover:border-orange-500/30
+                            hover:bg-black/70 sm:text-sm`}
                           >
                             {tech}
                           </motion.span>
                         ))}
-                        {isSmallScreen && project.technologies.length > 5 && (
-                          <span className="text-[10px] px-2 py-1 bg-black/70 border border-gray-700 text-gray-300">
-                            +{project.technologies.length - 5} more
+                        {isSmallScreen && project.technologies.length > 4 && (
+                          <span className="text-[9px] px-1.5 py-0.5 bg-black/70 border border-gray-700 text-gray-300">
+                            +{project.technologies.length - 4} more
                           </span>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  {/* Mobile navigation - Simplified and more compact */}
-                  <div className="sm:hidden absolute -bottom-10 left-0 right-0 flex justify-center space-x-6 z-40">
+                  {/* Mobile navigation - Repositioned to avoid overlapping */}
+                  <div className="sm:hidden absolute bottom-[-40px] left-0 right-0 flex justify-center space-x-6 z-40">
                     <button
-                      className="w-10 h-10 flex items-center justify-center 
+                      className="w-8 h-8 flex items-center justify-center 
                       border border-gray-700 bg-black/70
                       transition-all duration-300"
                       onClick={handlePrev}
@@ -426,7 +431,7 @@ const Projects = () => {
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
+                        className="h-3 w-3"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -436,7 +441,7 @@ const Projects = () => {
                     </button>
                     
                     {/* Simplified dots for mobile */}
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2">
                       {projects.map((_, index) => (
                         <button
                           key={index}
@@ -450,7 +455,7 @@ const Projects = () => {
                     </div>
                     
                     <button
-                      className="w-10 h-10 flex items-center justify-center 
+                      className="w-8 h-8 flex items-center justify-center 
                       border border-gray-700 bg-black/70
                       transition-all duration-300"
                       onClick={handleNext}
@@ -458,7 +463,7 @@ const Projects = () => {
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
+                        className="h-3 w-3"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -472,9 +477,9 @@ const Projects = () => {
           )}
         </motion.div>
 
-        {/* Navigation controls (dots) */}
+        {/* Navigation controls (dots) - Repositioned for better spacing on mobile */}
         <div className="absolute -bottom-8 sm:-bottom-10 left-0 right-0 z-40 flex justify-center space-x-3 sm:space-x-4">
-          {projects.map((_, index) => (
+          {!isSmallScreen && projects.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
@@ -492,16 +497,16 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Navigation arrows - Positioned below content on mobile */}
-        <div className="sm:hidden flex justify-center space-x-4 mt-20">
+        {/* Navigation arrows - Positioned below content on mobile with better spacing */}
+        <div className="sm:hidden flex justify-center space-x-4 mt-12">
           <button
-            className="w-10 h-10 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
+            className="w-8 h-8 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
             onClick={handlePrev}
             aria-label="Previous project"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-4 w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -511,13 +516,13 @@ const Projects = () => {
           </button>
           
           <button
-            className="w-10 h-10 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
+            className="w-8 h-8 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
             onClick={handleNext}
             aria-label="Next project"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg" 
-              className="h-5 w-5"
+              className="h-4 w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
