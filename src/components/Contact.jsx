@@ -186,7 +186,7 @@ const Contact = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <FuzzyText fontSize="clamp(2.5rem, 8vw, 4rem)" baseIntensity={0.2} hoverIntensity={0.5}>
+            <FuzzyText fontSize="3rem" baseIntensity={0.2} hoverIntensity={0.5}>
               CONTACT
             </FuzzyText>
             <span className="ml-2 sm:ml-3 text-gray-500 text-xs sm:text-sm md:text-base tracking-wider">04</span>
