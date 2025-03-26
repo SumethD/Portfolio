@@ -58,7 +58,7 @@ const Projects = () => {
       title: "Super-Price",
       category: "Full Stack Application",
       description:
-        "Did a group project at RMIT where we built a price-matching app that made comparing stuff way quicker—cut the time by half. We used Java with Spring Boot for the backend, and built some web scrapers in Java to pull in store data, which we dumped into an SQLite database on AWS. Front end was React, and we threw in some dashboards to make the data more accurate—ended up improving it by around 25% for 10 to 100 users. It could do about 1000 real-time comparisons a day, which was pretty sick. Can’t run it now 'cause of AWS limits, but it was a fun build and a good team vibe all around.",
+        "Did a group project at RMIT where we built a price-matching app that made comparing stuff way quicker—cut the time by half. We used Java with Spring Boot for the backend, and built some web scrapers in Java to pull in store data, which we dumped into an SQLite database on AWS. Front end was React, and we threw in some dashboards to make the data more accurate—ended up improving it by around 25% for 10 to 100 users. It could do about 1000 real-time comparisons a day, which was pretty sick. Can't run it now 'cause of AWS limits, but it was a fun build and a good team vibe all around.",
       technologies: [
         "React",
         "TypeScript",
@@ -97,7 +97,7 @@ const Projects = () => {
       title: "Savorly-AI",
       category: "Full Stack Application",
       description:
-        "Built a recipe search engine over a weekend just for fun—honestly got the idea while sitting on the toilet. Used the Edamam API to let people search for recipes (about 10+ users a month), and added a GPT-4-powered AI assistant to help answer random cooking questions. Also made a Video-to-Recipe tool that takes YouTube links and turns them into recipes—around 50 a day—and a shopping list generator that merges ingredients from 50+ recipes. Just messing around, learning new stuff like API integrations and playing with Cursor AI. Haven’t deployed it yet, but planning to soon. Super fun little side project I really enjoyed building.",
+        "Built a recipe search engine over a weekend just for fun—honestly got the idea while sitting on the toilet. Used the Edamam API to let people search for recipes (about 10+ users a month), and added a GPT-4-powered AI assistant to help answer random cooking questions. Also made a Video-to-Recipe tool that takes YouTube links and turns them into recipes—around 50 a day—and a shopping list generator that merges ingredients from 50+ recipes. Just messing around, learning new stuff like API integrations and playing with Cursor AI. Haven't deployed it yet, but planning to soon. Super fun little side project I really enjoyed building.",
       technologies: [
         "React",
         "Edamam API",
@@ -358,7 +358,11 @@ const Projects = () => {
 
                   {/* Project details container - iPhone SE specific adjustments */}
                   <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 md:p-8 z-30">
-                    <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
+                    <div className={`mx-auto max-w-md sm:max-w-2xl md:max-w-3xl ${
+                      isSmallScreen && expandedDescription 
+                        ? 'pb-16' 
+                        : ''
+                    }`}>
                       {/* Mobile header layout - iPhone SE specific spacing */}
                       <div className={`flex flex-col ${isIPhoneSE ? 'space-y-0.5 mb-1' : 'space-y-1 mb-2'} sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0`}>
                         {/* Project type and concept - simplified further for iPhone SE */}
@@ -407,7 +411,7 @@ const Projects = () => {
                         <div className="h-[1px] w-full bg-gradient-to-r from-gray-700 via-gray-700/50 to-transparent mb-4"></div>
                       )}
 
-                      {/* Description - Enhanced for iPhone SE readability */}
+                      {/* Description - Enhanced for iPhone SE readability and fixed to expand downwards */}
                       <div className={`${isIPhoneSE ? 'mb-1' : 'mb-3'} sm:mb-6 relative`}>
                         {isSmallScreen ? (
                           <div
@@ -422,13 +426,18 @@ const Projects = () => {
                             className={`${
                               expandedDescription
                                 ? isIPhoneSE 
-                                  ? "text-xs leading-relaxed max-h-[40vh] overflow-y-auto"
-                                  : "text-sm leading-relaxed max-h-[50vh] overflow-y-auto"
+                                  ? "text-xs leading-relaxed max-h-none overflow-visible"
+                                  : "text-sm leading-relaxed max-h-none overflow-visible"
                                 : isIPhoneSE
                                   ? "text-xs leading-relaxed max-h-[16vh] overflow-hidden"
                                   : "text-sm leading-relaxed max-h-[22vh] overflow-hidden"
                             } text-gray-300 pr-1 custom-scrollbar
-                              text-center sm:text-left cursor-pointer outline-none focus:ring-1 focus:ring-orange-500/50 p-1`}
+                              text-center sm:text-left cursor-pointer outline-none focus:ring-1 focus:ring-orange-500/50 p-1
+                              ${expandedDescription ? 'bg-black/70' : ''}`}
+                            style={{
+                              position: expandedDescription ? 'relative' : 'static',
+                              zIndex: expandedDescription ? 50 : 'auto'
+                            }}
                           >
                             {expandedDescription
                               ? project.description
@@ -453,18 +462,28 @@ const Projects = () => {
                             initial={{ opacity: 0.7 }}
                             animate={{ opacity: 1 }}
                             className={`${isIPhoneSE ? 'text-[8px]' : 'text-[10px]'} uppercase tracking-wider text-orange-500/80 hover:text-orange-500 
-                            transition-colors mt-0.5 sm:mt-1 mb-1 sm:mb-2 mx-auto block`}
+                            transition-colors mt-0.5 sm:mt-1 mb-1 sm:mb-2 mx-auto block
+                            ${expandedDescription ? 'bg-black/70 px-2 py-0.5' : ''}`}
                             onClick={toggleDescription}
+                            style={{
+                              position: expandedDescription ? 'relative' : 'static',
+                              zIndex: expandedDescription ? 50 : 'auto'
+                            }}
                           >
                             {expandedDescription ? "Show Less" : "Read More"}
                           </motion.button>
                         )}
                       </div>
 
-                      {/* Technologies list - Optimized for iPhone SE */}
+                      {/* Technologies list - Optimized for iPhone SE - Always visible and static positioned */}
                       <div className={`flex flex-wrap justify-center sm:justify-start ${isIPhoneSE ? 'gap-1' : 'gap-2'} sm:gap-2 ${
                         expandedDescription ? isIPhoneSE ? "mb-4" : "mb-6" : isIPhoneSE ? "mb-2" : "mb-4"
-                      } sm:mb-0`}>
+                      } sm:mb-0`}
+                      style={{
+                        position: 'relative',
+                        zIndex: expandedDescription ? 39 : 40,
+                        marginTop: expandedDescription && isSmallScreen ? '10px' : '0'
+                      }}>
                         {project.technologies.slice(0, isIPhoneSE ? 4 : isSmallScreen ? 5 : project.technologies.length).map((tech, i) => (
                           <motion.span
                             key={i}
@@ -499,11 +518,11 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Mobile navigation - Adjusted for iPhone SE */}
+                  {/* Mobile navigation - Adjusted for iPhone SE and expanded state */}
                   <div className={`sm:hidden absolute ${
                     isIPhoneSE
-                      ? expandedDescription ? "bottom-[-36px]" : "bottom-[-32px]"
-                      : expandedDescription ? "bottom-[-52px]" : "bottom-[-48px]"
+                      ? expandedDescription ? "bottom-[-60px]" : "bottom-[-32px]"
+                      : expandedDescription ? "bottom-[-76px]" : "bottom-[-48px]"
                   } left-0 right-0 flex justify-center space-x-6 z-40`}>
                     <button
                       className={`${isIPhoneSE ? 'w-7 h-7' : 'w-9 h-9'} flex items-center justify-center 
