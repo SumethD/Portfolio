@@ -1,92 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import FuzzyText from '../formats/FuzzyText';
-import emailjs from '@emailjs/browser';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-  const [error, setError] = useState(null);
+  // For small screen detection
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
-    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-    if (!publicKey) {
-      console.error('EmailJS public key is not defined');
-      return;
-    }
-    emailjs.init(publicKey);
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 640);
+    };
     
-    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-
-    // Validate environment variables
-    if (!serviceId || !templateId) {
-      setError('Email service configuration is missing. Please check your environment variables.');
-      setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      console.log('Sending email with:', {
-        serviceId,
-        templateId,
-        data: {
-          title: formData.subject,
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }
-      });
-
-      const response = await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          title: formData.subject,
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          to_email: 'sumethlokuliyana76@gmail.com'
-        }
-      );
-
-      if (response.status === 200) {
-        setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-      }
-    } catch (error) {
-      console.error('EmailJS Error Details:', error);
-      setError('Failed to send message. Please try again later.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   // Animation variants
   const pageVariants = {
@@ -132,16 +61,18 @@ const Contact = () => {
     }
   };
 
-  const formItemVariants = {
-    initial: { opacity: 0, x: -20 },
-    animate: {
+  // Improved animation for contact items
+  const contactItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: i => ({
       opacity: 1,
       x: 0,
       transition: {
+        delay: i * 0.1 + 0.3,
         duration: 0.5,
         ease: [0.22, 1, 0.36, 1]
       }
-    }
+    })
   };
 
   return (
@@ -152,7 +83,7 @@ const Contact = () => {
       variants={pageVariants}
       className="min-h-screen pt-32 pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden z-[3] text-white"
     >
-      {/* Background decorative elements */}
+      {/* Enhanced background decorative elements */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 0.15, scale: 1 }}
@@ -166,6 +97,43 @@ const Contact = () => {
         className="absolute bottom-40 left-40 border border-gray-800 w-48 h-48 z-[1] hidden md:block"
       ></motion.div>
       
+      {/* Animated particles/dots in background */}
+      <div className="fixed inset-0 z-[-1]">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-orange-500/30 rounded-full"
+            initial={{ 
+              x: Math.random() * window.innerWidth, 
+              y: Math.random() * window.innerHeight,
+              opacity: Math.random() * 0.5 + 0.1
+            }}
+            animate={{ 
+              x: [
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth
+              ],
+              y: [
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight
+              ],
+              opacity: [
+                Math.random() * 0.5 + 0.1,
+                Math.random() * 0.5 + 0.3,
+                Math.random() * 0.5 + 0.1
+              ]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: Math.random() * 20 + 20,
+              ease: "linear"
+            }}
+          />
+        ))}
+      </div>
+      
       <div className="max-w-5xl mx-auto">
         {/* Section title with animation */}
         <motion.div 
@@ -178,7 +146,7 @@ const Contact = () => {
             initial={{ width: 0 }}
             animate={{ width: "3rem" }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="h-[1px] bg-gray-700 mr-0 sm:mr-8 mb-4 sm:mb-0"
+            className="h-[1px] bg-gradient-to-r from-orange-500/50 to-transparent mr-0 sm:mr-8 mb-4 sm:mb-0"
           ></motion.div>
           <motion.h2
             className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-[0.2em] sm:tracking-[0.3em] font-light flex items-center"
@@ -189,211 +157,140 @@ const Contact = () => {
             <FuzzyText fontSize="3rem" baseIntensity={0.2} hoverIntensity={0.5}>
               CONTACT
             </FuzzyText>
-            <span className="ml-2 sm:ml-3 text-gray-500 text-xs sm:text-sm md:text-base tracking-wider">04</span>
+            <span className="ml-2 sm:ml-3 text-orange-500/70 text-xs sm:text-sm md:text-base tracking-wider">04</span>
           </motion.h2>
         </motion.div>
 
+        {/* Main content - Centered card design */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-20"
+          className="max-w-2xl mx-auto"
         >
-          {/* Connect With Me - Enhanced design */}
+          {/* Enhanced Connect With Me */}
           <motion.div 
             variants={childVariants}
-            className="border border-gray-800 hover:border-gray-700 bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 transition-all duration-300"
+            className="border border-gray-800 hover:border-orange-500/30 bg-black bg-opacity-40 backdrop-blur-sm p-8 md:p-10 transition-all duration-500 shadow-xl hover:shadow-orange-500/5"
           >
-            <h3 className="text-xl sm:text-2xl md:text-3xl text-white mb-6 flex items-center">
-              <span className="inline-block w-6 h-[1px] bg-orange-500 mr-3"></span>
+            <h3 className="text-2xl sm:text-3xl md:text-4xl text-white mb-8 flex items-center">
+              <span className="inline-block w-6 h-[1px] bg-orange-500 mr-4"></span>
               Let&apos;s Connect
             </h3>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+            
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-10 border-l-2 border-orange-500/30 pl-4 py-1">
               I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
             
-            <div className="space-y-6">
+            <div className="space-y-8 mb-12">
               <motion.div 
-                className="flex items-start"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
+                className="flex items-start group"
+                custom={0}
+                variants={contactItemVariants}
               >
-                <div className="text-orange-500 mr-4 mt-1">
-                  <i className="fas fa-envelope text-xl sm:text-2xl"></i>
+                <div className="text-orange-500 mr-5 mt-1 text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                  <i className="fas fa-envelope"></i>
                 </div>
                 <div>
-                  <h4 className="text-lg sm:text-xl text-white mb-1">Email</h4>
-                  <a href="mailto:sumeth.lokuliyana@gmail.com" className="text-base sm:text-lg text-gray-400 hover:text-gray-300 transition-colors duration-300">
+                  <h4 className="text-lg sm:text-xl text-white mb-2 group-hover:text-orange-500/70 transition-colors duration-300">Email</h4>
+                  <a 
+                    href="mailto:sumeth.lokuliyana@gmail.com" 
+                    className="text-base sm:text-lg text-gray-400 hover:text-white transition-colors duration-300 border-b border-transparent hover:border-orange-500/50 inline-block"
+                  >
                     sumethlokuliyana76@gmail.com
                   </a>
                 </div>
               </motion.div>
               
               <motion.div 
-                className="flex items-start"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
+                className="flex items-start group"
+                custom={1}
+                variants={contactItemVariants}
               >
-                <div className="text-orange-500 mr-4 mt-1">
-                  <i className="fas fa-map-marker-alt text-xl sm:text-2xl"></i>
+                <div className="text-orange-500 mr-5 mt-1 text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                  <i className="fas fa-map-marker-alt"></i>
                 </div>
                 <div>
-                  <h4 className="text-lg sm:text-xl text-white mb-1">Location</h4>
-                  <p className="text-base sm:text-lg text-gray-400">Melbourne, Australia</p>
+                  <h4 className="text-lg sm:text-xl text-white mb-2 group-hover:text-orange-500/70 transition-colors duration-300">Location</h4>
+                  <p className="text-base sm:text-lg text-gray-400 group-hover:text-gray-300 transition-colors duration-300">Melbourne, Australia</p>
                 </div>
               </motion.div>
               
               <motion.div 
-                className="mt-10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
+                className="flex items-start group"
+                custom={2}
+                variants={contactItemVariants}
               >
-                <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-4 flex items-center">
-                  <span className="inline-block w-4 h-[1px] bg-orange-500 mr-2"></span>
-                  Connect with me on
-                </h4>
-                <div className="flex space-x-6">
-                  <motion.a
-                    href="https://github.com/SumethD"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xl sm:text-2xl text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ scale: 1.1, color: "#fff" }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <i className="fab fa-github"></i>
-                  </motion.a>
-                  <motion.a
-                    href="https://www.linkedin.com/in/sumeth-lokuliyana/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xl sm:text-2xl text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ scale: 1.1, color: "#0077b5" }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <i className="fab fa-linkedin"></i>
-                  </motion.a>
+                <div className="text-orange-500 mr-5 mt-1 text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                  <i className="fas fa-clock"></i>
+                </div>
+                <div>
+                  <h4 className="text-lg sm:text-xl text-white mb-2 group-hover:text-orange-500/70 transition-colors duration-300">Response Time</h4>
+                  <p className="text-base sm:text-lg text-gray-400 group-hover:text-gray-300 transition-colors duration-300">Usually within 24-48 hours</p>
                 </div>
               </motion.div>
             </div>
-          </motion.div>
-          
-          {/* Contact Form - Enhanced design */}
-          <motion.div 
-            variants={childVariants}
-            className="border border-gray-800 hover:border-gray-700 bg-black bg-opacity-30 backdrop-blur-sm p-6 md:p-8 transition-all duration-300"
-          >
-            <h3 className="text-xl sm:text-2xl md:text-3xl text-white mb-6 flex items-center">
-              <span className="inline-block w-6 h-[1px] bg-orange-500 mr-3"></span>
-              Get In Touch
-            </h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <motion.div
-                variants={formItemVariants}
-                className="relative"
-              >
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-black bg-opacity-50 border border-gray-800 focus:border-orange-500 rounded-none px-4 py-3 text-gray-300 text-base sm:text-lg focus:outline-none transition-all"
-                  placeholder="Your Name"
-                />
-              </motion.div>
-              
-              <motion.div
-                variants={formItemVariants}
-                className="relative"
-              >
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-black bg-opacity-50 border border-gray-800 focus:border-orange-500 rounded-none px-4 py-3 text-gray-300 text-base sm:text-lg focus:outline-none transition-all"
-                  placeholder="Your Email"
-                />
-              </motion.div>
-              
-              <motion.div
-                variants={formItemVariants}
-                className="relative"
-              >
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-black bg-opacity-50 border border-gray-800 focus:border-orange-500 rounded-none px-4 py-3 text-gray-300 text-base sm:text-lg focus:outline-none transition-all"
-                  placeholder="Subject"
-                />
-              </motion.div>
-              
-              <motion.div
-                variants={formItemVariants}
-                className="relative"
-              >
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="5"
-                  className="w-full bg-black bg-opacity-50 border border-gray-800 focus:border-orange-500 rounded-none px-4 py-3 text-gray-300 text-base sm:text-lg focus:outline-none transition-all"
-                  placeholder="Your Message"
-                ></textarea>
-              </motion.div>
-              
-              <motion.div
-                variants={formItemVariants}
-                className="text-right"
-              >
-                <motion.button
-                  type="submit"
-                  className="bg-transparent border border-orange-500 text-white px-8 py-3 text-base sm:text-lg transition-all duration-300 flex items-center justify-center hover:bg-orange-500 hover:bg-opacity-10"
-                  whileHover={{ translateY: -5 }}
+            
+            {/* Enhanced social media section */}
+            <motion.div 
+              className="mt-12 border-t border-gray-800 pt-8"
+              custom={3}
+              variants={contactItemVariants}
+            >
+              <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-6 flex items-center">
+                <span className="inline-block w-4 h-[1px] bg-orange-500 mr-3"></span>
+                Connect with me on
+              </h4>
+              <div className="flex space-x-8 justify-center sm:justify-start">
+                <motion.a
+                  href="https://github.com/SumethD"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-3xl text-gray-400 hover:text-white transition-all duration-300 hover:-translate-y-1"
+                  whileHover={{ scale: 1.1, color: "#fff" }}
                   whileTap={{ scale: 0.95 }}
-                  disabled={isSubmitting}
                 >
-                  {isSubmitting ? (
-                    <span><i className="fas fa-spinner fa-spin mr-2"></i> Sending...</span>
-                  ) : (
-                    <span>Send Message <i className="fas fa-arrow-right ml-2"></i></span>
-                  )}
-                </motion.button>
-              </motion.div>
-              
-              {submitStatus === 'success' && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center p-3 text-green-500"
+                  <i className="fab fa-github"></i>
+                </motion.a>
+                <motion.a
+                  href="https://www.linkedin.com/in/sumeth-lokuliyana/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-3xl text-gray-400 hover:text-[#0077b5] transition-all duration-300 hover:-translate-y-1"
+                  whileHover={{ scale: 1.1, color: "#0077b5" }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <p className="text-base sm:text-lg">Your message has been sent successfully. I&apos;ll get back to you as soon as possible.</p>
-                </motion.div>
-              )}
-
-              {error && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center p-3 text-red-500"
+                  <i className="fab fa-linkedin"></i>
+                </motion.a>
+                <motion.a
+                  href="mailto:sumethlokuliyana76@gmail.com"
+                  className="text-3xl text-gray-400 hover:text-orange-500 transition-all duration-300 hover:-translate-y-1"
+                  whileHover={{ scale: 1.1, color: "#ff5000" }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <p className="text-base sm:text-lg">{error}</p>
-                </motion.div>
-              )}
-            </form>
+                  <i className="fas fa-envelope"></i>
+                </motion.a>
+              </div>
+            </motion.div>
+            
+            {/* Direct action button */}
+            <motion.div 
+              className="mt-12 text-center"
+              custom={4}
+              variants={contactItemVariants}
+            >
+              <motion.a
+                href="mailto:sumethlokuliyana76@gmail.com"
+                className="inline-block bg-transparent border border-orange-500 text-white px-8 py-4 text-base sm:text-lg transition-all duration-300 hover:bg-orange-500/10 group relative overflow-hidden"
+                whileHover={{ translateY: -5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative z-10 flex items-center justify-center">
+                  Send Me A Message <i className="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-orange-500/0 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></span>
+              </motion.a>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
