@@ -25,6 +25,7 @@ const Projects = () => {
   const [direction, setDirection] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [expandedDescription, setExpandedDescription] = useState(false);
 
   // Detect if screen is small
   const isSmallScreen = useIsSmallScreen();
@@ -200,6 +201,14 @@ const Projects = () => {
     })
   };
 
+  // Toggle description expansion for mobile
+  const toggleDescription = (e) => {
+    if (isSmallScreen) {
+      e.stopPropagation();
+      setExpandedDescription(!expandedDescription);
+    }
+  };
+
   return (
     <motion.section
       initial="initial"
@@ -305,7 +314,14 @@ const Projects = () => {
                     <div className={`text-center ${!isSmallScreen ? "transition-all duration-700 hover:scale-105" : ""} px-4`}>
                       {isSmallScreen ? (
                         <h1 className="text-2xl xs:text-3xl sm:text-4xl font-light tracking-wider">
-                          {project.title}
+                          <FuzzyText
+                            fontSize="2rem"
+                            baseIntensity={0.2}
+                            hoverIntensity={0.6}
+                            enableHover={true}
+                          >
+                            {project.title}
+                          </FuzzyText>
                         </h1>
                       ) : (
                         <FuzzyText
@@ -374,26 +390,56 @@ const Projects = () => {
                         <div className="h-[1px] w-full bg-gradient-to-r from-gray-700 via-gray-700/50 to-transparent mb-4"></div>
                       )}
 
-                      {/* Description - Enhanced for mobile readability */}
-                      <div className="mb-3 sm:mb-6">
-                        <p className={`${
-                          isSmallScreen 
-                            ? "text-sm leading-relaxed max-h-[22vh] overflow-y-auto" 
-                            : "text-sm sm:text-base sm:leading-relaxed max-h-[25vh]"
-                          } text-gray-300 pr-1 custom-scrollbar
-                          text-center sm:text-left`}
-                        >
-                          {isSmallScreen 
-                            ? project.description.length > 220 
-                              ? project.description.substring(0, 220) + "..." 
-                              : project.description
-                            : project.description
-                          }
-                        </p>
+                      {/* Description - Enhanced for mobile readability with expand/collapse */}
+                      <div className="mb-3 sm:mb-6 relative">
+                        {isSmallScreen ? (
+                          <div
+                            role="button"
+                            tabIndex={0}
+                            onClick={toggleDescription}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                toggleDescription(e);
+                              }
+                            }}
+                            className={`${
+                              expandedDescription
+                                ? "text-sm leading-relaxed max-h-[50vh] overflow-y-auto"
+                                : "text-sm leading-relaxed max-h-[22vh] overflow-hidden"
+                            } text-gray-300 pr-1 custom-scrollbar
+                              text-center sm:text-left cursor-pointer outline-none focus:ring-1 focus:ring-orange-500/50 p-1`}
+                          >
+                            {expandedDescription
+                              ? project.description
+                              : project.description.length > 150 
+                                ? project.description.substring(0, 150) + "..."
+                                : project.description
+                            }
+                          </div>
+                        ) : (
+                          <p className="text-sm sm:text-base sm:leading-relaxed max-h-[25vh] text-gray-300 pr-1 custom-scrollbar text-center sm:text-left">
+                            {project.description}
+                          </p>
+                        )}
+                        
+                        {/* Expand/Collapse button for mobile */}
+                        {isSmallScreen && project.description.length > 150 && (
+                          <motion.button
+                            initial={{ opacity: 0.7 }}
+                            animate={{ opacity: 1 }}
+                            className="text-[10px] uppercase tracking-wider text-orange-500/80 hover:text-orange-500 
+                            transition-colors mt-1 mb-2 mx-auto block"
+                            onClick={toggleDescription}
+                          >
+                            {expandedDescription ? "Show Less" : "Read More"}
+                          </motion.button>
+                        )}
                       </div>
 
-                      {/* Technologies list - Improved for mobile readability */}
-                      <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-2 mb-4 sm:mb-0">
+                      {/* Technologies list - Adjust positioning based on description state */}
+                      <div className={`flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-2 ${
+                        expandedDescription ? "mb-6" : "mb-4"
+                      } sm:mb-0`}>
                         {project.technologies.slice(0, isSmallScreen ? 5 : project.technologies.length).map((tech, i) => (
                           <motion.span
                             key={i}
@@ -404,9 +450,9 @@ const Projects = () => {
                               isSmallScreen 
                                 ? "text-xs px-2 py-1 bg-black/70" 
                                 : "text-xs px-3 py-1.5 bg-black/50 backdrop-blur-sm"
-                            } border border-gray-700 text-gray-300 
-                            transition-all duration-300 hover:border-orange-500/30
-                            hover:bg-black/70 sm:text-sm`}
+                              } border border-gray-700 text-gray-300 
+                              transition-all duration-300 hover:border-orange-500/30
+                              hover:bg-black/70 sm:text-sm`}
                           >
                             {tech}
                           </motion.span>
@@ -420,8 +466,10 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Mobile navigation - Repositioned to avoid overlapping */}
-                  <div className="sm:hidden absolute bottom-[-48px] left-0 right-0 flex justify-center space-x-6 z-40">
+                  {/* Mobile navigation - Repositioned based on description state */}
+                  <div className={`sm:hidden absolute ${
+                    expandedDescription ? "bottom-[-52px]" : "bottom-[-48px]"
+                  } left-0 right-0 flex justify-center space-x-6 z-40`}>
                     <button
                       className="w-9 h-9 flex items-center justify-center 
                       border border-gray-700 bg-black/70
