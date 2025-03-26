@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import FuzzyText from '../formats/FuzzyText';
 
-
 /**
  * Custom hook to detect small screens (less than 640px).
  */
@@ -61,7 +60,11 @@ const Projects = () => {
         "AWS Lex",
         "React",
         "TypeScript",
-        "JSON Handling"
+        "JSON Handling",
+        "AWS DynamoDB",
+        "AWS S3",
+        "AWS CloudWatch"
+        
       ],
       image: "https://via.placeholder.com/1200x800/1a1a1a/00a8ff",
       link: "https://github.com/SumethD/halbot"
@@ -129,7 +132,6 @@ const Projects = () => {
 
   // Custom scrollbar for descriptions
   useEffect(() => {
-    // Add custom scrollbar styles to the document
     const styleTag = document.createElement('style');
     styleTag.innerHTML = `
       .custom-scrollbar::-webkit-scrollbar {
@@ -171,24 +173,30 @@ const Projects = () => {
     }
   };
 
-  // Simplified project animation - removed all 3D transforms
+  // Simplified project animation for mobile - removed animations on small screens
   const projectVariants = {
     enter: (direction) => ({
-      x: direction === 'right' ? 300 : -300,
+      x: !isSmallScreen ? (direction === 'right' ? 300 : -300) : 0,
       opacity: 0,
-      scale: 0.9
+      scale: !isSmallScreen ? 0.9 : 1
     }),
     center: {
       x: 0,
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+      transition: { 
+        duration: !isSmallScreen ? 0.7 : 0.3, 
+        ease: [0.22, 1, 0.36, 1] 
+      }
     },
     exit: (direction) => ({
-      x: direction === 'right' ? -300 : 300,
+      x: !isSmallScreen ? (direction === 'right' ? -300 : 300) : 0,
       opacity: 0,
-      scale: 0.9,
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+      scale: !isSmallScreen ? 0.9 : 1,
+      transition: { 
+        duration: !isSmallScreen ? 0.7 : 0.3, 
+        ease: [0.22, 1, 0.36, 1] 
+      }
     })
   };
 
@@ -201,7 +209,7 @@ const Projects = () => {
       className="min-h-screen pt-32 pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden z-[3] text-white"
     >
       
-      {/* Title Section - responsive with proper centering on small screens */}
+      {/* Title Section - remains unchanged */}
       <motion.div 
         className="flex justify-center sm:justify-start sm:ml-[20%] md:ml-[25%] mb-12 sm:mb-16"
         initial={{ opacity: 0, y: 20 }}
@@ -226,14 +234,14 @@ const Projects = () => {
         </motion.h1>
       </motion.div>
 
-      {/* Project counter row */}
+      {/* Project counter row with conditional layout */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
         className="w-full max-w-6xl mx-auto px-2 sm:px-8 mb-8 sm:mb-10"
       >
-        <div className="flex justify-between items-center">
+        <div className={isSmallScreen ? "flex flex-col items-center gap-2" : "flex justify-between items-center"}>
           <div className="text-xs text-gray-500 tracking-widest flex items-center">
             <span className="mr-1 sm:mr-2">
               {String(currentIndex + 1).padStart(2, '0')}
@@ -292,57 +300,172 @@ const Projects = () => {
                     }}
                   ></div>
 
-                  {/* Title overlay container (centered, with margin) */}
+                  {/* Title overlay container - Simplified on mobile */}
                   <div className="absolute inset-x-0 top-[10%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
-                    <div className="text-center transition-all duration-700 hover:scale-105 px-4">
-                      <FuzzyText
-                        fontSize="3rem"
-                        baseIntensity={0.3}
-                        hoverIntensity={0.6}
-                        enableHover={!isSmallScreen}
-                      >
-                        {project.title}
-                      </FuzzyText>
-                      <div className="h-[2px] w-[80px] sm:w-[100px] bg-white mx-auto mt-4 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-full bg-white animate-pulse"></div>
+                    <div className={`text-center ${!isSmallScreen ? "transition-all duration-700 hover:scale-105" : ""} px-4`}>
+                      {isSmallScreen ? (
+                        <h1 className="text-3xl sm:text-4xl font-light tracking-wider">
+                          {project.title}
+                        </h1>
+                      ) : (
+                        <FuzzyText
+                          fontSize="3rem"
+                          baseIntensity={0.3}
+                          hoverIntensity={0.6}
+                          enableHover={true}
+                        >
+                          {project.title}
+                        </FuzzyText>
+                      )}
+                      <div className={`h-[2px] ${isSmallScreen ? "w-[60px]" : "w-[80px] sm:w-[100px]"} bg-white mx-auto mt-4 relative overflow-hidden`}>
+                        {!isSmallScreen && (
+                          <div className="absolute top-0 left-0 w-full h-full bg-white animate-pulse"></div>
+                        )}
                       </div>
                     </div>
                   </div>
 
-                  {/* Project details container */}
+                  {/* Project details container - Simplified for mobile */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 z-30">
                     <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                        <div className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-400 mb-2 sm:mb-0">
-                          <span className="border-b border-gray-700 pb-1">
-                            {project.id.toString().padStart(2, '0')} CONCEPT · {project.category}
-                          </span>
+                      {/* Mobile-optimized header layout */}
+                      <div className="flex flex-col space-y-3 mb-4 sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
+                        {/* Project type and concept - Simplified on mobile */}
+                        <div className="text-center sm:text-left">
+                          {isSmallScreen ? (
+                            <div className="text-sm tracking-wider text-orange-500/70 font-light">
+                              {project.category}
+                            </div>
+                          ) : (
+                            <>
+                              <div className="text-sm tracking-[0.2em] text-orange-500/70 font-light mb-2">
+                                {project.category}
+                              </div>
+                              <div className="text-xs tracking-[0.15em] text-gray-400">
+                                <span className="border-b border-gray-700 pb-1">
+                                  {project.id.toString().padStart(2, '0')} CONCEPT
+                                </span>
+                              </div>
+                            </>
+                          )}
                         </div>
-                        <div className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em]">
+
+                        {/* View project button - Simplified on mobile */}
+                        <div className="flex justify-center sm:justify-end">
                           <a
                             href={project.link}
-                            className="group relative inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 overflow-hidden border border-gray-700 hover:border-gray-500 transition-all duration-300"
+                            className={`group relative inline-flex items-center ${
+                              isSmallScreen 
+                                ? "px-5 py-1.5 text-xs tracking-wider bg-black/50" 
+                                : "px-6 py-2 text-sm tracking-[0.2em] bg-black/30 backdrop-blur-sm"
+                            } overflow-hidden border border-gray-700 hover:border-gray-500 transition-all duration-300`}
                           >
                             <span className="relative z-10">VIEW PROJECT</span>
-                            <div className="absolute inset-0 bg-black bg-opacity-50 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                            {!isSmallScreen && (
+                              <div className="absolute inset-0 bg-orange-500/10 transform origin-left scale-x-0 
+                              group-hover:scale-x-100 transition-transform duration-300"></div>
+                            )}
                           </a>
                         </div>
                       </div>
-                      <div className="h-[1px] w-full bg-gray-700 opacity-50 mb-4"></div>
-                      <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-300 mb-4 max-h-[15vh] sm:max-h-[20vh] overflow-y-auto pr-1 custom-scrollbar">
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 md:gap-3">
-                        {project.technologies.map((tech, i) => (
-                          <span
+
+                      {/* Separator line - Simplified on mobile */}
+                      {!isSmallScreen && (
+                        <div className="h-[1px] w-full bg-gradient-to-r from-gray-700 via-gray-700/50 to-transparent mb-4"></div>
+                      )}
+
+                      {/* Description - Optimized for mobile */}
+                      <div className="mb-3 sm:mb-6">
+                        <p className={`${
+                          isSmallScreen 
+                            ? "text-xs leading-relaxed max-h-[20vh]" 
+                            : "text-sm sm:text-base sm:leading-relaxed max-h-[25vh]"
+                          } text-gray-300 overflow-y-auto pr-1 custom-scrollbar
+                          text-center sm:text-left`}
+                        >
+                          {project.description}
+                        </p>
+                      </div>
+
+                      {/* Technologies list - Simplified for mobile */}
+                      <div className="flex flex-wrap justify-center sm:justify-start gap-1.5 sm:gap-2">
+                        {project.technologies.slice(0, isSmallScreen ? 5 : project.technologies.length).map((tech, i) => (
+                          <motion.span
                             key={i}
-                            className="text-[10px] sm:text-xs md:text-sm px-2 py-1 sm:px-3 sm:py-1.5 bg-black bg-opacity-70 border border-gray-700 text-gray-300 transition-all duration-300 hover:border-gray-500 hover:bg-opacity-90"
+                            initial={isSmallScreen ? { opacity: 1 } : { opacity: 0, y: 10 }}
+                            animate={isSmallScreen ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                            transition={isSmallScreen ? {} : { delay: i * 0.1 }}
+                            className={`${
+                              isSmallScreen 
+                                ? "text-[10px] px-2 py-1 bg-black/70" 
+                                : "text-xs px-3 py-1.5 bg-black/50 backdrop-blur-sm"
+                              } border border-gray-700 text-gray-300 
+                              transition-all duration-300 hover:border-orange-500/30
+                              hover:bg-black/70 sm:text-sm`}
                           >
                             {tech}
-                          </span>
+                          </motion.span>
                         ))}
+                        {isSmallScreen && project.technologies.length > 5 && (
+                          <span className="text-[10px] px-2 py-1 bg-black/70 border border-gray-700 text-gray-300">
+                            +{project.technologies.length - 5} more
+                          </span>
+                        )}
                       </div>
                     </div>
+                  </div>
+
+                  {/* Mobile navigation - Simplified and more compact */}
+                  <div className="sm:hidden absolute -bottom-10 left-0 right-0 flex justify-center space-x-6 z-40">
+                    <button
+                      className="w-10 h-10 flex items-center justify-center 
+                      border border-gray-700 bg-black/70
+                      transition-all duration-300"
+                      onClick={handlePrev}
+                      aria-label="Previous project"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    
+                    {/* Simplified dots for mobile */}
+                    <div className="flex items-center space-x-3">
+                      {projects.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => goToSlide(index)}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            index === currentIndex ? 'bg-orange-500' : 'bg-gray-700'
+                          }`}
+                          aria-label={`Go to slide ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                    
+                    <button
+                      className="w-10 h-10 flex items-center justify-center 
+                      border border-gray-700 bg-black/70
+                      transition-all duration-300"
+                      onClick={handleNext}
+                      aria-label="Next project"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
                   </div>
                 </motion.div>
               )
@@ -369,7 +492,7 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Navigation arrows - Positioned below content on mobile, sides on larger screens */}
+        {/* Navigation arrows - Positioned below content on mobile */}
         <div className="sm:hidden flex justify-center space-x-4 mt-20">
           <button
             className="w-10 h-10 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
