@@ -109,11 +109,44 @@ const App = () => {
                     {/* Dark filled circle */}
                     <div className="w-[80vw] h-[80vw] sm:w-[40vw] sm:h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-black opacity-90"></div>
                     
-                    {/* Outer glow ring */}
-                    <div className="w-[85vw] h-[85vw] sm:w-[43vw] sm:h-[43vw] max-w-[530px] max-h-[530px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border border-orange-500/20 shadow-[0_0_30px_rgba(249,115,22,0.15)] animate-pulse -z-10"></div>
+                    {/* Outer glow ring with enhanced pulse */}
+                    <motion.div 
+                      className="w-[90vw] h-[90vw] sm:w-[46vw] sm:h-[46vw] max-w-[580px] max-h-[580px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border-2 border-orange-500/25 shadow-[0_0_60px_rgba(249,115,22,0.2)] -z-10"
+                      animate={{
+                        scale: [1, 1.05, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                        boxShadow: [
+                          '0 0 60px rgba(249,115,22,0.2)',
+                          '0 0 80px rgba(249,115,22,0.4)',
+                          '0 0 60px rgba(249,115,22,0.2)'
+                        ]
+                      }}
+                      transition={{
+                        duration: 4,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        repeatType: "loop"
+                      }}
+                    />
+                    
+                    {/* Middle glow ring */}
+                    <motion.div 
+                      className="w-[85vw] h-[85vw] sm:w-[43vw] sm:h-[43vw] max-w-[540px] max-h-[540px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border border-orange-500/15 shadow-[0_0_40px_rgba(249,115,22,0.15)] -z-10"
+                      animate={{
+                        scale: [1, 1.03, 1],
+                        opacity: [0.3, 0.6, 0.3]
+                      }}
+                      transition={{
+                        duration: 3,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        delay: 1
+                      }}
+                    />
                     
                     {/* Inner highlight ring */}
-                    <div className="w-[78vw] h-[78vw] sm:w-[39vw] sm:h-[39vw] max-w-[490px] max-h-[490px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-orange-400/10"></div>
+                    <div className="w-[78vw] h-[78vw] sm:w-[39vw] sm:h-[39vw] max-w-[490px] max-h-[490px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-orange-400/10 shadow-[0_0_20px_rgba(249,115,22,0.05)]"></div>
                   </div>
                   
                   <div className="space-y-6 sm:space-y-8 relative z-[3]">
