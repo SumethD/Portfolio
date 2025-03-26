@@ -215,7 +215,7 @@ const Projects = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <FuzzyText 
-            fontSize="clamp(1.875rem, 5vw, 4rem)" 
+            fontSize="clamp(2.5rem, 8vw, 4rem)" 
             baseIntensity={0.2} 
             hoverIntensity={0.5}
             color="#ff6b00"
@@ -296,7 +296,7 @@ const Projects = () => {
                   <div className="absolute inset-x-0 top-[10%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
                     <div className="text-center transition-all duration-700 hover:scale-105 px-4">
                       <FuzzyText
-                        fontSize={isSmallScreen ? "2.5rem" : "5rem"}
+                        fontSize={isSmallScreen ? "3rem" : "5rem"}
                         baseIntensity={0.3}
                         hoverIntensity={0.6}
                         enableHover={!isSmallScreen}
