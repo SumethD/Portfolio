@@ -109,16 +109,16 @@ const App = () => {
                   {/* Solar Eclipse Circle Effect */}
                   <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]">
                     {/* Dark eclipse center */}
-                    <div className="w-[80vw] h-[80vw] sm:w-[42vw] sm:h-[42vw] max-w-[520px] max-h-[520px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/90 -z-10"></div>
+                    <div className="w-[80vw] h-[80vw] sm:w-[42vw] sm:h-[42vw] max-w-[520px] max-h-[520px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-[55%] bg-black/90 -z-10"></div>
                     
                     {/* Enhanced pulsing glow ring */}
-                    <div className="w-[85vw] h-[85vw] sm:w-[45vw] sm:h-[45vw] max-w-[550px] max-h-[550px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border-2 border-orange-500/60 shadow-[0_0_60px_rgba(249,115,22,0.3)] animate-[pulse_3s_infinite] -z-10"></div>
+                    <div className="w-[85vw] h-[85vw] sm:w-[45vw] sm:h-[45vw] max-w-[550px] max-h-[550px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-[55%] bg-transparent border-2 border-orange-500/60 shadow-[0_0_60px_rgba(249,115,22,0.3)] animate-[pulse_3s_infinite] -z-10"></div>
                   </div>
                   
                   <div className="space-y-6 sm:space-y-8 relative z-[3]">
                     <p className="text-xl sm:text-2xl tracking-[0.2em] opacity-60">
                     <DecryptedText
-                          text="IF YOU&apos;LL INDULGE ME"
+                          text="Let me show you what I've been cooking."
                           speed={40}
                           maxIterations={10}
                           sequential={true}
@@ -127,16 +127,16 @@ const App = () => {
                         />
                     </p>
                     <p className="text-2xl sm:text-5xl tracking-[0.1em] font-light flex items-center justify-center flex-wrap gap-2 sm:gap-4">
-                      <span>I</span>
+                      <span>TURNING LATE-NIGHT </span>
                       <FuzzyText
                         fontSize="3rem"
                         baseIntensity={0.2}
                         hoverIntensity={0.5}
                         enableHover={true}
                       >
-                        CODE
+                        IDEAS
                       </FuzzyText>
-                      <span>THE FUTURE INTO REALITY</span>
+                      <span>INTO REAL-WORLD TECH</span>
                     </p>
                     
                     {/* Portfolio Access - Moved inside the content div */}
