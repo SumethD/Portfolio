@@ -53,7 +53,7 @@ const Experience = () => {
       company: "Leica Biosystems",
       period: "Nov 2022 - Present",
       description:
-        "Pitched and built a Python-based Kanban web app that digitized 100% of the inventory tracking—we're talking sticky notes to screens level-up. Got to brief the VP too, and while the full demo and rollout plan are good to go, I haven’t officially presented it yet (still chilling in my back pocket). Most of my time was spent in the Peloris cell (huge shoutout to the crew there) working on fun R&D projects—tested new staining methods for slide labeling and helped build sub-components for cancer-staining instruments worth $100K–$200K. Hit 98.3% accuracy on some builds, which was a win. Not exactly SWE or trading, but the team vibe was unreal—super supportive leader, great teammates, and an awesome environment to grow and contribute.",
+        "Pitched and built a Python-based Kanban web app that digitized 100% of the inventory tracking—we're talking sticky notes to screens level-up. Got to brief the VP too, and while the full demo and rollout plan are good to go, I haven't officially presented it yet (still chilling in my back pocket). Most of my time was spent in the Peloris cell (huge shoutout to the crew there) working on fun R&D projects—tested new staining methods for slide labeling and helped build sub-components for cancer-staining instruments worth $100K–$200K. Hit 98.3% accuracy on some builds, which was a win. Not exactly SWE or trading, but the team vibe was unreal—super supportive leader, great teammates, and an awesome environment to grow and contribute.",
       responsibilities: [
         "Built a Python Kanban web app that fully digitized inventory tracking.",
         "Briefed the VP and prepared a demo and rollout plan (yet to be officially presented).",
@@ -288,7 +288,7 @@ const Experience = () => {
                       </div>
                     </div>
                     
-                    <p className="text-gray-300 mb-4 sm:mb-8 text-sm sm:text-base sm:text-lg leading-relaxed line-clamp-3 sm:line-clamp-none">
+                    <p className="text-gray-300 mb-4 sm:mb-8 text-sm sm:text-base sm:text-lg leading-relaxed">
                       {exp.description}
                     </p>
                     
