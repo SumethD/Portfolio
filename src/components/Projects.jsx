@@ -414,76 +414,59 @@ const Projects = () => {
                       {/* Description - Enhanced for iPhone SE readability and fixed to expand downwards */}
                       <div className={`${isIPhoneSE ? 'mb-1' : 'mb-3'} sm:mb-6 relative`}>
                         {isSmallScreen ? (
-                          <div
-                            role="button"
-                            tabIndex={0}
-                            onClick={toggleDescription}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' || e.key === ' ') {
-                                toggleDescription(e);
-                              }
-                            }}
-                            className={`${
-                              expandedDescription
-                                ? isIPhoneSE 
-                                  ? "text-xs leading-relaxed max-h-none overflow-visible"
-                                  : "text-sm leading-relaxed max-h-none overflow-visible"
-                                : isIPhoneSE
-                                  ? "text-xs leading-relaxed max-h-[16vh] overflow-hidden"
-                                  : "text-sm leading-relaxed max-h-[22vh] overflow-hidden"
-                            } text-gray-300 pr-1 custom-scrollbar
-                              text-center sm:text-left cursor-pointer outline-none focus:ring-1 focus:ring-orange-500/50 p-1
-                              ${expandedDescription ? 'bg-black/70' : ''}`}
-                            style={{
-                              position: expandedDescription ? 'relative' : 'static',
-                              zIndex: expandedDescription ? 50 : 'auto'
-                            }}
-                          >
-                            {expandedDescription
-                              ? project.description
-                              : isIPhoneSE
-                                ? project.description.length > 120
-                                  ? project.description.substring(0, 120) + "..."
-                                  : project.description
-                                : project.description.length > 150 
-                                  ? project.description.substring(0, 150) + "..."
-                                  : project.description
-                            }
-                          </div>
+                          <>
+                            {/* Preview text that's always visible */}
+                            <div 
+                              className={`text-gray-300 pr-1 text-center sm:text-left p-1 ${
+                                isIPhoneSE ? "text-xs" : "text-sm"
+                              } leading-relaxed`}
+                            >
+                              {isIPhoneSE
+                                ? project.description.substring(0, 120)
+                                : project.description.substring(0, 150)}
+                              {((isIPhoneSE && project.description.length > 120) || 
+                                (!isIPhoneSE && project.description.length > 150)) && "..."}
+                            </div>
+                            
+                            {/* Expandable content below */}
+                            {expandedDescription && (
+                              <div 
+                                className={`${
+                                  isIPhoneSE ? "text-xs" : "text-sm"
+                                } leading-relaxed text-gray-300 p-2 bg-black/80 border border-gray-800 
+                                mt-1 text-center sm:text-left custom-scrollbar max-h-[50vh] overflow-y-auto`}
+                              >
+                                {project.description}
+                              </div>
+                            )}
+                            
+                            {/* Expand/Collapse button for mobile */}
+                            {((isIPhoneSE && project.description.length > 120) || 
+                              (!isIPhoneSE && project.description.length > 150)) && (
+                              <motion.button
+                                initial={{ opacity: 0.7 }}
+                                animate={{ opacity: 1 }}
+                                className={`${isIPhoneSE ? 'text-[8px]' : 'text-[10px]'} uppercase tracking-wider 
+                                  text-orange-500/80 hover:text-orange-500 
+                                  transition-colors mt-1 mb-2 mx-auto block px-2 py-0.5
+                                  border border-transparent hover:border-orange-500/30 bg-black/30`}
+                                onClick={toggleDescription}
+                              >
+                                {expandedDescription ? "Show Less" : "Read More"}
+                              </motion.button>
+                            )}
+                          </>
                         ) : (
                           <p className="text-sm sm:text-base sm:leading-relaxed max-h-[25vh] text-gray-300 pr-1 custom-scrollbar text-center sm:text-left">
                             {project.description}
                           </p>
                         )}
-                        
-                        {/* Expand/Collapse button for mobile */}
-                        {isSmallScreen && ((isIPhoneSE && project.description.length > 120) || (!isIPhoneSE && project.description.length > 150)) && (
-                          <motion.button
-                            initial={{ opacity: 0.7 }}
-                            animate={{ opacity: 1 }}
-                            className={`${isIPhoneSE ? 'text-[8px]' : 'text-[10px]'} uppercase tracking-wider text-orange-500/80 hover:text-orange-500 
-                            transition-colors mt-0.5 sm:mt-1 mb-1 sm:mb-2 mx-auto block
-                            ${expandedDescription ? 'bg-black/70 px-2 py-0.5' : ''}`}
-                            onClick={toggleDescription}
-                            style={{
-                              position: expandedDescription ? 'relative' : 'static',
-                              zIndex: expandedDescription ? 50 : 'auto'
-                            }}
-                          >
-                            {expandedDescription ? "Show Less" : "Read More"}
-                          </motion.button>
-                        )}
                       </div>
 
                       {/* Technologies list - Optimized for iPhone SE - Always visible and static positioned */}
-                      <div className={`flex flex-wrap justify-center sm:justify-start ${isIPhoneSE ? 'gap-1' : 'gap-2'} sm:gap-2 ${
-                        expandedDescription ? isIPhoneSE ? "mb-4" : "mb-6" : isIPhoneSE ? "mb-2" : "mb-4"
-                      } sm:mb-0`}
-                      style={{
-                        position: 'relative',
-                        zIndex: expandedDescription ? 39 : 40,
-                        marginTop: expandedDescription && isSmallScreen ? '10px' : '0'
-                      }}>
+                      <div className={`flex flex-wrap justify-center sm:justify-start ${isIPhoneSE ? 'gap-1' : 'gap-2'} sm:gap-2 
+                        ${isIPhoneSE ? "mb-2" : "mb-4"} sm:mb-0`}
+                      >
                         {project.technologies.slice(0, isIPhoneSE ? 4 : isSmallScreen ? 5 : project.technologies.length).map((tech, i) => (
                           <motion.span
                             key={i}
@@ -521,8 +504,8 @@ const Projects = () => {
                   {/* Mobile navigation - Adjusted for iPhone SE and expanded state */}
                   <div className={`sm:hidden absolute ${
                     isIPhoneSE
-                      ? expandedDescription ? "bottom-[-60px]" : "bottom-[-32px]"
-                      : expandedDescription ? "bottom-[-76px]" : "bottom-[-48px]"
+                      ? expandedDescription ? "bottom-[-45px]" : "bottom-[-32px]"
+                      : expandedDescription ? "bottom-[-55px]" : "bottom-[-48px]"
                   } left-0 right-0 flex justify-center space-x-6 z-40`}>
                     <button
                       className={`${isIPhoneSE ? 'w-7 h-7' : 'w-9 h-9'} flex items-center justify-center 
