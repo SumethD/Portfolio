@@ -258,7 +258,7 @@ const Projects = () => {
       </motion.div>
 
       {/* Progress bar - adjusted positioning for mobile */}
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-8 sm:bottom-[-20px] w-[120px] sm:w-[200px] h-[3px] bg-gray-800 mx-auto">
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-12 sm:bottom-[-20px] w-[120px] sm:w-[200px] h-[3px] bg-gray-800 mx-auto">
         <div
           className="absolute top-0 left-0 h-full bg-white transition-all duration-700 ease-out"
           style={{ width: `${((currentIndex + 1) / projects.length) * 100}%` }}
@@ -300,8 +300,8 @@ const Projects = () => {
                     }}
                   ></div>
 
-                  {/* Title overlay container - Simplified on mobile */}
-                  <div className="absolute inset-x-0 top-[8%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
+                  {/* Title overlay container - Improved for mobile readability */}
+                  <div className="absolute inset-x-0 top-[6%] sm:top-[15%] flex justify-center z-30 px-2 sm:px-4">
                     <div className={`text-center ${!isSmallScreen ? "transition-all duration-700 hover:scale-105" : ""} px-4`}>
                       {isSmallScreen ? (
                         <h1 className="text-2xl xs:text-3xl sm:text-4xl font-light tracking-wider">
@@ -317,7 +317,7 @@ const Projects = () => {
                           {project.title}
                         </FuzzyText>
                       )}
-                      <div className={`h-[2px] ${isSmallScreen ? "w-[60px]" : "w-[80px] sm:w-[100px]"} bg-white mx-auto mt-4 relative overflow-hidden`}>
+                      <div className={`h-[2px] ${isSmallScreen ? "w-[60px]" : "w-[80px] sm:w-[100px]"} bg-white mx-auto mt-2 sm:mt-4 relative overflow-hidden`}>
                         {!isSmallScreen && (
                           <div className="absolute top-0 left-0 w-full h-full bg-white animate-pulse"></div>
                         )}
@@ -325,11 +325,11 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Project details container - Improved spacing for mobile */}
+                  {/* Project details container - Improved for mobile */}
                   <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 md:p-8 z-30">
                     <div className="mx-auto max-w-md sm:max-w-2xl md:max-w-3xl">
                       {/* Mobile-optimized header layout with better spacing */}
-                      <div className="flex flex-col space-y-2 mb-3 sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
+                      <div className="flex flex-col space-y-1 mb-2 sm:mb-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
                         {/* Project type and concept - Simplified on mobile */}
                         <div className="text-center sm:text-left">
                           {isSmallScreen ? (
@@ -356,7 +356,7 @@ const Projects = () => {
                             href={project.link}
                             className={`group relative inline-flex items-center ${
                               isSmallScreen 
-                                ? "px-4 py-1 text-xs tracking-wider bg-black/50" 
+                                ? "px-4 py-1 text-sm tracking-wider bg-black/50" 
                                 : "px-6 py-2 text-sm tracking-[0.2em] bg-black/30 backdrop-blur-sm"
                             } overflow-hidden border border-gray-700 hover:border-gray-500 transition-all duration-300`}
                           >
@@ -374,27 +374,27 @@ const Projects = () => {
                         <div className="h-[1px] w-full bg-gradient-to-r from-gray-700 via-gray-700/50 to-transparent mb-4"></div>
                       )}
 
-                      {/* Description - Optimized further for mobile */}
-                      <div className="mb-2 sm:mb-6">
+                      {/* Description - Enhanced for mobile readability */}
+                      <div className="mb-3 sm:mb-6">
                         <p className={`${
                           isSmallScreen 
-                            ? "text-xs leading-relaxed max-h-[18vh] overflow-y-auto" 
+                            ? "text-sm leading-relaxed max-h-[22vh] overflow-y-auto" 
                             : "text-sm sm:text-base sm:leading-relaxed max-h-[25vh]"
                           } text-gray-300 pr-1 custom-scrollbar
                           text-center sm:text-left`}
                         >
                           {isSmallScreen 
-                            ? project.description.length > 180 
-                              ? project.description.substring(0, 180) + "..." 
+                            ? project.description.length > 220 
+                              ? project.description.substring(0, 220) + "..." 
                               : project.description
                             : project.description
                           }
                         </p>
                       </div>
 
-                      {/* Technologies list - Further optimized for mobile */}
-                      <div className="flex flex-wrap justify-center sm:justify-start gap-1 sm:gap-2">
-                        {project.technologies.slice(0, isSmallScreen ? 4 : project.technologies.length).map((tech, i) => (
+                      {/* Technologies list - Improved for mobile readability */}
+                      <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-2 mb-4 sm:mb-0">
+                        {project.technologies.slice(0, isSmallScreen ? 5 : project.technologies.length).map((tech, i) => (
                           <motion.span
                             key={i}
                             initial={isSmallScreen ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -402,7 +402,7 @@ const Projects = () => {
                             transition={isSmallScreen ? {} : { delay: i * 0.1 }}
                             className={`${
                               isSmallScreen 
-                                ? "text-[9px] px-1.5 py-0.5 bg-black/70" 
+                                ? "text-xs px-2 py-1 bg-black/70" 
                                 : "text-xs px-3 py-1.5 bg-black/50 backdrop-blur-sm"
                             } border border-gray-700 text-gray-300 
                             transition-all duration-300 hover:border-orange-500/30
@@ -411,9 +411,9 @@ const Projects = () => {
                             {tech}
                           </motion.span>
                         ))}
-                        {isSmallScreen && project.technologies.length > 4 && (
-                          <span className="text-[9px] px-1.5 py-0.5 bg-black/70 border border-gray-700 text-gray-300">
-                            +{project.technologies.length - 4} more
+                        {isSmallScreen && project.technologies.length > 5 && (
+                          <span className="text-xs px-2 py-1 bg-black/70 border border-gray-700 text-gray-300">
+                            +{project.technologies.length - 5} more
                           </span>
                         )}
                       </div>
@@ -421,9 +421,9 @@ const Projects = () => {
                   </div>
 
                   {/* Mobile navigation - Repositioned to avoid overlapping */}
-                  <div className="sm:hidden absolute bottom-[-40px] left-0 right-0 flex justify-center space-x-6 z-40">
+                  <div className="sm:hidden absolute bottom-[-48px] left-0 right-0 flex justify-center space-x-6 z-40">
                     <button
-                      className="w-8 h-8 flex items-center justify-center 
+                      className="w-9 h-9 flex items-center justify-center 
                       border border-gray-700 bg-black/70
                       transition-all duration-300"
                       onClick={handlePrev}
@@ -431,7 +431,7 @@ const Projects = () => {
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-3 w-3"
+                        className="h-4 w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -446,7 +446,7 @@ const Projects = () => {
                         <button
                           key={index}
                           onClick={() => goToSlide(index)}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                             index === currentIndex ? 'bg-orange-500' : 'bg-gray-700'
                           }`}
                           aria-label={`Go to slide ${index + 1}`}
@@ -455,7 +455,7 @@ const Projects = () => {
                     </div>
                     
                     <button
-                      className="w-8 h-8 flex items-center justify-center 
+                      className="w-9 h-9 flex items-center justify-center 
                       border border-gray-700 bg-black/70
                       transition-all duration-300"
                       onClick={handleNext}
@@ -463,7 +463,7 @@ const Projects = () => {
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-3 w-3"
+                        className="h-4 w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -498,9 +498,9 @@ const Projects = () => {
         </div>
 
         {/* Navigation arrows - Positioned below content on mobile with better spacing */}
-        <div className="sm:hidden flex justify-center space-x-4 mt-12">
+        <div className="sm:hidden flex justify-center space-x-4 mt-16">
           <button
-            className="w-8 h-8 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
+            className="w-9 h-9 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
             onClick={handlePrev}
             aria-label="Previous project"
           >
@@ -516,7 +516,7 @@ const Projects = () => {
           </button>
           
           <button
-            className="w-8 h-8 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
+            className="w-9 h-9 flex items-center justify-center border border-gray-700 bg-black bg-opacity-50 hover:bg-opacity-70 transition-all duration-300 hover:border-gray-400"
             onClick={handleNext}
             aria-label="Next project"
           >
