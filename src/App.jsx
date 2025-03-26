@@ -95,7 +95,7 @@ const App = () => {
                 <h1 className="text-3xl sm:text-5xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2">
                   <span>MY NAME IS</span>
                   <FuzzyText
-                    fontSize="clamp(2rem, 5vw, 3.5rem)"
+                    fontSize="3rem"
                     baseIntensity={0.2}
                     hoverIntensity={0.5}
                     enableHover={true}
@@ -113,7 +113,7 @@ const App = () => {
                     <p className="text-2xl sm:text-5xl tracking-[0.1em] font-light flex items-center justify-center flex-wrap gap-2 sm:gap-4">
                       <span>I</span>
                       <FuzzyText
-                        fontSize="clamp(1.8rem, 5vw, 3rem)"
+                        fontSize="3rem"
                         baseIntensity={0.2}
                         hoverIntensity={0.5}
                         enableHover={true}
