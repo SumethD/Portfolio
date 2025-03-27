@@ -142,7 +142,7 @@ const Projects = () => {
         "Fast Adaptation"
       ],
       image: "https://via.placeholder.com/1200x800/1a1a1a/ff00f7",
-      link: "#"
+      link: "https://github.com/SumethD/Vending-Machine"
     }
     
   ];

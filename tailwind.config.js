@@ -5,11 +5,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        'cursive': ['Parisienne', 'Dancing Script', 'Satisfy', 'cursive'],
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };

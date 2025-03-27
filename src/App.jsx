@@ -8,7 +8,6 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import ParticleBackground from './components/ParticleBackground';
 import PageTransition from './components/PageTransition';
-import DecryptedText from './formats/decrypted';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('welcome');
