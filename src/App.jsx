@@ -126,6 +126,75 @@ const App = () => {
                       SUMETH
                     </FuzzyText>
                   </h1>
+                  
+                  {/* Tagline with animation */}
+                  <div className="mt-6 relative">
+                    <motion.div
+                      className="flex items-center justify-center space-x-3 sm:space-x-5"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
+                    >
+                      <motion.span 
+                        className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
+                        whileHover={{ color: "#ffffff", scale: 1.05 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        IDEATE
+                      </motion.span>
+                      
+                      <motion.div 
+                        className="w-1.5 h-1.5 bg-orange-500/50 rounded-full"
+                        animate={{ 
+                          scale: [1, 1.5, 1],
+                          opacity: [0.5, 1, 0.5]
+                        }}
+                        transition={{ 
+                          repeat: Infinity,
+                          duration: 2,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      
+                      <motion.span 
+                        className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
+                        whileHover={{ color: "#ffffff", scale: 1.05 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        CODE
+                      </motion.span>
+                      
+                      <motion.div 
+                        className="w-1.5 h-1.5 bg-orange-500/50 rounded-full"
+                        animate={{ 
+                          scale: [1, 1.5, 1],
+                          opacity: [0.5, 1, 0.5]
+                        }}
+                        transition={{ 
+                          repeat: Infinity,
+                          duration: 2,
+                          delay: 0.6,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      
+                      <motion.span 
+                        className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
+                        whileHover={{ color: "#ffffff", scale: 1.05 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        CREATE
+                      </motion.span>
+                    </motion.div>
+                    
+                    {/* Underline accent */}
+                    <motion.div 
+                      className="h-[1px] bg-gradient-to-r from-transparent via-orange-500/30 to-transparent mt-2 w-full"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 1, delay: 1 }}
+                    />
+                  </div>
                 </motion.div>
                 
                 {/* Enhanced Portfolio Access Button */}
