@@ -137,11 +137,11 @@ const App = () => {
                 >
                   <div className="flex items-center justify-center space-x-3 sm:space-x-5">
                     <motion.span 
-                      className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
+                      className="text-md sm:text-lg text-orange-400/80 tracking-wider font-light font-cursive italic"
                       whileHover={{ color: "#ffffff", scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     >
-                      IDEATE
+                      Ideate
                     </motion.span>
                     
                     <motion.div 
@@ -158,11 +158,11 @@ const App = () => {
                     />
                     
                     <motion.span 
-                      className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
+                      className="text-md sm:text-lg text-orange-400/80 tracking-wider font-light font-cursive italic"
                       whileHover={{ color: "#ffffff", scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     >
-                      CODE
+                      Code
                     </motion.span>
                     
                     <motion.div 
@@ -180,11 +180,11 @@ const App = () => {
                     />
                     
                     <motion.span 
-                      className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
+                      className="text-md sm:text-lg text-orange-400/80 tracking-wider font-light font-cursive italic"
                       whileHover={{ color: "#ffffff", scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     >
-                      CREATE
+                      Create
                     </motion.span>
                   </div>
                   
