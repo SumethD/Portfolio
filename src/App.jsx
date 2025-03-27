@@ -95,14 +95,24 @@ const App = () => {
               <div className="text-center max-w-6xl mx-auto px-4 sm:px-8 relative z-[3] flex flex-col items-center">
                 {/* Animated Flexbox Container for Name */}
                 <motion.div 
-                  className="flex flex-wrap items-center justify-center p-8 sm:p-12 mb-16 sm:mb-24 border border-orange-500/30 bg-black/60 backdrop-blur-sm relative"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-wrap items-center justify-center p-8 sm:p-12 mb-16 sm:mb-24 
+                  border border-orange-500/30 bg-black/60 backdrop-blur-sm relative
+                  rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]
+                  transform perspective-[1000px] hover:translate-z-6"
+                  initial={{ opacity: 0, scale: 0.95, rotateX: 10 }}
+                  animate={{ opacity: 1, scale: 1, rotateX: 0 }}
                   transition={{ duration: 0.8 }}
-                  whileHover={{ boxShadow: "0 0 30px rgba(249,115,22,0.3)" }}
+                  whileHover={{ 
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(249,115,22,0.3)",
+                    translateY: -10,
+                    rotateX: 5
+                  }}
                 >
                   {/* Animated border glow effect */}
-                  <div className="absolute inset-0 border border-orange-500/60 shadow-[0_0_30px_rgba(249,115,22,0.2)] animate-[pulse_3s_infinite] -z-10"></div>
+                  <div className="absolute inset-0 border border-orange-500/60 rounded-xl shadow-[0_0_30px_rgba(249,115,22,0.2)] animate-[pulse_3s_infinite] -z-10"></div>
+                  
+                  {/* 3D shadow effect */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-orange-500/10 to-transparent opacity-50 transform -translate-y-1 translate-x-1 -z-5"></div>
                   
                   {/* Name Heading */}
                   <h1 className="text-4xl sm:text-6xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2">
@@ -131,7 +141,9 @@ const App = () => {
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="px-10 py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 hover:bg-black/40 transition-all duration-300 group-hover:border-orange-500/70 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.3)]">
+                    <div className="px-10 py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 hover:bg-black/40 
+                    transition-all duration-300 group-hover:border-orange-500/70 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.3)]
+                    rounded-lg">
                       <DecryptedText
                         text="ACCESS PORTFOLIO"
                         speed={70}
