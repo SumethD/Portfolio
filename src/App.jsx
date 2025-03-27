@@ -137,11 +137,11 @@ const App = () => {
                 >
                   <div className="flex items-center justify-center space-x-3 sm:space-x-5">
                     <motion.span 
-                      className="text-md sm:text-lg text-orange-400/80 tracking-wider font-light font-cursive italic"
+                      className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
                       whileHover={{ color: "#ffffff", scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     >
-                      Ideate
+                      IDEATE
                     </motion.span>
                     
                     <motion.div 
@@ -158,11 +158,11 @@ const App = () => {
                     />
                     
                     <motion.span 
-                      className="text-md sm:text-lg text-orange-400/80 tracking-wider font-light font-cursive italic"
+                      className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
                       whileHover={{ color: "#ffffff", scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     >
-                      Code
+                      CODE
                     </motion.span>
                     
                     <motion.div 
@@ -180,11 +180,11 @@ const App = () => {
                     />
                     
                     <motion.span 
-                      className="text-md sm:text-lg text-orange-400/80 tracking-wider font-light font-cursive italic"
+                      className="text-md sm:text-lg text-orange-400/80 tracking-widest font-light"
                       whileHover={{ color: "#ffffff", scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     >
-                      Create
+                      CREATE
                     </motion.span>
                   </div>
                   
@@ -208,25 +208,23 @@ const App = () => {
                     className="relative overflow-hidden group"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ 
+                      duration: 0.2,
+                      scale: { type: "spring", stiffness: 300 }
+                    }}
                   >
-                    <div className="px-10 py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 hover:bg-black/40 
+                    <div className="px-10 py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 
                     transition-all duration-300 group-hover:border-orange-500/70 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.3)]
                     rounded-lg">
-                      <DecryptedText
-                        text="ACCESS PORTFOLIO"
-                        speed={70}
-                        maxIterations={10}
-                        sequential={true}
-                        revealDirection="start"
-                        className="tracking-[0.4em] text-base sm:text-lg opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                      />
+                      <span className="tracking-[0.4em] text-base sm:text-lg opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                        ACCESS PORTFOLIO
+                      </span>
                     </div>
                     <motion.div 
                       className="absolute bottom-0 left-0 h-[1px] w-0 bg-orange-500/70"
-                      animate={{ width: "0%" }}
+                      initial={{ width: "0%" }}
                       whileHover={{ width: "100%" }}
-                      transition={{ duration: 0.4 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
                     />
                   </motion.a>
                   <div className="flex justify-center">
