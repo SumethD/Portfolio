@@ -91,29 +91,32 @@ const App = () => {
                 contentVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              {/* Solar Eclipse Circle Effect */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]">
-                {/* Dark eclipse center */}
-                <div className="w-[80vw] h-[80vw] sm:w-[42vw] sm:h-[42vw] max-w-[520px] max-h-[520px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/90 -z-10"></div>
-                
-                {/* Enhanced pulsing glow ring */}
-                <div className="w-[85vw] h-[85vw] sm:w-[45vw] sm:h-[45vw] max-w-[550px] max-h-[550px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border-2 border-orange-500/60 shadow-[0_0_60px_rgba(249,115,22,0.3)] animate-[pulse_3s_infinite] -z-10"></div>
-              </div>
-
               {/* Central Content */}
               <div className="text-center max-w-6xl mx-auto px-4 sm:px-8 relative z-[3] flex flex-col items-center">
-                {/* Name Heading */}
-                <h1 className="text-4xl sm:text-6xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2 mb-16 sm:mb-24">
-                  <span>MY NAME IS</span>
-                  <FuzzyText
-                    fontSize="4rem"
-                    baseIntensity={0.2}
-                    hoverIntensity={0.5}
-                    enableHover={true}
-                  >
-                    SUMETH
-                  </FuzzyText>
-                </h1>
+                {/* Animated Flexbox Container for Name */}
+                <motion.div 
+                  className="flex flex-wrap items-center justify-center p-8 sm:p-12 mb-16 sm:mb-24 border border-orange-500/30 bg-black/60 backdrop-blur-sm relative"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  whileHover={{ boxShadow: "0 0 30px rgba(249,115,22,0.3)" }}
+                >
+                  {/* Animated border glow effect */}
+                  <div className="absolute inset-0 border border-orange-500/60 shadow-[0_0_30px_rgba(249,115,22,0.2)] animate-[pulse_3s_infinite] -z-10"></div>
+                  
+                  {/* Name Heading */}
+                  <h1 className="text-4xl sm:text-6xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2">
+                    <span>MY NAME IS</span>
+                    <FuzzyText
+                      fontSize="4rem"
+                      baseIntensity={0.2}
+                      hoverIntensity={0.5}
+                      enableHover={true}
+                    >
+                      SUMETH
+                    </FuzzyText>
+                  </h1>
+                </motion.div>
                 
                 {/* Enhanced Portfolio Access Button */}
                 <div className="mt-4 flex flex-col items-center space-y-8">
