@@ -91,77 +91,62 @@ const App = () => {
                 contentVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
+              {/* Solar Eclipse Circle Effect */}
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]">
+                {/* Dark eclipse center */}
+                <div className="w-[80vw] h-[80vw] sm:w-[42vw] sm:h-[42vw] max-w-[520px] max-h-[520px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/90 -z-10"></div>
+                
+                {/* Enhanced pulsing glow ring */}
+                <div className="w-[85vw] h-[85vw] sm:w-[45vw] sm:h-[45vw] max-w-[550px] max-h-[550px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent border-2 border-orange-500/60 shadow-[0_0_60px_rgba(249,115,22,0.3)] animate-[pulse_3s_infinite] -z-10"></div>
+              </div>
+
               {/* Central Content */}
-              <div className="text-center space-y-16 sm:space-y-24 max-w-6xl mx-auto px-4 sm:px-8 relative z-[3]">
-                <h1 className="text-3xl sm:text-5xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2 relative z-[3]">
+              <div className="text-center max-w-6xl mx-auto px-4 sm:px-8 relative z-[3] flex flex-col items-center">
+                {/* Name Heading */}
+                <h1 className="text-4xl sm:text-6xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2 mb-16 sm:mb-24">
                   <span>MY NAME IS</span>
                   <FuzzyText
-                    fontSize="3rem"
+                    fontSize="4rem"
                     baseIntensity={0.2}
                     hoverIntensity={0.5}
                     enableHover={true}
                   >
-                    
                     SUMETH
                   </FuzzyText>
                 </h1>
-                <div className="relative">
-                  {/* Solar Eclipse Circle Effect */}
-                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]">
-                    {/* Dark eclipse center */}
-                    <div className="w-[80vw] h-[80vw] sm:w-[42vw] sm:h-[42vw] max-w-[520px] max-h-[520px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-[55%] bg-black/90 -z-10"></div>
-                    
-                    {/* Enhanced pulsing glow ring */}
-                    <div className="w-[85vw] h-[85vw] sm:w-[45vw] sm:h-[45vw] max-w-[550px] max-h-[550px] rounded-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-[55%] bg-transparent border-2 border-orange-500/60 shadow-[0_0_60px_rgba(249,115,22,0.3)] animate-[pulse_3s_infinite] -z-10"></div>
-                  </div>
-                  
-                  <div className="space-y-6 sm:space-y-8 relative z-[3]">
-                    <p className="text-xl sm:text-2xl tracking-[0.2em] opacity-60">
-                    <DecryptedText
-                          text="Let me show you what I've been cooking."
-                          speed={40}
-                          maxIterations={10}
-                          sequential={true}
-                          revealDirection="start"
-                          animateOn="view"  
-                        />
-                    </p>
-                    <p className="text-2xl sm:text-5xl tracking-[0.1em] font-light flex items-center justify-center flex-wrap gap-2 sm:gap-4">
-                      <span>TURNING LATE-NIGHT </span>
-                      <FuzzyText
-                        fontSize="3rem"
-                        baseIntensity={0.2}
-                        hoverIntensity={0.5}
-                        enableHover={true}
-                      >
-                        IDEAS
-                      </FuzzyText>
-                      <span>INTO REAL-WORLD TECH</span>
-                    </p>
-                    
-                    {/* Portfolio Access - Moved inside the content div */}
-                    <div className="mt-12 sm:mt-16 flex flex-col items-center space-y-4">
-                      <a
-                        href="/about"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleSectionChange('about');
-                        }}
-                        className="tracking-[0.4em] text-base sm:text-lg opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer group relative"
-                      >
-                        <DecryptedText
-                          text="ACCESS PORTFOLIO"
-                          speed={70}
-                          maxIterations={10}
-                          sequential={true}
-                          revealDirection="center"  
-                        />
-                        <div className="h-[1px] w-0 bg-white mx-auto transition-all duration-300 group-hover:w-full"></div>
-                      </a>
-                      <div className="flex justify-center">
-                        <i className="fas fa-chevron-down animate-bounce opacity-50 text-lg sm:text-xl"></i>
-                      </div>
+                
+                {/* Enhanced Portfolio Access Button */}
+                <div className="mt-4 flex flex-col items-center space-y-8">
+                  <motion.a
+                    href="/about"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleSectionChange('about');
+                    }}
+                    className="relative overflow-hidden group"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="px-10 py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 hover:bg-black/40 transition-all duration-300 group-hover:border-orange-500/70 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.3)]">
+                      <DecryptedText
+                        text="ACCESS PORTFOLIO"
+                        speed={70}
+                        maxIterations={10}
+                        sequential={true}
+                        revealDirection="center"
+                        className="tracking-[0.4em] text-base sm:text-lg opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                      />
                     </div>
+                    <motion.div 
+                      className="absolute bottom-0 left-0 h-[1px] w-0 bg-orange-500/70"
+                      animate={{ width: "0%" }}
+                      whileHover={{ width: "100%" }}
+                      transition={{ duration: 0.4 }}
+                    />
+                  </motion.a>
+                  <div className="flex justify-center">
+                    <i className="fas fa-chevron-down animate-bounce opacity-50 text-lg sm:text-xl"></i>
                   </div>
                 </div>
               </div>
