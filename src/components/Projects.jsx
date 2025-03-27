@@ -107,7 +107,44 @@ const Projects = () => {
       ],
       image: "https://via.placeholder.com/1200x800/1a1a1a/ff00f7",
       link: "https://github.com/SumethD/AI-Powered-Recipe-Recommender"
+    },
+    {
+      id: 4,
+      title: "Crypto Arbitrage Demo",
+      category: "Algorithmic Trading Demo",
+      description:
+        "I whipped up a quick weekend project—a script to compare spot trading prices across several exchanges (Kraken, Bitfinex, Bybit, OKX, Huobi) just to see where the best profit ratio was hiding. It's mostly a demo—real arbitrage needs lightning-fast servers that I simply don't have at home. But hey, it was a blast tinkering with exchange APIs and crunching real-time data. Maybe one day I'll finish the script to actually place trades!",
+      technologies: [
+        "Python",
+        "Node.js",
+        "Exchange APIs",
+        "Real-Time Data Fetching",
+        "Spot Trading",
+        "API Integration",
+        "Real-Time Data Processing"
+      ],
+      image: "https://via.placeholder.com/1200x800/1a1a1a/00a8ff",
+      link: "https://github.com/SumethD/Crypto-Arbitrage"
     }
+    ,
+    {
+      id: 5,
+      title: "Vending Machine in C++",
+      category: "Console Application",
+      description:
+        "I jumped into a group project at RMIT to build a vending machine simulator in C++—and had zero experience with the language! I had to learn pointers, memory management, and all the quirky details on the fly. I ended up carrying the team through a maze of bugs and pointer puzzles. It was a wild, crash-course ride into C++ fundamentals, but a super fun and rewarding adventure!",
+      technologies: [
+        "C++",
+        "Pointers & Memory Management",
+        "Console Simulation",
+        "Team Collaboration",
+        "Quick Learning",
+        "Fast Adaptation"
+      ],
+      image: "https://via.placeholder.com/1200x800/1a1a1a/ff00f7",
+      link: "#"
+    }
+    
   ];
 
   const handleNext = useCallback(() => {
