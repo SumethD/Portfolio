@@ -115,19 +115,19 @@ const App = () => {
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-orange-500/10 to-transparent opacity-50 transform -translate-y-1 translate-x-1 -z-5"></div>
                   
                   {/* Name Heading */}
-                  <h1 className="text-3xl xs:text-4xl sm:text-6xl tracking-[0.08em] sm:tracking-[0.1em] opacity-80 font-light flex flex-col items-center justify-center gap-2">
+                  <h1 className="text-3xl xs:text-5xl sm:text-6xl tracking-[0.08em] sm:tracking-[0.1em] opacity-80 font-light flex flex-col items-center justify-center gap-2">
                     <span>HEY TRAVELLER</span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center my-1 sm:my-2">
                       <FuzzyText
-                        fontSize="clamp(3rem, 5vw, 4rem)"
+                        fontSize="clamp(3rem, 5vw, 5rem)"
                         baseIntensity={0.2}
                         hoverIntensity={0.5}
                         enableHover={true}
                       >
                         SUMETH
                       </FuzzyText>
-                      <span>HERE</span>
                     </div>
+                    <span>HERE!</span>
                   </h1>
                 </motion.div>
                 
@@ -219,7 +219,7 @@ const App = () => {
                     <div className="px-6 sm:px-10 py-3 sm:py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 
                     transition-all duration-300 group-hover:border-orange-500/70 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.3)]
                     rounded-lg">
-                      <span className="tracking-[0.3em] sm:tracking-[0.4em] text-sm sm:text-base md:text-lg opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="tracking-[0.3em] sm:tracking-[0.4em] text-1xl xs:text-2l sm:text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                         ACCESS PORTFOLIO
                       </span>
                     </div>
