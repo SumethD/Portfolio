@@ -94,11 +94,11 @@ const App = () => {
               <div className="text-center max-w-6xl mx-auto px-4 sm:px-8 relative z-[3] flex flex-col items-center">
                 {/* Animated Flexbox Container for Name */}
                 <motion.div 
-                  className="flex flex-wrap items-center justify-center p-6 sm:p-8 md:p-12 mb-10 sm:mb-16 md:mb-24 
+                  className="flex flex-wrap items-center justify-center p-5 sm:p-8 md:p-12 mb-8 sm:mb-16 md:mb-24 
                   border border-orange-500/30 bg-black/60 backdrop-blur-sm relative
                   rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]
                   transform perspective-[1000px] hover:translate-z-6
-                  mx-2 sm:mx-0 max-w-[95%] sm:max-w-full"
+                  w-[90%] sm:w-auto max-w-full"
                   initial={{ opacity: 0, scale: 0.95, rotateX: 10 }}
                   animate={{ opacity: 1, scale: 1, rotateX: 0 }}
                   transition={{ duration: 0.8 }}
@@ -115,11 +115,11 @@ const App = () => {
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-orange-500/10 to-transparent opacity-50 transform -translate-y-1 translate-x-1 -z-5"></div>
                   
                   {/* Name Heading */}
-                  <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-[0.1em] opacity-80 font-light flex flex-col items-center justify-center gap-2">
+                  <h1 className="text-3xl xs:text-4xl sm:text-6xl tracking-[0.08em] sm:tracking-[0.1em] opacity-80 font-light flex flex-col items-center justify-center gap-2">
                     <span>HEY TRAVELLER</span>
                     <div className="flex items-center gap-2">
                       <FuzzyText
-                        fontSize={{ xs: "2.5rem", sm: "3rem", md: "4rem" }}
+                        fontSize="4rem"
                         baseIntensity={0.2}
                         hoverIntensity={0.5}
                         enableHover={true}
@@ -138,7 +138,7 @@ const App = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
                 >
-                  <div className="flex items-center justify-center space-x-3 sm:space-x-5">
+                  <div className="flex items-center justify-center space-x-2 sm:space-x-5">
                     <motion.span 
                       className="text-sm sm:text-md md:text-lg text-orange-400/80 tracking-widest font-light"
                       whileHover={{ color: "#ffffff", scale: 1.05 }}
@@ -193,7 +193,7 @@ const App = () => {
                   
                   {/* Underline accent */}
                   <motion.div 
-                    className="h-[1px] bg-gradient-to-r from-transparent via-orange-500/30 to-transparent mt-2 w-[180px] sm:w-[220px] md:w-[280px]"
+                    className="h-[1px] bg-gradient-to-r from-transparent via-orange-500/30 to-transparent mt-2 w-[160px] xs:w-[200px] sm:w-[280px]"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
@@ -216,10 +216,10 @@ const App = () => {
                       scale: { type: "spring", stiffness: 300 }
                     }}
                   >
-                    <div className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 
+                    <div className="px-6 sm:px-10 py-3 sm:py-4 border border-orange-500/30 backdrop-blur-sm bg-black/20 
                     transition-all duration-300 group-hover:border-orange-500/70 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.3)]
                     rounded-lg">
-                      <span className="tracking-[0.3em] sm:tracking-[0.4em] text-sm sm:text-base md:text-lg opacity-80 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                      <span className="tracking-[0.3em] sm:tracking-[0.4em] text-sm sm:text-base md:text-lg opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                         ACCESS PORTFOLIO
                       </span>
                     </div>
