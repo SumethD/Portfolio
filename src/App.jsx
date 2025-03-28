@@ -114,17 +114,19 @@ const App = () => {
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-orange-500/10 to-transparent opacity-50 transform -translate-y-1 translate-x-1 -z-5"></div>
                   
                   {/* Name Heading */}
-                  <h1 className="text-4xl sm:text-6xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2">
+                  <h1 className="text-4xl sm:text-6xl tracking-[0.1em] opacity-80 font-light flex flex-col items-center justify-center gap-2">
                     <span>HEY TRAVELLER</span>
-                    <FuzzyText
-                      fontSize="4rem"
-                      baseIntensity={0.2}
-                      hoverIntensity={0.5}
-                      enableHover={true}
-                    >
-                      SUMETH
-                    </FuzzyText>
-                    <span>HERE</span>
+                    <div className="flex items-center gap-2">
+                      <FuzzyText
+                        fontSize="4rem"
+                        baseIntensity={0.2}
+                        hoverIntensity={0.5}
+                        enableHover={true}
+                      >
+                        SUMETH
+                      </FuzzyText>
+                      <span>HERE</span>
+                    </div>
                   </h1>
                 </motion.div>
                 
