@@ -383,15 +383,38 @@ const App = () => {
                   })}
                 </motion.ul>
                 
-                {/* Footer section for mobile nav */}
+                {/* Footer section for mobile nav - COD style */}
                 <motion.div 
-                  className="mt-16 text-xs text-gray-500 flex items-center"
+                  className="mt-16 flex items-center justify-center"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6, duration: 0.4 }}
                 >
-                  <div className="mr-2 w-1 h-1 bg-orange-500 rounded-full animate-pulse"></div>
-                  <span>CONNECTED {activeSection.toUpperCase()}</span>
+                  <div className="relative">
+                    {/* COD-style connected text */}
+                    <div className="relative flex items-center">
+                      <div className="flex flex-col items-center">
+                        <span className="text-xs uppercase font-bold tracking-[0.2em] text-gray-400">CONNECTED</span>
+                        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-orange-500/50 to-transparent"></div>
+                        <span className="text-sm uppercase font-mono tracking-widest text-orange-500/90">{activeSection.toUpperCase()}</span>
+                      </div>
+                    </div>
+                    {/* Decorative scanner line animation */}
+                    <div className="absolute left-0 top-0 w-full h-full overflow-hidden opacity-30 pointer-events-none">
+                      <div className="w-full h-[1px] bg-orange-500/80 animate-[scanline_2s_linear_infinite]"></div>
+                    </div>
+                    {/* Add scanline keyframes in a style tag */}
+                    <style>{`
+                      @keyframes scanline {
+                        0% {
+                          transform: translateY(0);
+                        }
+                        100% {
+                          transform: translateY(100%);
+                        }
+                      }
+                    `}</style>
+                  </div>
                 </motion.div>
               </div>
             </div>

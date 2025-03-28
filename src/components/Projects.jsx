@@ -437,7 +437,7 @@ const Projects = () => {
                         {isSmallScreen ? (
                           <div 
                             className={`text-gray-300 pr-1 text-center sm:text-left p-2 
-                              ${isSmallScreen ? "text-xs" : "text-sm"}
+                              ${isSmallScreen ? "text-md" : "text-md"}
                               leading-relaxed bg-black/60 rounded overflow-y-auto 
                               ${isIPhoneSE ? "max-h-[22vh]" : "max-h-[25vh]"}`}
                           >
