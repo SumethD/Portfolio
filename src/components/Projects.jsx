@@ -55,7 +55,7 @@ const Projects = () => {
     {
       id: 1,
       title: "Super-Price",
-      category: "Full Stack Application",
+      category: "UNI Project • Full Stack Application",
       description:
         "Did a group project at RMIT where we built a price-matching app that made comparing stuff way quicker—cut the time by half. We used Java with Spring Boot for the backend, and built some web scrapers in Java to pull in store data, which we dumped into an SQLite database on AWS. Front end was React, and we threw in some dashboards to make the data more accurate—ended up improving it by around 25% for 10 to 100 users. It could do about 1000 real-time comparisons a day, which was pretty sick. Can't run it now 'cause of AWS limits, but it was a fun build and a good team vibe all around.",
       technologies: [
@@ -74,7 +74,7 @@ const Projects = () => {
     {
       id: 2,
       title: "Hal-Bot",
-      category: "AI Chatbot",
+      category: "UNI Project • AI Chatbot",
       description:
         "Worked on a group project at RMIT where we built an AI chatbot that cut down student query response times by 40%. We used AWS Lex to handle the convo side of things, Lambda for the backend logic, DynamoDB for storing stuff, and S3 for all our data. CloudWatch helped us keep everything running smooth. The front end was built with React and TypeScript (TSX), and we used RMIT's JSON data to make searching super fast. It was all supervised by one of our profs, and honestly, it was a fun project—learned a ton and had a good time building it with the team.",
       technologies: [
@@ -93,7 +93,7 @@ const Projects = () => {
     {
       id: 3,
       title: "Savorly-AI",
-      category: "Full Stack Application",
+      category: "Weekend Project • Full Stack Application",
       description:
         "Built a recipe search engine over a weekend just for fun—honestly got the idea while sitting on the toilet. Used the Edamam API to let people search for recipes (about 10+ users a month), and added a GPT-4-powered AI assistant to help answer random cooking questions. Also made a Video-to-Recipe tool that takes YouTube links and turns them into recipes—around 50 a day—and a shopping list generator that merges ingredients from 50+ recipes. Just messing around, learning new stuff like API integrations and playing with Cursor AI. Haven't deployed it yet, but planning to soon. Super fun little side project I really enjoyed building.",
       technologies: [
@@ -111,7 +111,7 @@ const Projects = () => {
     {
       id: 4,
       title: "Crypto Arbitrage Demo",
-      category: "Algorithmic Trading Demo",
+      category: "Weekend Project • Algorithmic Trading Demo",
       description:
         "I whipped up a quick weekend project—a script to compare spot trading prices across several exchanges (Kraken, Bitfinex, Bybit, OKX, Huobi) just to see where the best profit ratio was hiding. It's mostly a demo—real arbitrage needs lightning-fast servers that I simply don't have at home. But hey, it was a blast tinkering with exchange APIs and crunching real-time data. Maybe one day I'll finish the script to actually place trades!",
       technologies: [
@@ -130,7 +130,7 @@ const Projects = () => {
     {
       id: 5,
       title: "Vending Machine in C++",
-      category: "Console Application",
+      category: "UNI Project • Console Application",
       description:
         "I jumped into a group project at RMIT to build a vending machine simulator in C++—and had zero experience with the language! I had to learn pointers, memory management, and all the quirky details on the fly. I ended up carrying the team through a maze of bugs and pointer puzzles. It was a wild, crash-course ride into C++ fundamentals, but a super fun and rewarding adventure!",
       technologies: [
