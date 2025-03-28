@@ -115,7 +115,7 @@ const App = () => {
                   
                   {/* Name Heading */}
                   <h1 className="text-4xl sm:text-6xl tracking-[0.1em] opacity-80 font-light flex items-center justify-center flex-wrap gap-2">
-                    <span>MY NAME IS</span>
+                    <span>HEY TRAVELLER</span>
                     <FuzzyText
                       fontSize="4rem"
                       baseIntensity={0.2}
@@ -124,6 +124,7 @@ const App = () => {
                     >
                       SUMETH
                     </FuzzyText>
+                    <span>HERE</span>
                   </h1>
                 </motion.div>
                 
