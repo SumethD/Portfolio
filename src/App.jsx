@@ -119,7 +119,7 @@ const App = () => {
                     <span>HEY TRAVELLER</span>
                     <div className="flex items-center gap-2">
                       <FuzzyText
-                        fontSize="4rem"
+                        fontSize="clamp(2rem, 5vw, 4rem)"
                         baseIntensity={0.2}
                         hoverIntensity={0.5}
                         enableHover={true}
