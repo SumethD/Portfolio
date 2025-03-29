@@ -97,7 +97,7 @@ const About = () => {
             In IFFA  and Leica Biosystems, I actually did quite substantial projects—led migrations, developed easy-to-use tools, and achieved over 60% performance gain. It was all about simplifying things, making them quicker and smoother and just easier for the people who were using them.
             </p>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
-            Aside from that, I also did some crypto trading. Started off with perpetual trading and took some losses . It was challenging but sure did learn and alot. Still trying out different strats and getting to know the market a bit better . 
+            Aside from that, I also did some crypto trading. Started off with perpetual trading and took some losses . It was challenging but sure did learn alot. Still trying out different strats and getting to know the market a bit better . 
             </p>
           </div>
         </FadeInSection>
