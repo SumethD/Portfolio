@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo } from 'react';
+import React, { useEffect, useRef, memo, useState } from 'react';
 
 const Particles = memo(({
   particleCount = 150,
@@ -15,6 +15,19 @@ const Particles = memo(({
   const animationFrameRef = useRef(null);
   const contextRef = useRef(null);
   const resizeTimeoutRef = useRef(null);
+  const [isTabVisible, setIsTabVisible] = useState(!document.hidden);
+
+  // Track tab visibility to pause animation when tab is hidden
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsTabVisible(!document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,16 +38,15 @@ const Particles = memo(({
       // Get the device pixel ratio to support high-DPI displays
       const dpr = window.devicePixelRatio || 1;
       
-      // Set canvas dimensions to match viewport with pixel ratio adjustment
+      // Set canvas internal dimensions to match viewport with pixel ratio adjustment
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       
-      // Scale the context to account for the device pixel ratio
+      // Reset transform and scale the context to account for the device pixel ratio
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset any previous transforms
       ctx.scale(dpr, dpr);
       
-      // Set canvas display size
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+      // Don't override inline styles - let CSS handle the display size
       
       // Reinitialize particles to fill the new viewport size 
       initializeParticles();
@@ -123,8 +135,10 @@ const Particles = memo(({
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    // Start animation
-    animate();
+    // Only start animation if tab is visible
+    if (isTabVisible) {
+      animate();
+    }
 
     // Cleanup
     return () => {
@@ -142,18 +156,22 @@ const Particles = memo(({
         clearTimeout(mouseMoveTimeout);
       }
     };
-  }, [particleCount, particleSpread, speed, particleColors, moveParticlesOnHover, particleHoverFactor, alphaParticles]);
+  }, [particleCount, particleSpread, speed, particleColors, moveParticlesOnHover, particleHoverFactor, alphaParticles, isTabVisible]);
 
   return (
     <canvas
       ref={canvasRef}
       style={{
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
+        right: 0,
+        bottom: 0,
         width: '100vw',
         height: '100vh',
         background: 'transparent',
+        pointerEvents: 'none',
+        zIndex: 1,
       }}
     />
   );

@@ -1,5 +1,5 @@
 // The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, memo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import FuzzyText from './formats/FuzzyText';
 import About from './components/About';
@@ -8,6 +8,12 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import ParticleBackground from './components/ParticleBackground';
 import PageTransition from './components/PageTransition';
+
+// Memoize section components to prevent unnecessary re-renders
+const MemoizedAbout = memo(About);
+const MemoizedProjects = memo(Projects);
+const MemoizedExperience = memo(Experience);
+const MemoizedContact = memo(Contact);
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('welcome');
@@ -48,43 +54,37 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-black">
-        <div className="text-4xl text-white animate-pulse">LOADING...</div>
-      </div>
-    );
-  }
-
-  const renderSection = () => {
+  // Memoize section content to prevent re-creation on every render
+  // Must be called before any conditional returns to follow Rules of Hooks
+  const sectionContent = useMemo(() => {
     switch (activeSection) {
       case 'about':
         return (
-          <PageTransition isVisible={activeSection === 'about'}>
-            <About />
+          <PageTransition isVisible={true} key="about">
+            <MemoizedAbout />
           </PageTransition>
         );
       case 'projects':
         return (
-          <PageTransition isVisible={activeSection === 'projects'}>
-            <Projects />
+          <PageTransition isVisible={true} key="projects">
+            <MemoizedProjects />
           </PageTransition>
         );
       case 'experience':
         return (
-          <PageTransition isVisible={activeSection === 'experience'}>
-            <Experience />
+          <PageTransition isVisible={true} key="experience">
+            <MemoizedExperience />
           </PageTransition>
         );
       case 'contact':
         return (
-          <PageTransition isVisible={activeSection === 'contact'}>
-            <Contact />
+          <PageTransition isVisible={true} key="contact">
+            <MemoizedContact />
           </PageTransition>
         );
       default:
         return (
-          <PageTransition isVisible={activeSection === 'welcome'}>
+          <PageTransition isVisible={true} key="welcome">
             <main
               className={`h-screen flex flex-col items-center justify-center relative transition-opacity duration-500 ${
                 contentVisible ? 'opacity-100' : 'opacity-0'
@@ -116,7 +116,7 @@ const App = () => {
                   
                   {/* Name Heading */}
                   <h1 className="text-3xl xs:text-5xl sm:text-6xl tracking-[0.08em] sm:tracking-[0.1em] opacity-80 font-light flex flex-col items-center justify-center gap-2">
-                    <span>HEY TRAVELLER</span>
+                    <span>YOUKOSO, TRAVELLER.</span>
                     <div className="flex items-center justify-center my-1 sm:my-2">
                       <FuzzyText
                         fontSize="4rem"
@@ -127,7 +127,7 @@ const App = () => {
                         SUMETH
                       </FuzzyText>
                     </div>
-                    <span>HERE!</span>
+                    <span>HERE.</span>
                   </h1>
                 </motion.div>
                 
@@ -138,62 +138,17 @@ const App = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
                 >
-                  <div className="flex items-center justify-center space-x-2 sm:space-x-5">
-                    <motion.span 
-                      className="text-sm sm:text-md md:text-lg text-orange-400/80 tracking-widest font-light"
-                      whileHover={{ color: "#ffffff", scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      IDEATE
-                    </motion.span>
-                    
-                    <motion.div 
-                      className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-orange-500/50 rounded-full"
-                      animate={{ 
-                        scale: [1, 1.5, 1],
-                        opacity: [0.5, 1, 0.5]
-                      }}
-                      transition={{ 
-                        repeat: Infinity,
-                        duration: 2,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    
-                    <motion.span 
-                      className="text-sm sm:text-md md:text-lg text-orange-400/80 tracking-widest font-light"
-                      whileHover={{ color: "#ffffff", scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      CODE
-                    </motion.span>
-                    
-                    <motion.div 
-                      className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-orange-500/50 rounded-full"
-                      animate={{ 
-                        scale: [1, 1.5, 1],
-                        opacity: [0.5, 1, 0.5]
-                      }}
-                      transition={{ 
-                        repeat: Infinity,
-                        duration: 2,
-                        delay: 0.6,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    
-                    <motion.span 
-                      className="text-sm sm:text-md md:text-lg text-orange-400/80 tracking-widest font-light"
-                      whileHover={{ color: "#ffffff", scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      CREATE
-                    </motion.span>
-                  </div>
+                  <motion.p 
+                    className="text-sm sm:text-base md:text-lg text-orange-400/80 tracking-wide font-light italic text-center px-4"
+                    whileHover={{ color: "#ffffff" }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    If it can be automated, it&apos;s already planned.
+                  </motion.p>
                   
                   {/* Underline accent */}
                   <motion.div 
-                    className="h-[1px] bg-gradient-to-r from-transparent via-orange-500/30 to-transparent mt-2 w-[160px] xs:w-[200px] sm:w-[280px]"
+                    className="h-[1px] bg-gradient-to-r from-transparent via-orange-500/30 to-transparent mt-3 w-[200px] xs:w-[260px] sm:w-[340px]"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
@@ -220,7 +175,7 @@ const App = () => {
                     transition-all duration-300 group-hover:border-orange-500/70 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.3)]
                     rounded-lg">
                       <span className="tracking-[0.3em] sm:tracking-[0.4em] text-1xl xs:text-2l sm:text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                        ACCESS PORTFOLIO
+                        LET ME COOK
                       </span>
                     </div>
                     <motion.div 
@@ -239,18 +194,25 @@ const App = () => {
           </PageTransition>
         );
     }
-  };
+  }, [activeSection, contentVisible, handleSectionChange]);
+
+  // Show loading screen (bg-black is on body, so no need here)
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-4xl text-white animate-pulse">LOADING...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
-      {/* Persistent Particle Background */}
-      <div className="fixed inset-0 z-[1]">
-        <ParticleBackground />
-      </div>
+    <div className="relative min-h-screen text-white overflow-hidden">
+      {/* Persistent Particle Background - rendered directly without wrapper */}
+      <ParticleBackground />
       
       {/* Content with transitions */}
       <AnimatePresence mode="wait">
-        <div className="relative z-[10]">{renderSection()}</div>
+        <div className="relative z-[10]">{sectionContent}</div>
       </AnimatePresence>
 
       {/* MOBILE NAV (Hamburger) - Visible below 1600px */}
@@ -399,21 +361,10 @@ const App = () => {
                         <span className="text-sm uppercase font-mono tracking-widest text-orange-500/90">{activeSection.toUpperCase()}</span>
                       </div>
                     </div>
-                    {/* Decorative scanner line animation */}
+                    {/* Decorative scanner line animation - keyframes defined in index.css */}
                     <div className="absolute left-0 top-0 w-full h-full overflow-hidden opacity-30 pointer-events-none">
                       <div className="w-full h-[1px] bg-orange-500/80 animate-[scanline_2s_linear_infinite]"></div>
                     </div>
-                    {/* Add scanline keyframes in a style tag */}
-                    <style>{`
-                      @keyframes scanline {
-                        0% {
-                          transform: translateY(0);
-                        }
-                        100% {
-                          transform: translateY(100%);
-                        }
-                      }
-                    `}</style>
                   </div>
                 </motion.div>
               </div>

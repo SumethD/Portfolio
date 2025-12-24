@@ -97,42 +97,6 @@ const Contact = () => {
         className="absolute bottom-40 left-40 border border-gray-800 w-48 h-48 z-[1] hidden md:block"
       ></motion.div>
       
-      {/* Animated particles/dots in background */}
-      <div className="fixed inset-0 z-[-1]">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-orange-500/30 rounded-full"
-            initial={{ 
-              x: Math.random() * window.innerWidth, 
-              y: Math.random() * window.innerHeight,
-              opacity: Math.random() * 0.5 + 0.1
-            }}
-            animate={{ 
-              x: [
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth
-              ],
-              y: [
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight
-              ],
-              opacity: [
-                Math.random() * 0.5 + 0.1,
-                Math.random() * 0.5 + 0.3,
-                Math.random() * 0.5 + 0.1
-              ]
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: Math.random() * 20 + 20,
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
       
       <div className="max-w-5xl mx-auto">
         {/* Section title with animation */}

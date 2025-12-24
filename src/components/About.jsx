@@ -8,23 +8,29 @@ const FadeInSection = ({ children, delay = 0 }) => {
   const domRef = useRef();
 
   useEffect(() => {
+    const element = domRef.current;
+    if (!element) return;
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             setVisible(true);
-            observer.unobserve(domRef.current);
+            // Use the captured element reference, not domRef.current
+            if (element) {
+              observer.unobserve(element);
+            }
           }
         });
       },
       { threshold: 0.1 }
     );
     
-    if (domRef.current) {
-      observer.observe(domRef.current);
-    }
+    observer.observe(element);
     
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (

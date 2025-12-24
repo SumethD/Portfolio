@@ -1,65 +1,60 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useMemo, useEffect, useState } from 'react';
 import Particles from './Particles';
 
 const ParticleBackground = memo(() => {
-  // State to track viewport dimensions
-  const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
+  // State to track viewport width category to avoid unnecessary re-renders
+  const [screenCategory, setScreenCategory] = useState(() => {
+    const width = typeof window !== 'undefined' ? window.innerWidth : 1200;
+    if (width <= 768) return 'mobile';
+    if (width <= 1200) return 'tablet';
+    return 'desktop';
   });
 
-  // Update dimensions on resize
+  // Update screen category on resize (debounced)
   useEffect(() => {
+    let timeoutId;
     const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const width = window.innerWidth;
+        let newCategory;
+        if (width <= 768) newCategory = 'mobile';
+        else if (width <= 1200) newCategory = 'tablet';
+        else newCategory = 'desktop';
+        
+        setScreenCategory(prev => prev !== newCategory ? newCategory : prev);
+      }, 150);
     };
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
-  // Adjust particle count based on screen size for performance
-  const getParticleCount = useCallback(() => {
-    if (dimensions.width <= 768) return 100; // Mobile
-    if (dimensions.width <= 1200) return 150; // Tablet
-    return 200; // Desktop
-  }, [dimensions.width]);
+  // Memoize particle settings properly - only recreate when screen category changes
+  const particleSettings = useMemo(() => {
+    const particleCounts = {
+      mobile: 100,   // Increased for better coverage
+      tablet: 150,   // Increased for better coverage
+      desktop: 200   // Full count for desktop
+    };
+    
+    return {
+      particleCount: particleCounts[screenCategory],
+      particleSpread: 2.5,
+      speed: 0.1,
+      particleColors: ['#ffffff'],
+      moveParticlesOnHover: true,
+      particleHoverFactor: 1.5,
+      alphaParticles: true
+    };
+  }, [screenCategory]);
 
-  // Memoize particle settings to prevent recreating on each render
-  const particleSettings = {
-    particleCount: getParticleCount(),
-    particleSpread: 2,
-    speed: 0.12,
-    particleColors: ['#ffffff'],
-    moveParticlesOnHover: true,
-    particleHoverFactor: 2,
-    alphaParticles: true
-  };
-
-  // Enhanced style object to ensure full coverage
-  const backgroundStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: '100vw',
-    height: '100vh',
-    zIndex: 1, // Above default background, below content
-    pointerEvents: 'none', // Allow clicking through to content
-    willChange: 'transform', // Optimize for animations
-    contain: 'strict', // Improve performance by containing repaints
-    overflow: 'hidden' // Prevent scrollbars
-  };
-
-  return (
-    <div style={backgroundStyle}>
-      <Particles {...particleSettings} />
-    </div>
-  );
+  // The Particles component now handles its own fixed positioning
+  // We just need a simple wrapper that doesn't interfere with the canvas
+  return <Particles {...particleSettings} />;
 });
 
 ParticleBackground.displayName = 'ParticleBackground';

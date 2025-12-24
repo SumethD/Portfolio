@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const FuzzyText = ({
   children,
@@ -11,9 +11,36 @@ const FuzzyText = ({
   hoverIntensity = 0.5,
 }) => {
   const canvasRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const animationFrameIdRef = useRef(null);
+  const isHoveringRef = useRef(false);
+  const lastFrameTimeRef = useRef(0);
+  const offscreenRef = useRef(null);
+  const dimensionsRef = useRef(null);
+  
+  // Throttle animation to ~30fps for better performance (every 33ms)
+  const FRAME_INTERVAL = 33;
 
+  // Set up intersection observer for visibility-based rendering
   useEffect(() => {
-    let animationFrameId;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(canvas);
+    return () => observer.disconnect();
+  }, []);
+
+  // Main effect for canvas setup and animation
+  useEffect(() => {
     let isCancelled = false;
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -48,7 +75,7 @@ const FuzzyText = ({
 
       const text = React.Children.toArray(children).join("");
 
-      // Create offscreen canvas
+      // Create offscreen canvas (reuse if possible)
       const offscreen = document.createElement("canvas");
       const offCtx = offscreen.getContext("2d");
       if (!offCtx) return;
@@ -84,48 +111,25 @@ const FuzzyText = ({
       canvas.height = tightHeight + verticalMargin * 2;
       ctx.translate(horizontalMargin, verticalMargin);
 
-      const interactiveLeft = horizontalMargin + xOffset;
-      const interactiveTop = verticalMargin;
-      const interactiveRight = interactiveLeft + textBoundingWidth;
-      const interactiveBottom = interactiveTop + tightHeight;
-
-      let isHovering = false;
-      const fuzzRange = 30;
-
-      const run = () => {
-        if (isCancelled) return;
-        ctx.clearRect(
-          -fuzzRange,
-          -fuzzRange,
-          offscreenWidth + 2 * fuzzRange,
-          tightHeight + 2 * fuzzRange
-        );
-        const intensity = isHovering ? hoverIntensity : baseIntensity;
-        for (let j = 0; j < tightHeight; j++) {
-          const dx = Math.floor(intensity * (Math.random() - 0.5) * fuzzRange);
-          ctx.drawImage(
-            offscreen,
-            0,
-            j,
-            offscreenWidth,
-            1,
-            dx,
-            j,
-            offscreenWidth,
-            1
-          );
-        }
-        animationFrameId = window.requestAnimationFrame(run);
+      // Store references for animation
+      offscreenRef.current = offscreen;
+      dimensionsRef.current = {
+        offscreenWidth,
+        tightHeight,
+        interactiveLeft: horizontalMargin + xOffset,
+        interactiveTop: verticalMargin,
+        interactiveRight: horizontalMargin + xOffset + textBoundingWidth,
+        interactiveBottom: verticalMargin + tightHeight,
+        fuzzRange: 30
       };
 
-      run();
-
       const isInsideTextArea = (x, y) => {
+        const dims = dimensionsRef.current;
         return (
-          x >= interactiveLeft &&
-          x <= interactiveRight &&
-          y >= interactiveTop &&
-          y <= interactiveBottom
+          x >= dims.interactiveLeft &&
+          x <= dims.interactiveRight &&
+          y >= dims.interactiveTop &&
+          y <= dims.interactiveBottom
         );
       };
 
@@ -134,11 +138,11 @@ const FuzzyText = ({
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        isHovering = isInsideTextArea(x, y);
+        isHoveringRef.current = isInsideTextArea(x, y);
       };
 
       const handleMouseLeave = () => {
-        isHovering = false;
+        isHoveringRef.current = false;
       };
 
       const handleTouchMove = (e) => {
@@ -148,11 +152,11 @@ const FuzzyText = ({
         const touch = e.touches[0];
         const x = touch.clientX - rect.left;
         const y = touch.clientY - rect.top;
-        isHovering = isInsideTextArea(x, y);
+        isHoveringRef.current = isInsideTextArea(x, y);
       };
 
       const handleTouchEnd = () => {
-        isHovering = false;
+        isHoveringRef.current = false;
       };
 
       if (enableHover) {
@@ -163,7 +167,6 @@ const FuzzyText = ({
       }
 
       const cleanup = () => {
-        window.cancelAnimationFrame(animationFrameId);
         if (enableHover) {
           canvas.removeEventListener("mousemove", handleMouseMove);
           canvas.removeEventListener("mouseleave", handleMouseLeave);
@@ -179,7 +182,6 @@ const FuzzyText = ({
 
     return () => {
       isCancelled = true;
-      window.cancelAnimationFrame(animationFrameId);
       if (canvas && canvas.cleanupFuzzyText) {
         canvas.cleanupFuzzyText();
       }
@@ -191,9 +193,68 @@ const FuzzyText = ({
     fontFamily,
     color,
     enableHover,
-    baseIntensity,
-    hoverIntensity,
   ]);
+
+  // Separate effect for animation loop - only runs when visible
+  useEffect(() => {
+    if (!isVisible) {
+      // Stop animation when not visible
+      if (animationFrameIdRef.current) {
+        window.cancelAnimationFrame(animationFrameIdRef.current);
+        animationFrameIdRef.current = null;
+      }
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    if (!canvas || !offscreenRef.current || !dimensionsRef.current) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const { offscreenWidth, tightHeight, fuzzRange } = dimensionsRef.current;
+    const offscreen = offscreenRef.current;
+
+    const run = (timestamp) => {
+      // Throttle to ~30fps
+      if (timestamp - lastFrameTimeRef.current < FRAME_INTERVAL) {
+        animationFrameIdRef.current = window.requestAnimationFrame(run);
+        return;
+      }
+      lastFrameTimeRef.current = timestamp;
+
+      ctx.clearRect(
+        -fuzzRange,
+        -fuzzRange,
+        offscreenWidth + 2 * fuzzRange,
+        tightHeight + 2 * fuzzRange
+      );
+      const intensity = isHoveringRef.current ? hoverIntensity : baseIntensity;
+      for (let j = 0; j < tightHeight; j++) {
+        const dx = Math.floor(intensity * (Math.random() - 0.5) * fuzzRange);
+        ctx.drawImage(
+          offscreen,
+          0,
+          j,
+          offscreenWidth,
+          1,
+          dx,
+          j,
+          offscreenWidth,
+          1
+        );
+      }
+      animationFrameIdRef.current = window.requestAnimationFrame(run);
+    };
+
+    animationFrameIdRef.current = window.requestAnimationFrame(run);
+
+    return () => {
+      if (animationFrameIdRef.current) {
+        window.cancelAnimationFrame(animationFrameIdRef.current);
+      }
+    };
+  }, [isVisible, baseIntensity, hoverIntensity]);
 
   return (
     <canvas 
@@ -203,7 +264,6 @@ const FuzzyText = ({
         verticalAlign: 'middle', 
         position: 'relative',
         top: '0.1em',
-
       }} 
     />
   );

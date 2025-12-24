@@ -157,19 +157,21 @@ const Projects = () => {
     }
   }, [isAnimating, projects.length]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setDirection('left');
     setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
-  };
+  }, [isAnimating, projects.length]);
 
-  const goToSlide = (index) => {
-    if (isAnimating || index === currentIndex) return;
-    setIsAnimating(true);
-    setDirection(index > currentIndex ? 'right' : 'left');
-    setCurrentIndex(index);
-  };
+  const goToSlide = useCallback((index) => {
+    setCurrentIndex((prevIndex) => {
+      if (isAnimating || index === prevIndex) return prevIndex;
+      setIsAnimating(true);
+      setDirection(index > prevIndex ? 'right' : 'left');
+      return index;
+    });
+  }, [isAnimating]);
 
   // Reset animation after half a second
   useEffect(() => {
@@ -188,33 +190,7 @@ const Projects = () => {
     return () => clearInterval(interval);
   }, [isHovered, currentIndex, isAnimating, handleNext]);
 
-  // Custom scrollbar for descriptions
-  useEffect(() => {
-    const styleTag = document.createElement('style');
-    styleTag.innerHTML = `
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 4px;
-      }
-      
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.3);
-      }
-      
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.3);
-        border-radius: 20px;
-      }
-      
-      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(255, 255, 255, 0.5);
-      }
-    `;
-    document.head.appendChild(styleTag);
-    
-    return () => {
-      document.head.removeChild(styleTag);
-    };
-  }, []);
+  // Custom scrollbar styles are now in index.css
 
   // Page container animation
   const pageVariants = {
