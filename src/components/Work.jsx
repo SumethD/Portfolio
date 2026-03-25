@@ -48,19 +48,19 @@ const GRID = [
 
 export default function Work() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-10%' })
+  const isInView = useInView(ref, { once: false, margin: '-15%' })
 
   return (
     <section id="work" className="snap-section" style={{ background: '#060606' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#444', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         02 — WORK
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
       </span>
 
-      <div ref={ref} style={{ maxWidth: '900px', padding: '80px 40px 60px', margin: '0 auto' }}>
+      <div ref={ref} style={{ maxWidth: '1200px', padding: '80px 60px 60px', margin: '0 auto' }}>
         <motion.div
           custom={0} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans font-semibold"
@@ -75,7 +75,7 @@ export default function Work() {
           className="font-serif"
           style={{ fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 400, lineHeight: 0.95, letterSpacing: '-0.02em', color: '#fff', marginBottom: '36px' }}
         >
-          Products <em style={{ fontStyle: 'italic', color: '#333' }}>built</em><br />& shipped.
+          Products <em style={{ fontStyle: 'italic', color: '#555' }}>built</em><br />& shipped.
         </motion.h2>
 
         <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
@@ -92,7 +92,7 @@ export default function Work() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                 <div className="font-sans font-bold" style={{ fontSize: '24px', color: '#fff', letterSpacing: '-0.01em' }}>
                   <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    {name} <span style={{ color: '#333', fontSize: '14px' }}>↗</span>
+                    {name} <span style={{ color: '#555', fontSize: '14px' }}>↗</span>
                   </a>
                 </div>
                 {badge && (
@@ -101,10 +101,10 @@ export default function Work() {
                   </span>
                 )}
               </div>
-              <p className="font-sans" style={{ fontSize: '14px', color: '#444', lineHeight: 1.6, marginBottom: '14px' }}>{desc}</p>
+              <p className="font-sans" style={{ fontSize: '14px', color: '#666', lineHeight: 1.6, marginBottom: '14px' }}>{desc}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
                 {tags.map(tag => (
-                  <span key={tag} className="font-sans" style={{ fontSize: '12px', color: '#333', border: '1px solid #1a1a1a', padding: '2px 8px', borderRadius: '3px' }}>{tag}</span>
+                  <span key={tag} className="font-sans" style={{ fontSize: '12px', color: '#555', border: '1px solid #1a1a1a', padding: '2px 8px', borderRadius: '3px' }}>{tag}</span>
                 ))}
               </div>
             </motion.div>
@@ -118,9 +118,9 @@ export default function Work() {
               custom={i + 4} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
               style={{ border: '1px solid #141414', borderRadius: '8px', padding: '18px', background: '#080808' }}
             >
-              <div className="font-sans" style={{ fontSize: '11px', color: '#2a2a2a', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>{type}</div>
+              <div className="font-sans" style={{ fontSize: '11px', color: '#444', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>{type}</div>
               <div className="font-sans font-semibold" style={{ fontSize: '18px', color: '#888', marginBottom: '6px' }}>{name}</div>
-              <p className="font-sans" style={{ fontSize: '13px', color: '#333', lineHeight: 1.5 }}>{desc}</p>
+              <p className="font-sans" style={{ fontSize: '13px', color: '#555', lineHeight: 1.5 }}>{desc}</p>
             </motion.div>
           ))}
         </div>

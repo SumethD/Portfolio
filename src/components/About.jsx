@@ -61,13 +61,13 @@ const SKILLS = [
 
 export default function About() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-10%' })
+  const isInView = useInView(ref, { once: false, margin: '-15%' })
 
   return (
     <section id="about" className="snap-section" style={{ background: '#060606' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#444', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         04 — ABOUT
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
@@ -76,7 +76,7 @@ export default function About() {
       <div
         ref={ref}
         className="grid-about"
-        style={{ maxWidth: '900px', padding: '80px 40px 60px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}
+        style={{ maxWidth: '1200px', padding: '80px 60px 60px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}
       >
         <div>
           <motion.div
@@ -93,13 +93,13 @@ export default function About() {
             className="font-serif"
             style={{ fontSize: 'clamp(36px, 4vw, 52px)', fontWeight: 400, lineHeight: 0.95, letterSpacing: '-0.02em', color: '#fff', marginBottom: '24px' }}
           >
-            Engineer.<br /><em style={{ fontStyle: 'italic', color: '#333' }}>Founder.</em><br />Builder.
+            Engineer.<br /><em style={{ fontStyle: 'italic', color: '#555' }}>Founder.</em><br />Builder.
           </motion.h2>
 
           <motion.p
             custom={2} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
             className="font-sans"
-            style={{ fontSize: '15px', color: '#555', lineHeight: 1.8, marginBottom: '24px' }}
+            style={{ fontSize: '15px', color: '#777', lineHeight: 1.8, marginBottom: '24px' }}
           >
             Results-driven Software Engineer with production experience shipping features to 1,500+ users. Skilled in React, TypeScript, Spring Boot, and AWS — with a track record of measurable impact. Combines strong front-end engineering with automation, data pipeline, and cloud-native development capabilities. Proven ability to own features end-to-end from architecture through production debugging.
           </motion.p>
@@ -114,7 +114,7 @@ export default function About() {
             <div className="font-sans font-semibold" style={{ fontSize: '15px', color: '#888' }}>
               Bachelor of Computer Science
             </div>
-            <div className="font-sans" style={{ fontSize: '13px', color: '#333', marginTop: '3px' }}>
+            <div className="font-sans" style={{ fontSize: '13px', color: '#555', marginTop: '3px' }}>
               RMIT University · Melbourne, VIC · 2021–2024
             </div>
           </motion.div>
@@ -144,7 +144,7 @@ export default function About() {
                     className="font-sans"
                     style={{
                       fontSize: '13px',
-                      color: strong ? '#888' : '#555',
+                      color: strong ? '#888' : '#777',
                       border: `1px solid ${strong ? '#222' : '#161616'}`,
                       padding: '4px 10px',
                       borderRadius: '4px',

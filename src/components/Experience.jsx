@@ -45,19 +45,19 @@ const LEADERSHIP = [
 
 export default function Experience() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-10%' })
+  const isInView = useInView(ref, { once: false, margin: '-15%' })
 
   return (
     <section id="experience" className="snap-section" style={{ background: '#050505' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#444', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         03 — EXPERIENCE
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
       </span>
 
-      <div ref={ref} style={{ maxWidth: '900px', padding: '80px 40px 60px', margin: '0 auto' }}>
+      <div ref={ref} style={{ maxWidth: '1200px', padding: '80px 60px 60px', margin: '0 auto' }}>
         <motion.div
           custom={0} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans font-semibold"
@@ -72,7 +72,7 @@ export default function Experience() {
           className="font-serif"
           style={{ fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 400, lineHeight: 0.95, letterSpacing: '-0.02em', color: '#fff', marginBottom: '40px' }}
         >
-          Shipped <em style={{ fontStyle: 'italic', color: '#333' }}>to</em><br />production.
+          Shipped <em style={{ fontStyle: 'italic', color: '#555' }}>to</em><br />production.
         </motion.h2>
 
         <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px', marginBottom: '2px' }}>
@@ -85,12 +85,12 @@ export default function Experience() {
               <span className="font-sans absolute" style={{ top: '24px', right: '24px', fontSize: '11px', color: '#ff5500', border: '1px solid rgba(255,85,0,0.2)', padding: '3px 8px', borderRadius: '3px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                 {tag}
               </span>
-              <div className="font-sans" style={{ fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.1em', fontFamily: 'monospace', marginBottom: '10px' }}>{period}</div>
+              <div className="font-sans" style={{ fontSize: '12px', color: '#444', letterSpacing: '0.1em', fontFamily: 'monospace', marginBottom: '10px' }}>{period}</div>
               <div className="font-sans font-bold" style={{ fontSize: '21px', color: '#fff', marginBottom: '4px', letterSpacing: '-0.01em' }}>{company}</div>
-              <div className="font-sans" style={{ fontSize: '14px', color: '#444', marginBottom: '16px' }}>{role}</div>
+              <div className="font-sans" style={{ fontSize: '14px', color: '#666', marginBottom: '16px' }}>{role}</div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {bullets.map((bullet, j) => (
-                  <li key={j} className="font-sans" style={{ fontSize: '13px', color: '#444', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
+                  <li key={j} className="font-sans" style={{ fontSize: '13px', color: '#666', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: 0, color: '#ff5500', fontSize: '9px', top: '2px' }}>—</span>
                     {bullet}
                   </li>
@@ -107,12 +107,12 @@ export default function Experience() {
           <span className="font-sans absolute" style={{ top: '24px', right: '24px', fontSize: '9px', color: '#ff5500', border: '1px solid rgba(255,85,0,0.2)', padding: '3px 8px', borderRadius: '3px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
             Leadership
           </span>
-          <div className="font-sans" style={{ fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.1em', fontFamily: 'monospace', marginBottom: '10px' }}>Feb 2022 – Dec 2023</div>
+          <div className="font-sans" style={{ fontSize: '10px', color: '#444', letterSpacing: '0.1em', fontFamily: 'monospace', marginBottom: '10px' }}>Feb 2022 – Dec 2023</div>
           <div className="font-sans font-bold" style={{ fontSize: '18px', color: '#fff', marginBottom: '4px', letterSpacing: '-0.01em' }}>RMIT University Student Union (RUSU)</div>
-          <div className="font-sans" style={{ fontSize: '12px', color: '#444', marginBottom: '16px' }}>Team Lead</div>
+          <div className="font-sans" style={{ fontSize: '12px', color: '#666', marginBottom: '16px' }}>Team Lead</div>
           <ul style={{ listStyle: 'none', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 32px' }}>
             {LEADERSHIP.map((bullet, i) => (
-              <li key={i} className="font-sans" style={{ fontSize: '13px', color: '#444', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
+              <li key={i} className="font-sans" style={{ fontSize: '13px', color: '#666', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
                 <span style={{ position: 'absolute', left: 0, color: '#ff5500', fontSize: '9px', top: '2px' }}>—</span>
                 {bullet}
               </li>

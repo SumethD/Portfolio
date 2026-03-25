@@ -23,19 +23,19 @@ const SOCIALS = [
 
 export default function Contact() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-10%' })
+  const isInView = useInView(ref, { once: false, margin: '-15%' })
 
   return (
     <section id="contact" className="snap-section" style={{ background: '#050505' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#444', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         05 — CONTACT
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
       </span>
 
-      <div ref={ref} style={{ maxWidth: '900px', padding: '80px 40px 60px', margin: '0 auto' }}>
+      <div ref={ref} style={{ maxWidth: '1200px', padding: '80px 60px 60px', margin: '0 auto' }}>
         <motion.div
           custom={0} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans font-semibold"
@@ -50,7 +50,7 @@ export default function Contact() {
           className="font-serif"
           style={{ fontSize: 'clamp(52px, 8vw, 96px)', fontWeight: 400, lineHeight: 0.92, letterSpacing: '-0.02em', color: '#fff', marginBottom: '40px' }}
         >
-          Let&apos;s<br /><em style={{ fontStyle: 'italic', color: '#333' }}>build</em><br />something.
+          Let&apos;s<br /><em style={{ fontStyle: 'italic', color: '#555' }}>build</em><br />something.
         </motion.h2>
 
         <motion.div
@@ -66,8 +66,8 @@ export default function Contact() {
         >
           {CONTACT_INFO.map(({ label, value }) => (
             <div key={label}>
-              <div className="font-sans" style={{ fontSize: '11px', color: '#2a2a2a', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '4px' }}>{label}</div>
-              <div className="font-sans" style={{ fontSize: '16px', color: '#555' }}>{value}</div>
+              <div className="font-sans" style={{ fontSize: '11px', color: '#444', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '4px' }}>{label}</div>
+              <div className="font-sans" style={{ fontSize: '16px', color: '#777' }}>{value}</div>
             </div>
           ))}
         </motion.div>
@@ -88,7 +88,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             className="font-sans"
-            style={{ fontSize: '14px', color: '#333', textDecoration: 'none' }}
+            style={{ fontSize: '14px', color: '#555', textDecoration: 'none' }}
           >
             or connect on LinkedIn →
           </a>
@@ -105,9 +105,9 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-sans"
-              style={{ fontSize: '13px', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none' }}
-              onMouseEnter={e => e.target.style.color = '#555'}
-              onMouseLeave={e => e.target.style.color = '#2a2a2a'}
+              style={{ fontSize: '13px', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none' }}
+              onMouseEnter={e => e.target.style.color = '#777'}
+              onMouseLeave={e => e.target.style.color = '#444'}
             >
               {label}
             </a>
