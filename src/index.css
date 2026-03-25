@@ -12,12 +12,17 @@
 /* Global resets */
 *, *::before, *::after { box-sizing: border-box; }
 
-html, body, #root {
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
   background: #060606;
   color: #ffffff;
+}
+
+#root {
+  height: 100%;
 }
 
 /* Snap scroll container — applied to <main> in App.jsx */
@@ -38,3 +43,12 @@ section.snap-section {
 
 /* Custom scrollbar */
 main.snap-container::-webkit-scrollbar { width: 0; }
+
+/* Responsive grid collapse */
+@media (max-width: 640px) {
+  .grid-2col { grid-template-columns: 1fr !important; }
+  .grid-3col { grid-template-columns: 1fr !important; }
+  .grid-about { grid-template-columns: 1fr !important; gap: 32px !important; }
+  main.snap-container { scroll-snap-type: none; }
+  section.snap-section { min-height: auto; overflow: visible; }
+}

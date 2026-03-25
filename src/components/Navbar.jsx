@@ -5,7 +5,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-40 flex items-center justify-between px-10"
+      className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-10"
       style={{
         height: '52px',
         background: 'rgba(6,6,6,0.92)',
