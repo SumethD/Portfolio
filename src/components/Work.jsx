@@ -86,14 +86,16 @@ export default function Work() {
               style={{ border: '1px solid #1e1e1e', borderRadius: '8px', padding: '24px', background: '#080808', position: 'relative', overflow: 'hidden' }}
             >
               <span style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, #ff5500, transparent)' }} />
-              <div className="font-sans font-semibold" style={{ fontSize: '11px', color: '#ff5500', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>
-                {type}
-              </div>
-              {badge && (
-                <div className="font-sans font-bold absolute" style={{ top: '20px', right: '20px', fontSize: '13px', color: '#ff5500' }}>
-                  {badge}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <div className="font-sans font-semibold" style={{ fontSize: '11px', color: '#ff5500', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                  {type}
                 </div>
-              )}
+                {badge && (
+                  <div className="font-sans font-bold" style={{ fontSize: '12px', color: '#ff5500', border: '1px solid rgba(255,85,0,0.3)', padding: '2px 8px', borderRadius: '3px' }}>
+                    {badge}
+                  </div>
+                )}
+              </div>
               <div className="font-sans font-bold" style={{ fontSize: '24px', color: '#fff', marginBottom: '8px', letterSpacing: '-0.01em' }}>
                 <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
                   {name} <span style={{ color: '#333', fontSize: '14px' }}>↗</span>
