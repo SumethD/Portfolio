@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Structure</title>
+<script src="/.brainstorm/helper.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d0d0d; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 32px 24px; }
+  h1 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #555; margin-bottom: 32px; }
+
+  .site-map { display: flex; flex-direction: column; gap: 12px; max-width: 860px; }
+
+  .section-row {
+    display: flex; gap: 12px; align-items: stretch;
+    border: 1.5px solid #1e1e1e; border-radius: 10px; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .section-row:hover { border-color: #2a2a2a; }
+
+  .sec-num {
+    width: 52px; min-width: 52px;
+    background: #111; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; font-family: monospace; color: #333;
+    border-right: 1px solid #1a1a1a;
+  }
+  .sec-num.active { color: #ff5500; background: #0f0a08; }
+
+  .sec-body { flex: 1; padding: 14px 18px; }
+  .sec-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .sec-title { font-size: 14px; font-weight: 700; color: #fff; }
+  .sec-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 4px; background: #1a1a1a; color: #555;
+  }
+  .sec-tag.new { background: rgba(255,85,0,0.12); color: #ff5500; }
+  .sec-tag.updated { background: rgba(250,204,21,0.1); color: #eab308; }
+  .sec-desc { font-size: 12px; color: #555; line-height: 1.6; }
+
+  .content-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .pill {
+    font-size: 11px; color: #444; border: 1px solid #1e1e1e; border-radius: 20px;
+    padding: 3px 10px;
+  }
+  .pill.highlight { color: #ccc; border-color: #333; }
+
+  .sec-preview {
+    width: 200px; min-width: 200px;
+    background: #080808; border-left: 1px solid #1a1a1a;
+    padding: 14px; display: flex; flex-direction: column; justify-content: center;
+  }
+
+  /* Hero preview */
+  .prev-hero .kicker { font-size: 8px; color: #ff5500; letter-spacing: 0.2em; text-transform: uppercase; font-family: monospace; margin-bottom: 6px; }
+  .prev-hero h3 { font-size: 24px; font-weight: 400; font-family: Georgia, serif; line-height: 0.9; letter-spacing: -0.02em; color: #fff; }
+  .prev-hero h3 em { font-style: italic; color: #555; }
+  .prev-hero .metrics { display: flex; gap: 12px; margin-top: 10px; border-top: 1px solid #111; padding-top: 10px; }
+  .prev-hero .m-val { font-size: 14px; font-weight: 700; color: #fff; }
+  .prev-hero .m-lbl { font-size: 9px; color: #333; }
+
+  /* Projects preview */
+  .prev-projects .project-list { display: flex; flex-direction: column; gap: 5px; }
+  .prev-projects .proj {
+    border: 1px solid #1a1a1a; border-radius: 4px; padding: 5px 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .prev-projects .proj.featured { border-color: #ff5500; background: rgba(255,85,0,0.04); }
+  .prev-projects .proj-name { font-size: 10px; font-weight: 600; color: #ccc; }
+  .prev-projects .proj.featured .proj-name { color: #ff5500; }
+  .prev-projects .proj-tag { font-size: 9px; color: #333; }
+
+  /* Experience preview */
+  .prev-exp .exp-item { margin-bottom: 8px; }
+  .prev-exp .company { font-size: 10px; font-weight: 700; color: #ccc; }
+  .prev-exp .role { font-size: 9px; color: #444; }
+  .prev-exp .stat { font-size: 11px; font-weight: 700; color: #ff5500; margin-top: 2px; }
+  .prev-exp .rule { height: 1px; background: #111; margin: 8px 0; }
+
+  /* Skills preview */
+  .prev-skills .skill-cat { margin-bottom: 7px; }
+  .prev-skills .cat-label { font-size: 9px; color: #ff5500; letter-spacing: 0.1em; text-transform: uppercase; font-family: monospace; margin-bottom: 4px; }
+  .prev-skills .skill-bar { height: 2px; background: #1a1a1a; border-radius: 1px; }
+  .prev-skills .skill-bar-fill { height: 100%; background: #ff5500; border-radius: 1px; }
+  .prev-skills .skill-name { font-size: 9px; color: #555; margin-bottom: 2px; }
+
+  /* Contact preview */
+  .prev-contact { text-align: center; }
+  .prev-contact h3 { font-size: 20px; font-weight: 400; font-family: Georgia, serif; line-height: 1; letter-spacing: -0.02em; color: #fff; margin-bottom: 8px; }
+  .prev-contact h3 em { font-style: italic; color: #555; }
+  .prev-contact .email { font-size: 9px; color: #444; font-family: monospace; margin-bottom: 8px; }
+  .prev-contact .cta { font-size: 10px; color: #ff5500; border: 1px solid #ff5500; padding: 5px 12px; border-radius: 3px; display: inline-block; }
+
+  .connector {
+    display: flex; align-items: center; justify-content: center;
+    height: 12px; color: #222; font-size: 16px;
+  }
+
+  .legend { display: flex; gap: 20px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #1a1a1a; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #444; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  .approve-row { margin-top: 28px; display: flex; gap: 12px; }
+  .option {
+    border: 1.5px solid #222; border-radius: 8px; padding: 12px 20px; cursor: pointer;
+    transition: border-color 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .option:hover { border-color: #444; }
+  .option.selected { border-color: #ff5500; }
+  .option .letter {
+    width: 24px; height: 24px; border-radius: 50%; background: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #555;
+  }
+  .option.selected .letter { background: #ff5500; color: #fff; }
+  .option .content h3 { font-size: 13px; font-weight: 600; color: #ccc; }
+  .option .content p { font-size: 11px; color: #555; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<h1>Proposed site structure</h1>
+<p class="subtitle">5 full-viewport snap sections. Everything from your resume, nothing wasted.</p>
+
+<div class="site-map">
+
+  <!-- 01 HERO -->
+  <div class="section-row">
+    <div class="sec-num active">01</div>
+    <div class="sec-body">
+      <div class="sec-header">
+        <span class="sec-title">Hero</span>
+        <span class="sec-tag updated">Redesigned</span>
+      </div>
+      <p class="sec-desc">Big editorial serif headline. Available-for-hire badge. Three impact metrics (+58% perf, 1,500+ users, 3 live products). Scroll indicator.</p>
+      <div class="content-pills">
+        <span class="pill highlight">"Building fast, shipping clean."</span>
+        <span class="pill">Open to opportunities badge</span>
+        <span class="pill">Metrics row</span>
+        <span class="pill">↓ scroll prompt</span>
+      </div>
+    </div>
+    <div class="sec-preview prev-hero">
+      <div class="kicker">SDL — SWE</div>
+      <h3>Building<br><em>fast,</em><br>shipping<br>clean.</h3>
+      <div class="metrics">
+        <div><div class="m-val">+58%</div><div class="m-lbl">Perf</div></div>
+        <div><div class="m-val">1.5k</div><div class="m-lbl">Users</div></div>
+        <div><div class="m-val">3</div><div class="m-lbl">Live</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector">↓</div>
+
+  <!-- 02 PROJECTS -->
+  <div class="section-row">
+    <div class="sec-num active">02</div>
+    <div class="sec-body">
+      <div class="sec-header">
+        <span class="sec-title">Work</span>
+        <span class="sec-tag new">+ Creitr + SimpliFlow</span>
+      </div>
+      <p class="sec-desc">Creitr featured as hero project (Founder & Solo Engineer). SimpliFlow.net second. Then Super Price, Hal-Bot, Savorly-AI in a compact grid. Each with live links.</p>
+      <div class="content-pills">
+        <span class="pill highlight">Creitr.com — SaaS Founder (featured)</span>
+        <span class="pill highlight">SimpliFlow.net — AI automation</span>
+        <span class="pill">Super Price</span>
+        <span class="pill">Hal-Bot (AWS)</span>
+        <span class="pill">Savorly-AI</span>
+      </div>
+    </div>
+    <div class="sec-preview prev-projects">
+      <div class="project-list">
+        <div class="proj featured"><span class="proj-name">Creitr ↗</span><span class="proj-tag">Founder</span></div>
+        <div class="proj featured"><span class="proj-name">SimpliFlow ↗</span><span class="proj-tag">AI SaaS</span></div>
+        <div class="proj"><span class="proj-name">Super Price</span><span class="proj-tag">Full-stack</span></div>
+        <div class="proj"><span class="proj-name">Hal-Bot</span><span class="proj-tag">AWS</span></div>
+        <div class="proj"><span class="proj-name">Savorly-AI</span><span class="proj-tag">AI</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector">↓</div>
+
+  <!-- 03 EXPERIENCE -->
+  <div class="section-row">
+    <div class="sec-num active">03</div>
+    <div class="sec-body">
+      <div class="sec-header">
+        <span class="sec-title">Experience & Leadership</span>
+        <span class="sec-tag updated">Updated metrics + RUSU added</span>
+      </div>
+      <p class="sec-desc">IFFA with corrected metrics (+58%, +34.6%, ~28%). Leica Biosystems. RUSU Team Lead added as a leadership card. Timeline layout on the left, impact stats on the right.</p>
+      <div class="content-pills">
+        <span class="pill highlight">IFFA — +58% perf, +34.6% engagement, ~28% registrations</span>
+        <span class="pill">Leica Biosystems</span>
+        <span class="pill highlight">RUSU Team Lead — NEW</span>
+        <span class="pill">100+ students, 40% participation</span>
+      </div>
+    </div>
+    <div class="sec-preview prev-exp">
+      <div class="exp-item">
+        <div class="company">IFFA Windsor</div>
+        <div class="role">Software Engineer (FE) · Mar–Sep 2024</div>
+        <div class="stat">+58% · +34.6% · ~28%</div>
+      </div>
+      <div class="rule"></div>
+      <div class="exp-item">
+        <div class="company">Leica Biosystems</div>
+        <div class="role">Lab Support · Nov 2022–Present</div>
+      </div>
+      <div class="rule"></div>
+      <div class="exp-item">
+        <div class="company">RUSU — Team Lead</div>
+        <div class="role">Feb 2022 – Dec 2023</div>
+        <div class="stat">100+ students · 5 projects</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector">↓</div>
+
+  <!-- 04 ABOUT/SKILLS -->
+  <div class="section-row">
+    <div class="sec-num active">04</div>
+    <div class="sec-body">
+      <div class="sec-header">
+        <span class="sec-title">About & Skills</span>
+        <span class="sec-tag new">+ Automation & AI category</span>
+      </div>
+      <p class="sec-desc">Updated bio. 4 skill categories from resume: Front-End, Backend, Automation & AI (n8n, Claude, Gemini, Prompt Eng.), Data. Education block. Horizontal skill bars replaced with clean category cards.</p>
+      <div class="content-pills">
+        <span class="pill highlight">Front-End: React, TypeScript, JS, HTML/CSS</span>
+        <span class="pill highlight">Automation & AI: n8n, Claude, Prompt Eng — NEW</span>
+        <span class="pill">Backend: Node.js, Python, Spring Boot, Flask</span>
+        <span class="pill">Data: SQL, SQLite, Pandas</span>
+        <span class="pill">RMIT B.CS 2021–2024</span>
+      </div>
+    </div>
+    <div class="sec-preview prev-skills">
+      <div class="skill-cat">
+        <div class="cat-label">Front-End</div>
+        <div class="skill-name">React · TypeScript · JavaScript</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-label">Automation & AI</div>
+        <div class="skill-name">n8n · Claude · Prompt Eng.</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-label">Backend</div>
+        <div class="skill-name">Node.js · Python · Spring Boot</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-label">Data</div>
+        <div class="skill-name">SQL · SQLite · Pandas</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector">↓</div>
+
+  <!-- 05 CONTACT -->
+  <div class="section-row">
+    <div class="sec-num active">05</div>
+    <div class="sec-body">
+      <div class="sec-header">
+        <span class="sec-title">Contact</span>
+        <span class="sec-tag updated">Redesigned</span>
+      </div>
+      <p class="sec-desc">Big editorial headline. Single mailto CTA. GitHub + LinkedIn links. Location: Clyde North, VIC. Clean and minimal — no form, just direct contact.</p>
+      <div class="content-pills">
+        <span class="pill highlight">sumethlokuliyana76@gmail.com</span>
+        <span class="pill">GitHub · LinkedIn</span>
+        <span class="pill">Clyde North, VIC</span>
+        <span class="pill">+61 448 533 871</span>
+      </div>
+    </div>
+    <div class="sec-preview prev-contact">
+      <h3>Let's<br><em>build</em><br>something.</h3>
+      <div class="email">sumethlokuliyana76@gmail.com</div>
+      <div class="cta">Get in touch</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#ff5500"></div> New content</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#eab308"></div> Updated content</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#333"></div> Existing</div>
+</div>
+
+<p style="margin-top: 28px; font-size: 14px; color: #666;">Does this structure look right? Any sections to add, remove, or reorder?</p>
+
+<div class="approve-row">
+  <div class="option" data-choice="approve" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>Looks good</h3>
+      <p>Proceed with this structure</p>
+    </div>
+  </div>
+  <div class="option" data-choice="changes" onclick="toggleSelect(this)">
+    <div class="letter">✎</div>
+    <div class="content">
+      <h3>I have changes</h3>
+      <p>I'll describe them in the terminal</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

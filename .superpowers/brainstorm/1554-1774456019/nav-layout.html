@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigation Layout</title>
+<script src="/.brainstorm/helper.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d0d0d; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 32px 24px; }
+  h1 { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #666; margin-bottom: 32px; }
+
+  .options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media(max-width: 900px) { .options { grid-template-columns: 1fr; } }
+
+  .option {
+    border: 1.5px solid #222; border-radius: 12px;
+    overflow: hidden; cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    background: #111;
+  }
+  .option:hover { border-color: #444; transform: translateY(-2px); }
+  .option.selected { border-color: #ff5500; box-shadow: 0 0 0 1px #ff5500; }
+  .chosen-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: #ff5500; color: #fff;
+    font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+    display: none;
+  }
+  .option.selected .chosen-badge { display: block; }
+
+  .preview { height: 280px; position: relative; overflow: hidden; }
+  .desc-block { padding: 14px 16px; border-top: 1px solid #1a1a1a; }
+  .desc-block h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .desc-block p { font-size: 12px; color: #555; line-height: 1.5; }
+
+  /* ===== A: TOP BAR NAV (sticky) ===== */
+  .prev-a { background: #080808; font-family: -apple-system, sans-serif; }
+  .prev-a .topbar {
+    background: rgba(8,8,8,0.9); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #1a1a1a;
+    padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .prev-a .logo { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #fff; }
+  .prev-a .links { display: flex; gap: 18px; }
+  .prev-a .links span { font-size: 10px; color: #555; letter-spacing: 0.08em; text-transform: uppercase; }
+  .prev-a .links span.active { color: #ff5500; }
+  .prev-a .content { padding: 28px 20px; }
+  .prev-a .kicker { font-size: 9px; color: #ff5500; letter-spacing: 0.2em; text-transform: uppercase; font-family: monospace; margin-bottom: 10px; }
+  .prev-a h2 { font-size: 38px; font-weight: 400; font-family: Georgia, serif; line-height: 0.95; letter-spacing: -0.02em; color: #fff; margin-bottom: 10px; }
+  .prev-a h2 em { font-style: italic; color: #777; }
+  .prev-a .rule { height: 1px; background: linear-gradient(90deg, #ff5500, transparent); margin: 12px 0; }
+  .prev-a .body { font-size: 11px; color: #555; line-height: 1.6; max-width: 300px; }
+  .prev-a .scroll-hint { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #333; letter-spacing: 0.1em; }
+
+  /* ===== B: SIDEBAR NAV (evolved) ===== */
+  .prev-b { background: #060606; display: flex; font-family: -apple-system, sans-serif; }
+  .prev-b .sidebar {
+    width: 52px; background: #060606; border-right: 1px solid #111;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 16px 0; gap: 0;
+  }
+  .prev-b .side-logo { font-size: 10px; font-weight: 800; color: #fff; letter-spacing: 0.1em; writing-mode: vertical-rl; transform: rotate(180deg); margin-bottom: 20px; }
+  .prev-b .side-links { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+  .prev-b .side-link { font-size: 8px; color: #333; letter-spacing: 0.1em; text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg); padding: 8px 2px; cursor: pointer; }
+  .prev-b .side-link.active { color: #ff5500; }
+  .prev-b .side-num { font-size: 9px; font-weight: 700; font-family: monospace; color: #222; margin-top: auto; }
+  .prev-b .main { flex: 1; padding: 24px 20px; }
+  .prev-b .kicker { font-size: 9px; color: #ff5500; letter-spacing: 0.2em; text-transform: uppercase; font-family: monospace; margin-bottom: 10px; }
+  .prev-b h2 { font-size: 36px; font-weight: 400; font-family: Georgia, serif; line-height: 0.95; letter-spacing: -0.02em; color: #fff; margin-bottom: 10px; }
+  .prev-b h2 em { font-style: italic; color: #666; }
+  .prev-b .rule { height: 1px; background: linear-gradient(90deg, #ff5500, transparent); margin: 12px 0; }
+  .prev-b .body { font-size: 11px; color: #555; line-height: 1.6; }
+
+  /* ===== C: FULLPAGE SCROLL ===== */
+  .prev-c { background: #060606; font-family: -apple-system, sans-serif; position: relative; }
+  .prev-c .topbar {
+    padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
+    position: absolute; top: 0; left: 0; right: 0;
+  }
+  .prev-c .logo { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #fff; }
+  .prev-c .cta-btn {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+    border: 1px solid #333; border-radius: 4px;
+    padding: 5px 12px; color: #ccc;
+  }
+  .prev-c .hero {
+    height: 100%; display: flex; flex-direction: column;
+    justify-content: center; padding: 20px 20px 20px;
+    padding-top: 44px;
+  }
+  .prev-c .progress {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+    background: #111;
+  }
+  .prev-c .progress-fill {
+    position: absolute; top: 0; left: 0; right: 0; height: 18%;
+    background: #ff5500;
+  }
+  .prev-c .sec-label {
+    font-size: 9px; color: #ff5500; letter-spacing: 0.2em; text-transform: uppercase;
+    font-family: monospace; margin-bottom: 8px;
+  }
+  .prev-c h2 {
+    font-size: 40px; font-weight: 400; font-family: Georgia, serif;
+    line-height: 0.9; letter-spacing: -0.02em; color: #fff; margin-bottom: 12px;
+  }
+  .prev-c h2 em { font-style: italic; color: #666; }
+  .prev-c .sep { height: 1px; background: #1a1a1a; margin: 10px 0; }
+  .prev-c .body { font-size: 11px; color: #555; line-height: 1.6; }
+  .prev-c .scroll-dots {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .prev-c .dot { width: 4px; height: 4px; border-radius: 50%; background: #222; }
+  .prev-c .dot.active { background: #ff5500; height: 14px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<h1>Navigation style?</h1>
+<p class="subtitle">You chose Bold Editorial (B). How should users move through the site?</p>
+
+<div class="options">
+
+  <!-- A: TOP BAR -->
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="chosen-badge">SELECTED</div>
+    <div class="preview prev-a">
+      <div class="topbar">
+        <span class="logo">SDL</span>
+        <div class="links">
+          <span class="active">Work</span>
+          <span>About</span>
+          <span>Experience</span>
+          <span>Contact</span>
+        </div>
+      </div>
+      <div class="content">
+        <div class="kicker">01 — FEATURED WORK</div>
+        <h2>Products<br><em>built</em><br>& shipped.</h2>
+        <div class="rule"></div>
+        <p class="body">Creitr · SimpliFlow · Super Price<br>1,500+ users in production.</p>
+      </div>
+      <div class="scroll-hint">↓ SCROLL</div>
+    </div>
+    <div class="desc-block">
+      <h3>A — Sticky top bar</h3>
+      <p>Clean navbar at top, full viewport sections that scroll continuously. Most familiar to users. Easy to navigate.</p>
+    </div>
+  </div>
+
+  <!-- B: SIDEBAR EVOLVED -->
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="chosen-badge">SELECTED</div>
+    <div class="preview prev-b">
+      <div class="sidebar">
+        <span class="side-logo">SDL</span>
+        <div class="side-links">
+          <span class="side-link active">Work</span>
+          <span class="side-link">About</span>
+          <span class="side-link">Exp</span>
+          <span class="side-link">Contact</span>
+        </div>
+        <span class="side-num">02</span>
+      </div>
+      <div class="main">
+        <div class="kicker">02 — EXPERIENCE</div>
+        <h2>Shipped<br><em>to</em><br>production.</h2>
+        <div class="rule"></div>
+        <p class="body">IFFA · Leica Biosystems<br>+58% perf. · 1,500+ users</p>
+      </div>
+    </div>
+    <div class="desc-block">
+      <h3>B — Evolved sidebar (keep current)</h3>
+      <p>Keep the left sidebar but make it minimal and editorial. Vertical text labels. Feels architectural and unique.</p>
+    </div>
+  </div>
+
+  <!-- C: FULLPAGE SCROLL -->
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="chosen-badge">SELECTED</div>
+    <div class="preview prev-c">
+      <div class="progress"><div class="progress-fill"></div></div>
+      <div class="topbar">
+        <span class="logo">SDL</span>
+        <span class="cta-btn">Let's talk</span>
+      </div>
+      <div class="hero">
+        <div class="sec-label">01 / 05 — HOME</div>
+        <h2>Building<br><em>fast,</em><br>shipping<br>clean.</h2>
+        <div class="sep"></div>
+        <p class="body">React · TypeScript · Spring Boot · AWS</p>
+      </div>
+      <div class="scroll-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+    <div class="desc-block">
+      <h3>C — Full-page snap scroll</h3>
+      <p>Each section snaps to fill the viewport. Progress bar on left, section counter. Very cinematic and immersive. Most impressive.</p>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center;font-size:12px;color:#444;margin-top:24px;">Click a card to select, then reply in the terminal.</p>
+
+</body>
+</html>

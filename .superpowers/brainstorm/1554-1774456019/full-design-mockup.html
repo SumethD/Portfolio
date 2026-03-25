@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Design Mockup</title>
+<script src="/.brainstorm/helper.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #fff; font-family: 'Inter', -apple-system, sans-serif; }
+
+  h1.page-title { font-size: 18px; font-weight: 600; color: #fff; padding: 24px 28px 4px; font-family: 'Inter', sans-serif; }
+  p.page-sub { font-size: 13px; color: #444; padding: 0 28px 20px; font-family: 'Inter', sans-serif; }
+
+  /* ---- SHARED NAV ---- */
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,8,8,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid #141414;
+    padding: 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 52px;
+  }
+  .nav-logo { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: #fff; }
+  .nav-right { display: flex; align-items: center; gap: 32px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-size: 11px; color: #444; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: #fff; }
+  .nav-cta { font-size: 11px; font-weight: 600; color: #ff5500; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid rgba(255,85,0,0.3); padding: 6px 14px; border-radius: 4px; cursor: pointer; }
+
+  /* ---- SECTION WRAPPER ---- */
+  .section {
+    min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+    border-bottom: 1px solid #111;
+  }
+  .section-label {
+    position: absolute; top: 24px; left: 40px;
+    font-size: 10px; font-weight: 600; color: #2a2a2a;
+    letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Inter', monospace;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; display: block; width: 40px; height: 1px; background: #1e1e1e; }
+
+  /* ---- PROGRESS BAR ---- */
+  .progress-bar {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 2px;
+    background: #0f0f0f; z-index: 200;
+  }
+  .progress-fill { position: absolute; top: 0; left: 0; right: 0; height: 20%; background: #ff5500; border-radius: 0 0 2px 2px; }
+
+  /* ============================================================
+     01 — HERO
+  ============================================================ */
+  .hero {
+    background: #060606;
+    padding: 0 40px;
+  }
+  .hero-inner {
+    max-width: 900px;
+    padding: 80px 0 60px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid #1e1e1e; border-radius: 20px;
+    padding: 6px 14px; margin-bottom: 36px;
+    font-size: 11px; color: #555; letter-spacing: 0.06em;
+  }
+  .badge-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; flex-shrink: 0; }
+  .hero-kicker {
+    font-size: 10px; font-weight: 600; color: #ff5500;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    font-family: 'Inter', monospace; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-kicker::before { content: ''; display: block; width: 24px; height: 1px; background: #ff5500; }
+  .hero-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+  .hero-headline em { font-style: italic; color: #333; }
+  .hero-rule { display: flex; align-items: center; gap: 20px; margin-bottom: 28px; }
+  .hero-rule-line { flex: 1; max-width: 60px; height: 1px; background: linear-gradient(90deg, #ff5500, transparent); }
+  .hero-sub {
+    font-size: 13px; color: #555; line-height: 1.7; max-width: 380px;
+    font-family: 'Inter', sans-serif;
+  }
+  .hero-metrics {
+    display: flex; gap: 0; margin-top: 48px;
+    border-top: 1px solid #111; padding-top: 28px;
+  }
+  .metric {
+    flex: 1; padding-right: 32px;
+    border-right: 1px solid #111;
+    margin-right: 32px;
+  }
+  .metric:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+  .metric-val { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+  .metric-val span { font-size: 16px; color: #ff5500; }
+  .metric-label { font-size: 10px; color: #333; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+  .hero-scroll {
+    position: absolute; bottom: 28px; left: 40px;
+    font-size: 10px; color: #222; letter-spacing: 0.2em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-scroll::before { content: ''; display: block; width: 1px; height: 32px; background: linear-gradient(180deg, transparent, #333); }
+
+  /* ============================================================
+     02 — WORK
+  ============================================================ */
+  .work { background: #060606; padding: 0 40px; }
+  .work-inner { max-width: 900px; padding: 80px 0 60px; }
+  .work-kicker { font-size: 10px; font-weight: 600; color: #ff5500; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px; font-family: 'Inter', monospace; display: flex; align-items: center; gap: 12px; }
+  .work-kicker::before { content: ''; display: block; width: 24px; height: 1px; background: #ff5500; }
+  .work-headline { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(36px, 5vw, 60px); font-weight: 400; line-height: 0.95; letter-spacing: -0.02em; color: #fff; margin-bottom: 40px; }
+  .work-headline em { font-style: italic; color: #333; }
+
+  /* Featured projects */
+  .featured-projects { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .project-card {
+    border: 1px solid #141414; border-radius: 8px; padding: 24px;
+    background: #080808; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card:hover { border-color: #222; background: #0a0a0a; }
+  .project-card.featured { border-color: #1e1e1e; }
+  .project-card.featured::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, #ff5500, transparent);
+  }
+  .proj-type { font-size: 9px; color: #333; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; font-family: 'Inter', monospace; }
+  .proj-type.founder { color: #ff5500; }
+  .proj-name { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .proj-name a { color: inherit; text-decoration: none; }
+  .proj-name .arrow { color: #333; font-size: 14px; margin-left: 4px; }
+  .proj-desc { font-size: 12px; color: #444; line-height: 1.6; margin-bottom: 14px; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .proj-tag { font-size: 10px; color: #333; border: 1px solid #1a1a1a; padding: 2px 8px; border-radius: 3px; }
+  .proj-stat { position: absolute; top: 20px; right: 20px; font-size: 11px; font-weight: 700; color: #ff5500; }
+
+  /* Grid projects */
+  .grid-projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .grid-card {
+    border: 1px solid #141414; border-radius: 8px; padding: 18px;
+    background: #080808;
+  }
+  .grid-card-type { font-size: 9px; color: #2a2a2a; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .grid-card-name { font-size: 15px; font-weight: 600; color: #888; margin-bottom: 6px; }
+  .grid-card-desc { font-size: 11px; color: #333; line-height: 1.5; }
+
+  /* ============================================================
+     03 — EXPERIENCE
+  ============================================================ */
+  .experience { background: #050505; padding: 0 40px; }
+  .exp-inner { max-width: 900px; padding: 80px 0 60px; }
+  .exp-kicker { font-size: 10px; font-weight: 600; color: #ff5500; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px; font-family: 'Inter', monospace; display: flex; align-items: center; gap: 12px; }
+  .exp-kicker::before { content: ''; display: block; width: 24px; height: 1px; background: #ff5500; }
+  .exp-headline { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(36px, 5vw, 60px); font-weight: 400; line-height: 0.95; letter-spacing: -0.02em; color: #fff; margin-bottom: 48px; }
+  .exp-headline em { font-style: italic; color: #333; }
+
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .exp-item {
+    border: 1px solid #111; padding: 28px;
+    background: #080808; position: relative;
+  }
+  .exp-item.leadership { background: #070707; }
+  .exp-period { font-size: 10px; color: #2a2a2a; letter-spacing: 0.1em; font-family: 'Inter', monospace; margin-bottom: 10px; }
+  .exp-company { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: -0.01em; }
+  .exp-role { font-size: 12px; color: #444; margin-bottom: 16px; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .exp-bullets li { font-size: 11px; color: #444; line-height: 1.6; padding-left: 12px; position: relative; }
+  .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: #ff5500; font-size: 9px; top: 1px; }
+  .exp-bullets li strong { color: #ff5500; font-weight: 600; }
+  .exp-tag {
+    position: absolute; top: 24px; right: 24px;
+    font-size: 9px; color: #ff5500; border: 1px solid rgba(255,85,0,0.2);
+    padding: 3px 8px; border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ============================================================
+     04 — ABOUT
+  ============================================================ */
+  .about { background: #060606; padding: 0 40px; }
+  .about-inner { max-width: 900px; padding: 80px 0 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .about-left .about-kicker { font-size: 10px; font-weight: 600; color: #ff5500; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px; font-family: 'Inter', monospace; display: flex; align-items: center; gap: 12px; }
+  .about-left .about-kicker::before { content: ''; display: block; width: 24px; height: 1px; background: #ff5500; }
+  .about-headline { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(36px, 4vw, 52px); font-weight: 400; line-height: 0.95; letter-spacing: -0.02em; color: #fff; margin-bottom: 24px; }
+  .about-headline em { font-style: italic; color: #333; }
+  .about-bio { font-size: 12px; color: #555; line-height: 1.8; margin-bottom: 24px; }
+  .edu-block { border-top: 1px solid #111; padding-top: 20px; }
+  .edu-label { font-size: 9px; color: #ff5500; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Inter', monospace; margin-bottom: 8px; }
+  .edu-name { font-size: 13px; font-weight: 600; color: #888; }
+  .edu-details { font-size: 11px; color: #333; margin-top: 3px; }
+
+  .about-right { padding-top: 8px; }
+  .skill-category { margin-bottom: 24px; }
+  .skill-cat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #111; }
+  .skill-cat-name { font-size: 10px; font-weight: 600; color: #ff5500; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Inter', monospace; }
+  .skill-cat-new { font-size: 9px; color: #ff5500; background: rgba(255,85,0,0.1); padding: 2px 7px; border-radius: 3px; }
+  .skill-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-item { font-size: 11px; color: #555; border: 1px solid #161616; padding: 4px 10px; border-radius: 4px; }
+  .skill-item.strong { color: #888; border-color: #222; }
+
+  /* ============================================================
+     05 — CONTACT
+  ============================================================ */
+  .contact { background: #050505; padding: 0 40px; }
+  .contact-inner { max-width: 900px; padding: 80px 0 60px; }
+  .contact-kicker { font-size: 10px; font-weight: 600; color: #ff5500; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px; font-family: 'Inter', monospace; display: flex; align-items: center; gap: 12px; }
+  .contact-kicker::before { content: ''; display: block; width: 24px; height: 1px; background: #ff5500; }
+  .contact-headline { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(52px, 8vw, 96px); font-weight: 400; line-height: 0.92; letter-spacing: -0.02em; color: #fff; margin-bottom: 40px; }
+  .contact-headline em { font-style: italic; color: #333; }
+  .contact-rule { display: flex; align-items: center; gap: 20px; margin-bottom: 36px; }
+  .contact-rule-line { width: 60px; height: 1px; background: linear-gradient(90deg, #ff5500, transparent); }
+  .contact-info { display: flex; gap: 40px; margin-bottom: 36px; }
+  .contact-item { }
+  .c-label { font-size: 9px; color: #2a2a2a; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Inter', monospace; margin-bottom: 4px; }
+  .c-val { font-size: 13px; color: #555; }
+  .contact-actions { display: flex; gap: 14px; align-items: center; }
+  .cta-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; color: #000; font-size: 13px; font-weight: 600;
+    padding: 12px 28px; border-radius: 6px; letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+  .cta-secondary { font-size: 12px; color: #333; cursor: pointer; }
+  .social-links { display: flex; gap: 20px; margin-top: 36px; padding-top: 28px; border-top: 1px solid #0f0f0f; }
+  .social-link { font-size: 11px; color: #2a2a2a; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+  .social-link:hover { color: #555; }
+
+  /* ---- FOOTER ---- */
+  .site-footer {
+    background: #030303; border-top: 1px solid #0f0f0f;
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-name { font-size: 11px; color: #222; letter-spacing: 0.1em; }
+  .footer-built { font-size: 10px; color: #1a1a1a; }
+
+  /* ---- APPROVE BAR ---- */
+  .approve-bar {
+    padding: 24px 28px; background: #0a0a0a; border-top: 1px solid #111;
+    display: flex; gap: 12px; align-items: center; position: sticky; bottom: 0; z-index: 500;
+  }
+  .approve-bar p { font-size: 13px; color: #555; flex: 1; }
+  .opt-btn {
+    border: 1.5px solid #1e1e1e; border-radius: 8px; padding: 10px 20px;
+    cursor: pointer; font-size: 12px; font-weight: 600; background: #0a0a0a;
+    transition: border-color 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .opt-btn:hover { border-color: #333; }
+  .opt-btn.selected { border-color: #ff5500; color: #ff5500; }
+  .opt-btn .letter { width: 20px; height: 20px; border-radius: 50%; background: #141414; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+  .opt-btn.selected .letter { background: #ff5500; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<p class="page-title">Full Design Mockup</p>
+<p class="page-sub">Scroll through all 5 sections. Bold Editorial + full-page snap scroll. Approve or request changes at the bottom.</p>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <span class="nav-logo">SDL</span>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#hero" class="active">Work</a>
+      <a href="#exp">Experience</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <span class="nav-cta">Hire me</span>
+  </div>
+</nav>
+
+<!-- 01 HERO -->
+<section class="section hero" id="hero">
+  <span class="section-label">01 — HOME</span>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Open to opportunities · Melbourne, AU
+    </div>
+    <div class="hero-kicker">Sumeth D.L — Junior Software Engineer</div>
+    <h1 class="hero-headline">
+      Building<br>
+      <em>fast,</em><br>
+      shipping<br>
+      clean.
+    </h1>
+    <div class="hero-rule"><div class="hero-rule-line"></div></div>
+    <p class="hero-sub">React · TypeScript · Spring Boot · AWS. Founder of Creitr. Built SimpliFlow. Production experience shipping features to 1,500+ users.</p>
+    <div class="hero-metrics">
+      <div class="metric">
+        <div class="metric-val"><span>+</span>58%</div>
+        <div class="metric-label">Page load performance</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">1,500<span>+</span></div>
+        <div class="metric-label">Users in production</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">3</div>
+        <div class="metric-label">Live products</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val"><span>~</span>28%</div>
+        <div class="metric-label">Registration growth</div>
+      </div>
+    </div>
+  </div>
+  <span class="hero-scroll">↓ scroll</span>
+</section>
+
+<!-- 02 WORK -->
+<section class="section work" id="work">
+  <span class="section-label">02 — WORK</span>
+  <div class="work-inner">
+    <div class="work-kicker">Selected work</div>
+    <h2 class="work-headline">Products <em>built</em><br>& shipped.</h2>
+
+    <div class="featured-projects">
+      <div class="project-card featured">
+        <div class="proj-type founder">Founder & Solo Engineer</div>
+        <div class="proj-stat">85 PageSpeed</div>
+        <div class="proj-name">Creitr <span class="arrow">↗</span></div>
+        <p class="proj-desc">Brand deal management SaaS for content creators. 5-stage pipeline, drag-and-drop kanban, automated email alerts, Stripe billing.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">React 19</span>
+          <span class="proj-tag">Convex</span>
+          <span class="proj-tag">Clerk</span>
+          <span class="proj-tag">Stripe</span>
+          <span class="proj-tag">Resend</span>
+        </div>
+      </div>
+      <div class="project-card featured">
+        <div class="proj-type founder">Founder</div>
+        <div class="proj-name">SimpliFlow.net <span class="arrow">↗</span></div>
+        <p class="proj-desc">AI automation agency. Helps Australian SMBs implement n8n workflows, Claude/GPT automation, and data pipeline tooling.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">React</span>
+          <span class="proj-tag">Tailwind</span>
+          <span class="proj-tag">n8n</span>
+          <span class="proj-tag">AI Automation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-projects">
+      <div class="grid-card">
+        <div class="grid-card-type">Full-Stack</div>
+        <div class="grid-card-name">Super Price</div>
+        <p class="grid-card-desc">Price comparison engine. ~10k daily comparisons, 50% faster lookups, Spring Boot + AWS pipeline.</p>
+      </div>
+      <div class="grid-card">
+        <div class="grid-card-type">AWS · AI</div>
+        <div class="grid-card-name">Hal-Bot</div>
+        <p class="grid-card-desc">RMIT AI chatbot. 40% faster query resolution. AWS Lex + Lambda + DynamoDB.</p>
+      </div>
+      <div class="grid-card">
+        <div class="grid-card-type">AI · Weekend</div>
+        <div class="grid-card-name">Savorly-AI</div>
+        <p class="grid-card-desc">GPT-4 recipe assistant. 50+ conversions/day. Edamam + YouTube API integration.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 EXPERIENCE -->
+<section class="section experience" id="exp">
+  <span class="section-label">03 — EXPERIENCE</span>
+  <div class="exp-inner">
+    <div class="exp-kicker">Work & Leadership</div>
+    <h2 class="exp-headline">Shipped <em>to</em><br>production.</h2>
+    <div class="exp-grid">
+      <div class="exp-item">
+        <div class="exp-tag">Frontend</div>
+        <div class="exp-period">Mar 2024 – Sep 2024</div>
+        <div class="exp-company">IFFA Windsor</div>
+        <div class="exp-role">Software Engineer (Front-End)</div>
+        <ul class="exp-bullets">
+          <li>Rebuilt PHP portal in React/TypeScript — <strong>+58% load perf</strong></li>
+          <li>Onboarding journey adopted by <strong>1,500+ users</strong></li>
+          <li>Analytics tracking drove <strong>~28% registration growth</strong></li>
+          <li>Real-time APIs contributed to <strong>+38% page views</strong></li>
+          <li>Agile: sprints, code reviews, retrospectives</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-tag">Lab & R&D</div>
+        <div class="exp-period">Nov 2022 – Present</div>
+        <div class="exp-company">Leica Biosystems</div>
+        <div class="exp-role">Product Assembler / Lab Support</div>
+        <ul class="exp-bullets">
+          <li>Python Kanban app — <strong>100% inventory digitisation</strong></li>
+          <li>Precision assembly on <strong>$100K–$200K instruments</strong></li>
+          <li>Systematic QA — <strong>98.3% accuracy</strong></li>
+          <li>Documentation & R&D support in Peloris cell</li>
+        </ul>
+      </div>
+      <div class="exp-item leadership" style="grid-column: 1 / -1; border-top: none;">
+        <div class="exp-tag">Leadership</div>
+        <div class="exp-period">Feb 2022 – Dec 2023</div>
+        <div class="exp-company">RMIT University Student Union (RUSU)</div>
+        <div class="exp-role">Team Lead</div>
+        <ul class="exp-bullets" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 32px;">
+          <li>Led <strong>5 projects</strong>, engaged <strong>100+ students</strong></li>
+          <li><strong>+40% participation</strong> through structured mentoring</li>
+          <li>Improved student retention through mentoring programs</li>
+          <li>Cross-team coordination & stakeholder communication</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ABOUT -->
+<section class="section about" id="about">
+  <span class="section-label">04 — ABOUT</span>
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="about-kicker">About me</div>
+      <h2 class="about-headline">Engineer.<br><em>Founder.</em><br>Builder.</h2>
+      <p class="about-bio">Results-driven Software Engineer with production experience shipping features to 1,500+ users. Skilled in React, TypeScript, Spring Boot, and AWS — with a track record of measurable impact. Combines strong front-end engineering with automation, data pipeline, and cloud-native development capabilities. Proven ability to own features end-to-end from architecture through production debugging.</p>
+      <div class="edu-block">
+        <div class="edu-label">Education</div>
+        <div class="edu-name">Bachelor of Computer Science</div>
+        <div class="edu-details">RMIT University · Melbourne, VIC · 2021–2024</div>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="skill-category">
+        <div class="skill-cat-header">
+          <span class="skill-cat-name">Front-End</span>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item strong">React</span>
+          <span class="skill-item strong">TypeScript</span>
+          <span class="skill-item strong">JavaScript</span>
+          <span class="skill-item">HTML/CSS</span>
+          <span class="skill-item">Tailwind CSS</span>
+          <span class="skill-item">Next.js</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header">
+          <span class="skill-cat-name">Backend & Cloud</span>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item strong">Node.js</span>
+          <span class="skill-item strong">Python</span>
+          <span class="skill-item">Spring Boot</span>
+          <span class="skill-item">Flask</span>
+          <span class="skill-item">AWS</span>
+          <span class="skill-item">Git</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header">
+          <span class="skill-cat-name">Automation & AI</span>
+          <span class="skill-cat-new">New</span>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item strong">n8n workflows</span>
+          <span class="skill-item strong">Prompt Engineering</span>
+          <span class="skill-item">Claude API</span>
+          <span class="skill-item">ChatGPT</span>
+          <span class="skill-item">Cursor</span>
+          <span class="skill-item">Gemini</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header">
+          <span class="skill-cat-name">Data</span>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item">SQL</span>
+          <span class="skill-item">SQLite</span>
+          <span class="skill-item">Pandas</span>
+          <span class="skill-item">DynamoDB</span>
+          <span class="skill-item">Supabase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 CONTACT -->
+<section class="section contact" id="contact">
+  <span class="section-label">05 — CONTACT</span>
+  <div class="contact-inner">
+    <div class="contact-kicker">Get in touch</div>
+    <h2 class="contact-headline">
+      Let's<br>
+      <em>build</em><br>
+      something.
+    </h2>
+    <div class="contact-rule"><div class="contact-rule-line"></div></div>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="c-label">Email</div>
+        <div class="c-val">sumethlokuliyana76@gmail.com</div>
+      </div>
+      <div class="contact-item">
+        <div class="c-label">Location</div>
+        <div class="c-val">Clyde North, VIC · Australia</div>
+      </div>
+      <div class="contact-item">
+        <div class="c-label">Response time</div>
+        <div class="c-val">Within 24–48 hours</div>
+      </div>
+    </div>
+    <div class="contact-actions">
+      <div class="cta-primary">✉ Send an email</div>
+      <span class="cta-secondary">or connect on LinkedIn →</span>
+    </div>
+    <div class="social-links">
+      <span class="social-link">GitHub</span>
+      <span class="social-link">LinkedIn</span>
+      <span class="social-link">sumethdl.xyz</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <span class="footer-name">SUMETH D.L · © 2025</span>
+  <span class="footer-built">Built with React + Framer Motion</span>
+</footer>
+
+<!-- APPROVE BAR -->
+<div class="approve-bar">
+  <p>How does this look? Approve to lock the design and write the spec.</p>
+  <div class="opt-btn" data-choice="approve" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    Approve design
+  </div>
+  <div class="opt-btn" data-choice="changes" onclick="toggleSelect(this)">
+    <div class="letter">✎</div>
+    Request changes
+  </div>
+</div>
+
+</body>
+</html>
