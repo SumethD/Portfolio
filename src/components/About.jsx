@@ -67,7 +67,7 @@ export default function About() {
     <section id="about" className="snap-section" style={{ background: '#060606' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         04 — ABOUT
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
@@ -82,7 +82,7 @@ export default function About() {
           <motion.div
             custom={0} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
             className="font-sans font-semibold"
-            style={{ fontSize: '10px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
+            style={{ fontSize: '12px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
           >
             <span style={{ width: '24px', height: '1px', background: '#ff5500' }} />
             About me
@@ -99,7 +99,7 @@ export default function About() {
           <motion.p
             custom={2} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
             className="font-sans"
-            style={{ fontSize: '12px', color: '#555', lineHeight: 1.8, marginBottom: '24px' }}
+            style={{ fontSize: '15px', color: '#555', lineHeight: 1.8, marginBottom: '24px' }}
           >
             Results-driven Software Engineer with production experience shipping features to 1,500+ users. Skilled in React, TypeScript, Spring Boot, and AWS — with a track record of measurable impact. Combines strong front-end engineering with automation, data pipeline, and cloud-native development capabilities. Proven ability to own features end-to-end from architecture through production debugging.
           </motion.p>
@@ -108,13 +108,13 @@ export default function About() {
             custom={3} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
             style={{ borderTop: '1px solid #111', paddingTop: '20px' }}
           >
-            <div className="font-sans font-semibold" style={{ fontSize: '9px', color: '#ff5500', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+            <div className="font-sans font-semibold" style={{ fontSize: '11px', color: '#ff5500', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
               Education
             </div>
-            <div className="font-sans font-semibold" style={{ fontSize: '13px', color: '#888' }}>
+            <div className="font-sans font-semibold" style={{ fontSize: '15px', color: '#888' }}>
               Bachelor of Computer Science
             </div>
-            <div className="font-sans" style={{ fontSize: '11px', color: '#333', marginTop: '3px' }}>
+            <div className="font-sans" style={{ fontSize: '13px', color: '#333', marginTop: '3px' }}>
               RMIT University · Melbourne, VIC · 2021–2024
             </div>
           </motion.div>
@@ -128,7 +128,7 @@ export default function About() {
               style={{ marginBottom: '24px' }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', paddingBottom: '8px', borderBottom: '1px solid #111' }}>
-                <span className="font-sans font-semibold" style={{ fontSize: '10px', color: '#ff5500', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                <span className="font-sans font-semibold" style={{ fontSize: '12px', color: '#ff5500', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                   {category}
                 </span>
                 {isNew && (
@@ -143,7 +143,7 @@ export default function About() {
                     key={label}
                     className="font-sans"
                     style={{
-                      fontSize: '11px',
+                      fontSize: '13px',
                       color: strong ? '#888' : '#555',
                       border: `1px solid ${strong ? '#222' : '#161616'}`,
                       padding: '4px 10px',

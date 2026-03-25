@@ -25,7 +25,7 @@ export default function Hero() {
       {/* Section label */}
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         01 — HOME
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
@@ -38,7 +38,7 @@ export default function Hero() {
           style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid #1e1e1e', borderRadius: '20px', padding: '6px 14px', marginBottom: '36px' }}
         >
           <span style={{ width: '6px', height: '6px', background: '#22c55e', borderRadius: '50%', flexShrink: 0 }} />
-          <span className="font-sans" style={{ fontSize: '11px', color: '#555', letterSpacing: '0.06em' }}>
+          <span className="font-sans" style={{ fontSize: '13px', color: '#555', letterSpacing: '0.06em' }}>
             Open to opportunities · Melbourne, AU
           </span>
         </motion.div>
@@ -47,7 +47,7 @@ export default function Hero() {
         <motion.div
           custom={1} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans font-semibold"
-          style={{ fontSize: '10px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}
+          style={{ fontSize: '12px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}
         >
           <span style={{ display: 'block', width: '24px', height: '1px', background: '#ff5500' }} />
           Sumeth D.L — Junior Software Engineer
@@ -77,7 +77,7 @@ export default function Hero() {
         <motion.p
           custom={4} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans"
-          style={{ fontSize: '13px', color: '#555', lineHeight: 1.7, maxWidth: '380px' }}
+          style={{ fontSize: '16px', color: '#555', lineHeight: 1.7, maxWidth: '380px' }}
         >
           React · TypeScript · Spring Boot · AWS. Founder of Creitr. Built SimpliFlow. Production experience shipping features to 1,500+ users.
         </motion.p>
@@ -99,10 +99,10 @@ export default function Hero() {
                 borderRight: i < METRICS.length - 1 ? '1px solid #111' : 'none',
               }}
             >
-              <div className="font-sans font-bold" style={{ fontSize: '28px', color: '#fff', letterSpacing: '-0.02em' }}>
+              <div className="font-sans font-bold" style={{ fontSize: '32px', color: '#fff', letterSpacing: '-0.02em' }}>
                 {value}
               </div>
-              <div className="font-sans" style={{ fontSize: '10px', color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '4px' }}>
+              <div className="font-sans" style={{ fontSize: '12px', color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '4px' }}>
                 {label}
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function Hero() {
       {/* Scroll hint */}
       <span
         className="font-sans absolute"
-        style={{ bottom: '28px', left: '40px', fontSize: '10px', color: '#222', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '8px' }}
+        style={{ bottom: '28px', left: '40px', fontSize: '12px', color: '#222', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '8px' }}
       >
         <span style={{ display: 'block', width: '1px', height: '32px', background: 'linear-gradient(180deg, transparent, #333)' }} />
         ↓ scroll

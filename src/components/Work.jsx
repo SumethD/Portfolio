@@ -54,7 +54,7 @@ export default function Work() {
     <section id="work" className="snap-section" style={{ background: '#060606' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         02 — WORK
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
@@ -64,7 +64,7 @@ export default function Work() {
         <motion.div
           custom={0} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans font-semibold"
-          style={{ fontSize: '10px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
+          style={{ fontSize: '12px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
         >
           <span style={{ width: '24px', height: '1px', background: '#ff5500' }} />
           Selected work
@@ -86,23 +86,23 @@ export default function Work() {
               style={{ border: '1px solid #1e1e1e', borderRadius: '8px', padding: '24px', background: '#080808', position: 'relative', overflow: 'hidden' }}
             >
               <span style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, #ff5500, transparent)' }} />
-              <div className="font-sans font-semibold" style={{ fontSize: '9px', color: '#ff5500', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>
+              <div className="font-sans font-semibold" style={{ fontSize: '11px', color: '#ff5500', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>
                 {type}
               </div>
               {badge && (
-                <div className="font-sans font-bold absolute" style={{ top: '20px', right: '20px', fontSize: '11px', color: '#ff5500' }}>
+                <div className="font-sans font-bold absolute" style={{ top: '20px', right: '20px', fontSize: '13px', color: '#ff5500' }}>
                   {badge}
                 </div>
               )}
-              <div className="font-sans font-bold" style={{ fontSize: '20px', color: '#fff', marginBottom: '8px', letterSpacing: '-0.01em' }}>
+              <div className="font-sans font-bold" style={{ fontSize: '24px', color: '#fff', marginBottom: '8px', letterSpacing: '-0.01em' }}>
                 <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
                   {name} <span style={{ color: '#333', fontSize: '14px' }}>↗</span>
                 </a>
               </div>
-              <p className="font-sans" style={{ fontSize: '12px', color: '#444', lineHeight: 1.6, marginBottom: '14px' }}>{desc}</p>
+              <p className="font-sans" style={{ fontSize: '14px', color: '#444', lineHeight: 1.6, marginBottom: '14px' }}>{desc}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
                 {tags.map(tag => (
-                  <span key={tag} className="font-sans" style={{ fontSize: '10px', color: '#333', border: '1px solid #1a1a1a', padding: '2px 8px', borderRadius: '3px' }}>{tag}</span>
+                  <span key={tag} className="font-sans" style={{ fontSize: '12px', color: '#333', border: '1px solid #1a1a1a', padding: '2px 8px', borderRadius: '3px' }}>{tag}</span>
                 ))}
               </div>
             </motion.div>
@@ -116,9 +116,9 @@ export default function Work() {
               custom={i + 4} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
               style={{ border: '1px solid #141414', borderRadius: '8px', padding: '18px', background: '#080808' }}
             >
-              <div className="font-sans" style={{ fontSize: '9px', color: '#2a2a2a', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>{type}</div>
-              <div className="font-sans font-semibold" style={{ fontSize: '15px', color: '#888', marginBottom: '6px' }}>{name}</div>
-              <p className="font-sans" style={{ fontSize: '11px', color: '#333', lineHeight: 1.5 }}>{desc}</p>
+              <div className="font-sans" style={{ fontSize: '11px', color: '#2a2a2a', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>{type}</div>
+              <div className="font-sans font-semibold" style={{ fontSize: '18px', color: '#888', marginBottom: '6px' }}>{name}</div>
+              <p className="font-sans" style={{ fontSize: '13px', color: '#333', lineHeight: 1.5 }}>{desc}</p>
             </motion.div>
           ))}
         </div>

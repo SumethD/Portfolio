@@ -29,7 +29,7 @@ export default function Contact() {
     <section id="contact" className="snap-section" style={{ background: '#050505' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         05 — CONTACT
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
@@ -39,7 +39,7 @@ export default function Contact() {
         <motion.div
           custom={0} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans font-semibold"
-          style={{ fontSize: '10px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
+          style={{ fontSize: '12px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
         >
           <span style={{ width: '24px', height: '1px', background: '#ff5500' }} />
           Get in touch
@@ -66,8 +66,8 @@ export default function Contact() {
         >
           {CONTACT_INFO.map(({ label, value }) => (
             <div key={label}>
-              <div className="font-sans" style={{ fontSize: '9px', color: '#2a2a2a', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '4px' }}>{label}</div>
-              <div className="font-sans" style={{ fontSize: '13px', color: '#555' }}>{value}</div>
+              <div className="font-sans" style={{ fontSize: '11px', color: '#2a2a2a', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '4px' }}>{label}</div>
+              <div className="font-sans" style={{ fontSize: '16px', color: '#555' }}>{value}</div>
             </div>
           ))}
         </motion.div>
@@ -79,7 +79,7 @@ export default function Contact() {
           <a
             href="mailto:sumethlokuliyana76@gmail.com"
             className="font-sans font-semibold"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#000', fontSize: '13px', padding: '12px 28px', borderRadius: '6px', letterSpacing: '0.02em', textDecoration: 'none' }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#000', fontSize: '15px', padding: '12px 28px', borderRadius: '6px', letterSpacing: '0.02em', textDecoration: 'none' }}
           >
             ✉ Send an email
           </a>
@@ -88,7 +88,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             className="font-sans"
-            style={{ fontSize: '12px', color: '#333', textDecoration: 'none' }}
+            style={{ fontSize: '14px', color: '#333', textDecoration: 'none' }}
           >
             or connect on LinkedIn →
           </a>
@@ -105,7 +105,7 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-sans"
-              style={{ fontSize: '11px', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none' }}
+              style={{ fontSize: '13px', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none' }}
               onMouseEnter={e => e.target.style.color = '#555'}
               onMouseLeave={e => e.target.style.color = '#2a2a2a'}
             >

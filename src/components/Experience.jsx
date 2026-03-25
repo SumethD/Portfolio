@@ -51,7 +51,7 @@ export default function Experience() {
     <section id="experience" className="snap-section" style={{ background: '#050505' }}>
       <span
         className="absolute font-sans font-semibold"
-        style={{ top: '24px', left: '40px', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
+        style={{ top: '24px', left: '40px', fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}
       >
         03 — EXPERIENCE
         <span style={{ display: 'block', width: '40px', height: '1px', background: '#1e1e1e' }} />
@@ -61,7 +61,7 @@ export default function Experience() {
         <motion.div
           custom={0} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
           className="font-sans font-semibold"
-          style={{ fontSize: '10px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
+          style={{ fontSize: '12px', color: '#ff5500', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}
         >
           <span style={{ width: '24px', height: '1px', background: '#ff5500' }} />
           Work & Leadership
@@ -82,15 +82,15 @@ export default function Experience() {
               custom={i + 2} variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'}
               style={{ border: '1px solid #111', padding: '28px', background: '#080808', position: 'relative' }}
             >
-              <span className="font-sans absolute" style={{ top: '24px', right: '24px', fontSize: '9px', color: '#ff5500', border: '1px solid rgba(255,85,0,0.2)', padding: '3px 8px', borderRadius: '3px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              <span className="font-sans absolute" style={{ top: '24px', right: '24px', fontSize: '11px', color: '#ff5500', border: '1px solid rgba(255,85,0,0.2)', padding: '3px 8px', borderRadius: '3px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                 {tag}
               </span>
-              <div className="font-sans" style={{ fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.1em', fontFamily: 'monospace', marginBottom: '10px' }}>{period}</div>
-              <div className="font-sans font-bold" style={{ fontSize: '18px', color: '#fff', marginBottom: '4px', letterSpacing: '-0.01em' }}>{company}</div>
-              <div className="font-sans" style={{ fontSize: '12px', color: '#444', marginBottom: '16px' }}>{role}</div>
+              <div className="font-sans" style={{ fontSize: '12px', color: '#2a2a2a', letterSpacing: '0.1em', fontFamily: 'monospace', marginBottom: '10px' }}>{period}</div>
+              <div className="font-sans font-bold" style={{ fontSize: '21px', color: '#fff', marginBottom: '4px', letterSpacing: '-0.01em' }}>{company}</div>
+              <div className="font-sans" style={{ fontSize: '14px', color: '#444', marginBottom: '16px' }}>{role}</div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {bullets.map((bullet, j) => (
-                  <li key={j} className="font-sans" style={{ fontSize: '11px', color: '#444', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
+                  <li key={j} className="font-sans" style={{ fontSize: '13px', color: '#444', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: 0, color: '#ff5500', fontSize: '9px', top: '2px' }}>—</span>
                     {bullet}
                   </li>
@@ -112,7 +112,7 @@ export default function Experience() {
           <div className="font-sans" style={{ fontSize: '12px', color: '#444', marginBottom: '16px' }}>Team Lead</div>
           <ul style={{ listStyle: 'none', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 32px' }}>
             {LEADERSHIP.map((bullet, i) => (
-              <li key={i} className="font-sans" style={{ fontSize: '11px', color: '#444', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
+              <li key={i} className="font-sans" style={{ fontSize: '13px', color: '#444', lineHeight: 1.6, paddingLeft: '14px', position: 'relative' }}>
                 <span style={{ position: 'absolute', left: 0, color: '#ff5500', fontSize: '9px', top: '2px' }}>—</span>
                 {bullet}
               </li>
