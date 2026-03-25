@@ -2,8 +2,8 @@ import { motion } from 'framer-motion'
 
 // activeSection: 1-indexed (1 = first section, 5 = last)
 // totalSections: total count (5)
-export default function ProgressBar({ activeSection, totalSections }) {
-  const fillPercent = (activeSection / totalSections) * 100
+export default function ProgressBar({ activeSection = 1, totalSections = 5 }) {
+  const fillPercent = Math.min(Math.max((activeSection / totalSections) * 100, 0), 100)
 
   return (
     <div
